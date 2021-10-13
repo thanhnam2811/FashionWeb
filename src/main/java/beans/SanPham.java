@@ -1,6 +1,7 @@
 package beans;
 
 import java.sql.Date;
+import java.util.List;
 
 public class SanPham {
     private int maSP;
@@ -9,20 +10,47 @@ public class SanPham {
     private int maLoaiSP;
     private String hinhSP;
     private float giaSP;
+
+    private int soLuongSP;
     private Date ngayDangBan;
 
     public SanPham() {
 
     }
 
-    public SanPham(int maSP, String tenSP, int maTH, int maLoaiSP, String hinhSP, float giaSP, Date ngayDangBan) {
+    public SanPham(int maSP, String tenSP, int maTH, int maLoaiSP, String hinhSP, float giaSP, int soLuongSP, Date ngayDangBan) {
         this.maSP = maSP;
         this.tenSP = tenSP;
         this.maTH = maTH;
         this.maLoaiSP = maLoaiSP;
         this.hinhSP = hinhSP;
         this.giaSP = giaSP;
+        this.soLuongSP = soLuongSP;
         this.ngayDangBan = ngayDangBan;
+    }
+
+    public String getTenLoaiSP(List<LoaiSP> list){
+        for (LoaiSP lsp: list) {
+            if (lsp.getMaLoaiSP() == this.maLoaiSP)
+                return lsp.getTenLoaiSP();
+        }
+        return null;
+    }
+
+    public String getTenThuongHieu(List<ThuongHieu> list){
+        for (ThuongHieu th: list) {
+            if (th.getMaTH() == this.maTH)
+                return th.getTenTH();
+        }
+        return null;
+    }
+
+    public int getSoLuongSP() {
+        return soLuongSP;
+    }
+
+    public void setSoLuongSP(int soLuongSP) {
+        this.soLuongSP = soLuongSP;
     }
 
     public int getMaSP() {

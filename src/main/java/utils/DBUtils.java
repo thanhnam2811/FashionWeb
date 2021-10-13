@@ -24,8 +24,9 @@ public class DBUtils {
             int maLoaiSP = rs.getInt("maLoaiSP");
             String hinhSP = rs.getString("hinhSP");
             float giaSP = rs.getFloat("giaSP");
+            int soLuongSP = rs.getInt("soLuongSP");
             Date ngayDangBan = rs.getDate("ngayDangBan");
-            SanPham sp = new SanPham(maSP, tenSP, maTH, maLoaiSP, hinhSP, giaSP, ngayDangBan);
+            SanPham sp = new SanPham(maSP, tenSP, maTH, maLoaiSP, hinhSP, giaSP, soLuongSP, ngayDangBan);
             list.add(sp);
         }
         return list;
@@ -67,8 +68,9 @@ public class DBUtils {
             int maLoaiSP = rs.getInt("maLoaiSP");
             String hinhSP = rs.getString("hinhSP");
             float giaSP = rs.getFloat("giaSP");
+            int soLuongSP = rs.getInt("soLuongSP");
             Date ngayDangBan = rs.getDate("ngayDangBan");
-            sanPham = new SanPham(maSP, tenSP, maTH, maLoaiSP, hinhSP, giaSP, ngayDangBan);
+            SanPham sp = new SanPham(maSP, tenSP, maTH, maLoaiSP, hinhSP, giaSP, soLuongSP, ngayDangBan);
         }
         return sanPham;
     }
@@ -93,8 +95,9 @@ public class DBUtils {
             int maLoaiSP = rs.getInt("maLoaiSP");
             String hinhSP = rs.getString("hinhSP");
             float giaSP = rs.getFloat("giaSP");
+            int soLuongSP = rs.getInt("soLuongSP");
             Date ngayDangBan = rs.getDate("ngayDangBan");
-            SanPham sp = new SanPham(maSP, tenSP, maTH, maLoaiSP, hinhSP, giaSP, ngayDangBan);
+            SanPham sp = new SanPham(maSP, tenSP, maTH, maLoaiSP, hinhSP, giaSP, soLuongSP, ngayDangBan);
             list.add(sp);
         }
         return list;
@@ -228,6 +231,21 @@ public class DBUtils {
         cstmt.execute();
         return cstmt.getFloat(1);
 
+    }
+
+    public static List<ThuongHieu> getAllThuongHieu(Connection conn) throws SQLException {
+        CallableStatement cstm = conn.prepareCall("{call load_ThuongHieu()}");
+        ResultSet rs = cstm.executeQuery();
+        List<ThuongHieu> list = new ArrayList<ThuongHieu>();
+        while (rs.next()) {
+            int maTH = rs.getInt("maTH");
+            String tenTH = rs.getString("tenTH");
+            String emailTH = rs.getString("emailTH");
+            String hinhTH = rs.getString("hinhTH");
+            ThuongHieu th = new ThuongHieu(maTH, tenTH, emailTH, hinhTH);
+            list.add(th);
+        }
+        return list;
     }
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
