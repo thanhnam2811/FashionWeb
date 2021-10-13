@@ -1,3 +1,4 @@
+<%@ page import="beans.SanPham" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -299,121 +300,119 @@
             <div class="block2">
                 <!-- Create new product -->
                 <div class="m-lr-auto bor10 p-lr-40 p-t-30 p-b-40 m-r-40 m-lr-0-xl p-lr-15-sm">
-                    <h4 class="mtext-109 cl2 p-b-30">
-                        Create Product
-                    </h4>
-
-                    <!--SanPham(maSP, tenSP, maLoaiSP, maTH, hinhSP, giaSP, ngayDangBan)-->
-
-                    <div class="flex-w flex-t p-tb-34">
-                        <div class="size-208">
+                    <form action="productManagement" method="post">
+                        <h4 class="mtext-109 cl2 p-b-30">
+                            Create Product
+                        </h4>
+                        <div class="flex-w flex-t p-tb-34">
+                            <div class="size-208">
 								<span class="stext-110 cl2">
 									Tên sản phẩm:
 								</span>
-                        </div>
+                            </div>
 
-                        <div class="size-101">
-                            <div class="bor8 bg0 size-101">
-                                <input class="stext-111 cl2 plh3 size-111 p-lr-15" type="text" name="tenSPnew"
-                                       placeholder="Tên sản phẩm">
+                            <div class="size-101">
+                                <div class="bor8 bg0 size-101">
+                                    <input class="stext-111 cl2 plh3 size-111 p-lr-15" type="text" name="tenSPnew"
+                                           placeholder="Tên sản phẩm">
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="flex-w flex-t p-t-1 p-b-33">
-                        <div class="size-208">
+                        <div class="flex-w flex-t p-t-1 p-b-33">
+                            <div class="size-208">
 								<span class="stext-110">
 									Loại sản phẩm:
 								</span>
+                            </div>
+
+                            <select class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9 size-101" name="maLoaiSPnew">
+                                <c:forEach items="${listLoaiSP}" var="lsp">
+                                    <option value="${lsp.maLoaiSP}">${lsp.tenLoaiSP}</option>
+                                </c:forEach>
+                            </select>
                         </div>
 
-                        <select class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9 size-101" name="maLoaiSPnew">
-                            <option>Quần</option>
-                            <option>Áo</option>
-                            <option>Giày</option>
-                        </select>
-                    </div>
-
-                    <div class="flex-w flex-t p-t-1 p-b-33">
-                        <div class="size-208">
+                        <div class="flex-w flex-t p-t-1 p-b-33">
+                            <div class="size-208">
 								<span class="stext-110 cl2">
 									Thương hiệu:
 								</span>
+                            </div>
+
+                            <select class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9 size-101" name="maTHnew">
+                                <c:forEach items="${listTH}" var="th">
+                                    <option value="${th.maTH}">${th.tenTH}</option>
+                                </c:forEach>
+                            </select>
                         </div>
 
-                        <select class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9 size-101" name="maLoaiSPnew">
-                            <option>Nike</option>
-                            <option>Adidas</option>
-                            <option>Biti's</option>
-                        </select>
-                    </div>
-
-                    <div class="flex-w flex-t p-t-1 p-b-33">
-                        <div class="size-208">
+                        <div class="flex-w flex-t p-t-1 p-b-33">
+                            <div class="size-208">
 								<span class="stext-110 cl2">
 									Hình sản phẩm (URL):
 								</span>
-                        </div>
+                            </div>
 
-                        <div class="size-101">
-                            <div class="bor8 bg0 m-b-12">
-                                <input class="stext-111 cl2 plh3 size-111 p-lr-15" type="text" name="hinhSPnew"
-                                       placeholder="ex: image/nike/1.jpg">
+                            <div class="size-101">
+                                <div class="bor8 bg0 m-b-12">
+                                    <input class="stext-111 cl2 plh3 size-111 p-lr-15" type="text" name="hinhSPnew"
+                                           placeholder="ex: image/nike/1.jpg">
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="flex-w flex-t p-t-1 p-b-33">
-                        <div class="size-208">
+                        <div class="flex-w flex-t p-t-1 p-b-33">
+                            <div class="size-208">
 								<span class="stext-110 cl2">
 									Giá (vnđ):
 								</span>
-                        </div>
+                            </div>
 
-                        <div class="size-101">
-                            <div class="bor8 bg0 m-b-12">
-                                <input class="stext-111 cl2 plh3 size-111 p-lr-15" type="number" name="giaSPnew"
-                                       placeholder="ex: 1000000">
+                            <div class="size-101">
+                                <div class="bor8 bg0 m-b-12">
+                                    <input class="stext-111 cl2 plh3 size-111 p-lr-15" type="number" name="giaSPnew"
+                                           placeholder="ex: 1000000">
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="flex-w flex-t p-t-1 p-b-33">
-                        <div class="size-208">
+                        <div class="flex-w flex-t p-t-1 p-b-33">
+                            <div class="size-208">
 								<span class="stext-110 cl2">
 									Số lượng sản phẩm:
 								</span>
-                        </div>
+                            </div>
 
-                        <div class="size-101">
-                            <div class="bor8 bg0 m-b-12">
-                                <input class="stext-111 cl2 plh3 size-111 p-lr-15" type="number" name="soLuongSPnew"
-                                       placeholder="ex: 10">
+                            <div class="size-101">
+                                <div class="bor8 bg0 m-b-12">
+                                    <input class="stext-111 cl2 plh3 size-111 p-lr-15" type="number" name="soLuongSPnew"
+                                           placeholder="ex: 10">
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="flex-w flex-t p-t-1 p-b-33">
-                        <div class="size-208">
+                        <div class="flex-w flex-t p-t-1 p-b-33">
+                            <div class="size-208">
 								<span class="stext-110 cl2">
 									Ngày đăng bán:
 								</span>
-                        </div>
+                            </div>
 
-                        <div class="size-101">
-                            <div class="bor8 bg0 m-b-12">
-                                <input class="stext-111 cl2 plh3 size-111 p-lr-15" type="date"
-                                       name="ngayDangBannew">
+                            <div class="size-101">
+                                <div class="bor8 bg0 m-b-12">
+                                    <input class="stext-111 cl2 plh3 size-111 p-lr-15" type="date"
+                                           name="ngayDangBannew">
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
-                        Create product
-                    </button>
+                        <button type="submit" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+                            Create product
+                        </button>
+                    </form>
                 </div>
             </div>
-
         </div>
     </div>
 </section>

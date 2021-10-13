@@ -248,6 +248,18 @@ public class DBUtils {
         return list;
     }
 
+    public static void insertSanPham(Connection conn, SanPham sp) throws SQLException {
+        CallableStatement cstm = conn.prepareCall("{call insert_SanPham(?, ?, ?, ?, ?, ?, ?)}");
+        cstm.setString(1, sp.getTenSP());
+        cstm.setInt(2, sp.getMaTH());
+        cstm.setInt(3, sp.getMaLoaiSP());
+        cstm.setString(4, sp.getHinhSP());
+        cstm.setFloat(5, sp.getGiaSP());
+        cstm.setInt(6, sp.getSoLuongSP());
+        cstm.setDate(7, sp.getNgayDangBan());
+        cstm.execute();
+    }
+
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         Connection conn = ConnectionUtils.getConnection();
 //		List<SanPham> ListSP = DBUtils.getAllSanPham(conn);
