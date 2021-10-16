@@ -259,7 +259,40 @@ public class DBUtils {
         cstm.setDate(7, sp.getNgayDangBan());
         cstm.execute();
     }
+    public static void insertUser(Connection conn,String hoten, String sdt, Date ngaySinh,
+                                  String diaChi,String username,String password)throws SQLException{
+        String sql ="insert into Users(hoTen, sdt, ngaySinh, diaChi, username, password) "
+                + "values(?,?, ?,?, ?, ?)";
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        pstm.setString(1, hoten);
+        pstm.setString(2, sdt);
+        pstm.setDate(3, ngaySinh);
+        pstm.setString(4, diaChi);
+        pstm.setString(5, username);
+        pstm.setString(6, password);
 
+        pstm.executeUpdate();
+    }
+    public static Users getUserByUsername(Connection conn,String username) throws SQLException{
+        String sql = "select * "
+                + "from Users "
+                + "where userName = ? ";
+
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        pstm.setString(1, username);
+        ResultSet rs = pstm.executeQuery();
+        while (rs.next()) {
+            return new Users(rs.getInt(1),
+                    rs.getString(2),
+                    rs.getString(3),
+                    rs.getDate(4),
+                    rs.getString(5),
+                    rs.getString(6),
+                    rs.getString(7),
+                    rs.getString(8));
+        }
+        return null;
+    }
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         Connection conn = ConnectionUtils.getConnection();
 //		List<SanPham> ListSP = DBUtils.getAllSanPham(conn);

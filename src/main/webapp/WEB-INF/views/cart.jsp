@@ -73,7 +73,7 @@
                         <table class="table-shopping-cart">
                             <tr class="table_head">
                                 <th class="column-1">Sản phẩm</th>
-                                <th class="column-2"></th>
+                                <th class="column-2">Tên sản phẩm</th>
                                 <th class="column-3">Giá</th>
                                 <th class="column-4">Số lượng</th>
                                 <th class="column-5">Xóa</th>
@@ -94,7 +94,7 @@
                                     <td class="column-4">
                                         <div class="wrap-num-product flex-w m-l-auto m-r-0">
                                             <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-                                                <a href="updateNumProductByID?cartID=${o.ID}"><i
+                                                <a href="updateNumProductByID?cartID=${o.ID}&numProduct=${o.soLuongSP -1}"><i
                                                         class="fs-16 zmdi zmdi-minus"></i></a>
                                             </div>
 
@@ -102,7 +102,7 @@
                                                    name="numProduct" value="${o.soLuongSP}">
 
                                             <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-                                                <a href="updateNumProductByID?cartID=${o.ID}"><i
+                                                <a href="updateNumProductByID?cartID=${o.ID}&numProduct=${o.soLuongSP +1}"><i
                                                         class="fs-16 zmdi zmdi-plus"></i></a>
                                             </div>
                                         </div>

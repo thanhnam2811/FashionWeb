@@ -1,0 +1,18 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="FashionWeb">
+    <output-path>$PROJECT_DIR$/out/artifacts/FashionWeb</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="FashionWeb" />
+        </element>
+        <element id="directory" name="lib">
+          <element id="library" level="project" name="javax.servlet.jsp.jstl-1.2.5" />
+          <element id="library" level="project" name="javax.servlet.jsp.jstl-api-1.2.2" />
+          <element id="library" level="project" name="mssql-jdbc-9.4.0.jre16" />
+        </element>
+      </element>
+      <element id="javaee-facet-resources" facet="FashionWeb/web/Web" />
+    </root>
+  </artifact>
+</component>
