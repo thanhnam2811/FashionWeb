@@ -70,7 +70,7 @@ public class DBUtils {
             float giaSP = rs.getFloat("giaSP");
             int soLuongSP = rs.getInt("soLuongSP");
             Date ngayDangBan = rs.getDate("ngayDangBan");
-            SanPham sp = new SanPham(maSP, tenSP, maTH, maLoaiSP, hinhSP, giaSP, soLuongSP, ngayDangBan);
+            sanPham = new SanPham(maSP, tenSP, maTH, maLoaiSP, hinhSP, giaSP, soLuongSP, ngayDangBan);
         }
         return sanPham;
     }
@@ -112,7 +112,7 @@ public class DBUtils {
 //		ResultSet rs = pstm.executeQuery();
 //		LoaiSP loaisanPham = new LoaiSP();
 
-        CallableStatement cstm = conn.prepareCall("{call load_LoaiSanPhambymaSP(?)}");
+        CallableStatement cstm = conn.prepareCall("{call load_LoaiSanPhambymaSP (?)}");
         cstm.setString(1, idmaSP);
         cstm.execute();
         ResultSet rs = cstm.getResultSet();
@@ -257,6 +257,26 @@ public class DBUtils {
         cstm.setFloat(5, sp.getGiaSP());
         cstm.setInt(6, sp.getSoLuongSP());
         cstm.setDate(7, sp.getNgayDangBan());
+        cstm.execute();
+    }
+
+    public static void deleteSanPham(Connection conn, String maSP) throws SQLException {
+        CallableStatement cstm = conn.prepareCall("{call delete_SanPham(?)}");
+        cstm.setString(1, maSP);
+        cstm.execute();
+    }
+
+    public static void updateSanPham(Connection conn, int maSP, String tenSP, int maTH, int maLoaiSP, String hinhSP, float giaSP, int soLuongSP, Date ngayDangBan) throws SQLException {
+        CallableStatement cstm = conn.prepareCall("{call update_SanPham(?,?,?,?,?,?,?,?)}");
+        // SanPham(int maSP, String tenSP, int maTH, int maLoaiSP, String hinhSP, float giaSP, int soLuongSP, Date ngayDangBan)
+        cstm.setInt(1, maSP);
+        cstm.setString(2, tenSP);
+        cstm.setInt(3, maTH);
+        cstm.setInt(4, maLoaiSP);
+        cstm.setString(5, hinhSP);
+        cstm.setFloat(6, giaSP);
+        cstm.setInt(7, soLuongSP);
+        cstm.setDate(8, ngayDangBan);
         cstm.execute();
     }
 

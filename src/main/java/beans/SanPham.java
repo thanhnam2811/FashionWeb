@@ -10,7 +10,6 @@ public class SanPham {
     private int maLoaiSP;
     private String hinhSP;
     private float giaSP;
-
     private int soLuongSP;
     private Date ngayDangBan;
 
