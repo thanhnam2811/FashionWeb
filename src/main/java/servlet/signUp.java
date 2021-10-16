@@ -37,7 +37,7 @@ public class signUp extends HttpServlet {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 
 		request.getRequestDispatcher("/WEB-INF/views/signUp.jsp").forward(request, response);
-	
+
 		
 	}
 
@@ -46,7 +46,6 @@ public class signUp extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
 		
 		Connection conn;
 		String hoten = request.getParameter("hoten");

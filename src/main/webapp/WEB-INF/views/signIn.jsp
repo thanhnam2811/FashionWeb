@@ -22,13 +22,13 @@
             </div>
             <div class="login_form">
                 <h1>Đăng nhập</h1>
-                <form action="signIn">
+                <form action="signIn" method="post">
                     <input type="text" name="username" required="" placeholder="Username">
                     <input type="password" name="password" required="" placeholder="Password">
                     <input type="submit" name="" value="Đăng nhập">
                 </form>
                 <a href="#" style="font-size: 15px;">Quên mật khẩu</a>
-                <a href="sign_up.jsp" style="float: right;">Đăng ký</a>
+                <a href="signUp" style="float: right;">Đăng ký</a>
             </div>
         </div>
     </section>
