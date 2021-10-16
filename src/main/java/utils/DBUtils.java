@@ -70,7 +70,7 @@ public class DBUtils {
             float giaSP = rs.getFloat("giaSP");
             int soLuongSP = rs.getInt("soLuongSP");
             Date ngayDangBan = rs.getDate("ngayDangBan");
-            SanPham sp = new SanPham(maSP, tenSP, maTH, maLoaiSP, hinhSP, giaSP, soLuongSP, ngayDangBan);
+            sanPham = new SanPham(maSP, tenSP, maTH, maLoaiSP, hinhSP, giaSP, soLuongSP, ngayDangBan);
         }
         return sanPham;
     }
@@ -308,6 +308,12 @@ public class DBUtils {
         cstm.execute();
     }
 
+    public static void deleteSanPham(Connection conn, String maSP) throws SQLException {
+        CallableStatement cstm = conn.prepareCall("{call delete_SanPham(?)}");
+        cstm.setString(1, maSP);
+        cstm.execute();
+    }
+
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         Connection conn = ConnectionUtils.getConnection();
 //		List<SanPham> ListSP = DBUtils.getAllSanPham(conn);
@@ -319,5 +325,7 @@ public class DBUtils {
         for (LoaiSP l : listLSP) {
             System.out.println(l);
         }
+
+        System.out.println(getttSanPham(conn, "34"));
     }
 }
