@@ -233,7 +233,7 @@
 <!-- Edit product -->
 <div class="m-lr-auto bor10 p-lr-40 p-t-30 p-b-40 m-r-40 m-lr-0-xl p-lr-15-sm">
     <form action="editProduct" method="post">
-        <input type="text" name="maSP"
+        <input type="text" name="maSP" style="display: none"
                value="${SP.maSP}">
         <h4 class="mtext-109 cl2 p-b-30">
             Edit Product <p style="color: red">${errorString}</p>

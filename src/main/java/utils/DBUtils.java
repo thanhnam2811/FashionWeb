@@ -293,6 +293,21 @@ public class DBUtils {
         }
         return null;
     }
+
+    public static void updateSanPham(Connection conn, int maSP, String tenSP, int maTH, int maLoaiSP, String hinhSP, float giaSP, int soLuongSP, Date ngayDangBan) throws SQLException {
+        CallableStatement cstm = conn.prepareCall("{call update_SanPham(?,?,?,?,?,?,?,?)}");
+        // SanPham(int maSP, String tenSP, int maTH, int maLoaiSP, String hinhSP, float giaSP, int soLuongSP, Date ngayDangBan)
+        cstm.setInt(1, maSP);
+        cstm.setString(2, tenSP);
+        cstm.setInt(3, maTH);
+        cstm.setInt(4, maLoaiSP);
+        cstm.setString(5, hinhSP);
+        cstm.setFloat(6, giaSP);
+        cstm.setInt(7, soLuongSP);
+        cstm.setDate(8, ngayDangBan);
+        cstm.execute();
+    }
+
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         Connection conn = ConnectionUtils.getConnection();
 //		List<SanPham> ListSP = DBUtils.getAllSanPham(conn);
