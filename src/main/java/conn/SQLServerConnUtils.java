@@ -27,8 +27,7 @@ public class SQLServerConnUtils {
 
 	    // Cấu trúc URL Connection dành cho SQLServer
 	    // Ví dụ:
-		//jdbc:sqlserver://[serverName[\instanceName][:portNumber]][;property=value[;property=value]]
-		//jdbc:sqlserver://localhost:1433;databaseName=testdb;integratedSecurity=true;
+		// jdbc:sqlserver://localhost:1433;databaseName=...;user=...;password=...;
 	    String connectionURL = "jdbc:sqlserver://" + hostName + ":1433" +
 	            ";databaseName=" + database + 
 	            ";user=" + userName +

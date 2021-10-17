@@ -23,8 +23,8 @@ import utils.DBUtils;
  */
 @WebServlet(urlPatterns = "/detail", name = "detail")
 public class detail extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-       
+    private static final long serialVersionUID = 1L;
+
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -33,54 +33,54 @@ public class detail extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		Connection conn;
-		SanPham SP = null;
-		List<SanPham> listSP = null;
-		List<BinhLuan> listBL = null;
-		LoaiSP loaiSP = null;
-		String maSP= request.getParameter("maSP");
-		ThuongHieu TH = null;
-		try {
-			conn = ConnectionUtils.getConnection();
-			SP = DBUtils.getttSanPham(conn, maSP);
-			loaiSP= DBUtils.getLoaiSP_bymaSP(conn, maSP);
-			String maLoaiSP = String.valueOf(SP.getMaLoaiSP());
-			listSP = DBUtils.getSanPhambymaLoaiSP(conn, maLoaiSP);
-			listBL = DBUtils.getBinhLuan_bymaSP(conn, maSP);
-			TH = DBUtils.getThuongHieu_bymaSP(conn, maSP);
-			
-			// Xếp bình luận theo ngày đăng
-			Collections.sort(listBL);
-			
-			request.setAttribute("listBL", listBL);
-			request.setAttribute("SP", SP);
-			request.setAttribute("loaiSP", loaiSP);
-			request.setAttribute("ListSPbymaLoaiSP", listSP);
-			request.setAttribute("TH", TH);
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // TODO Auto-generated method stub
+        Connection conn;
+        SanPham SP;
+        List<SanPham> listSP = null;
+        List<BinhLuan> listBL = null;
+        LoaiSP loaiSP = null;
+        String maSP = request.getParameter("maSP");
+        ThuongHieu TH = null;
+        try {
+            conn = ConnectionUtils.getConnection();
+            SP = DBUtils.getttSanPham(conn, maSP);
+            loaiSP = DBUtils.getLoaiSP_bymaSP(conn, maSP);
+            String maLoaiSP = String.valueOf(SP.getMaLoaiSP());
+            listSP = DBUtils.getSanPhambymaLoaiSP(conn, maLoaiSP);
+            listBL = DBUtils.getBinhLuan_bymaSP(conn, maSP);
+            TH = DBUtils.getThuongHieu_bymaSP(conn, maSP);
 
-			new cart().doPost(request, response);
-			request.getRequestDispatcher("/WEB-INF/views/detail.jsp").forward(request, response);
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-	}
+            // Xếp bình luận theo ngày đăng
+            Collections.sort(listBL);
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
-	}
-	
-	
+            request.setAttribute("listBL", listBL);
+            request.setAttribute("SP", SP);
+            request.setAttribute("loaiSP", loaiSP);
+            request.setAttribute("ListSPbymaLoaiSP", listSP);
+            request.setAttribute("TH", TH);
+
+            new cart().doPost(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/detail.jsp").forward(request, response);
+        } catch (ClassNotFoundException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        } catch (SQLException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
+    }
+
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+     */
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // TODO Auto-generated method stub
+        doGet(request, response);
+    }
+
+
 }

@@ -70,7 +70,7 @@ public class DBUtils {
             float giaSP = rs.getFloat("giaSP");
             int soLuongSP = rs.getInt("soLuongSP");
             Date ngayDangBan = rs.getDate("ngayDangBan");
-            SanPham sp = new SanPham(maSP, tenSP, maTH, maLoaiSP, hinhSP, giaSP, soLuongSP, ngayDangBan);
+            sanPham = new SanPham(maSP, tenSP, maTH, maLoaiSP, hinhSP, giaSP, soLuongSP, ngayDangBan);
         }
         return sanPham;
     }
@@ -259,6 +259,60 @@ public class DBUtils {
         cstm.setDate(7, sp.getNgayDangBan());
         cstm.execute();
     }
+    public static void insertUser(Connection conn,String hoten, String sdt, Date ngaySinh,
+                                  String diaChi,String username,String password)throws SQLException{
+        String sql ="insert into Users(hoTen, sdt, ngaySinh, diaChi, username, password) "
+                + "values(?,?, ?,?, ?, ?)";
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        pstm.setString(1, hoten);
+        pstm.setString(2, sdt);
+        pstm.setDate(3, ngaySinh);
+        pstm.setString(4, diaChi);
+        pstm.setString(5, username);
+        pstm.setString(6, password);
+
+        pstm.executeUpdate();
+    }
+    public static Users getUserByUsername(Connection conn,String username) throws SQLException{
+        String sql = "select *\n"
+                + "from Users\n"
+                + "where userName = ? ";
+
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        pstm.setString(1, username);
+        ResultSet rs = pstm.executeQuery();
+        while (rs.next()) {
+            return new Users(rs.getInt(1),
+                    rs.getString(2),
+                    rs.getString(3),
+                    rs.getDate(4),
+                    rs.getString(5),
+                    rs.getString(6),
+                    rs.getString(7),
+                    rs.getString(8));
+        }
+        return null;
+    }
+
+    public static void updateSanPham(Connection conn, int maSP, String tenSP, int maTH, int maLoaiSP, String hinhSP, float giaSP, int soLuongSP, Date ngayDangBan) throws SQLException {
+        CallableStatement cstm = conn.prepareCall("{call update_SanPham(?,?,?,?,?,?,?,?)}");
+        // SanPham(int maSP, String tenSP, int maTH, int maLoaiSP, String hinhSP, float giaSP, int soLuongSP, Date ngayDangBan)
+        cstm.setInt(1, maSP);
+        cstm.setString(2, tenSP);
+        cstm.setInt(3, maTH);
+        cstm.setInt(4, maLoaiSP);
+        cstm.setString(5, hinhSP);
+        cstm.setFloat(6, giaSP);
+        cstm.setInt(7, soLuongSP);
+        cstm.setDate(8, ngayDangBan);
+        cstm.execute();
+    }
+
+    public static void deleteSanPham(Connection conn, String maSP) throws SQLException {
+        CallableStatement cstm = conn.prepareCall("{call delete_SanPham(?)}");
+        cstm.setString(1, maSP);
+        cstm.execute();
+    }
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         Connection conn = ConnectionUtils.getConnection();
@@ -271,5 +325,7 @@ public class DBUtils {
         for (LoaiSP l : listLSP) {
             System.out.println(l);
         }
+
+        System.out.println(getttSanPham(conn, "34"));
     }
 }
