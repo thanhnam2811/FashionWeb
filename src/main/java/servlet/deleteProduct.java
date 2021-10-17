@@ -19,7 +19,7 @@ public class deleteProduct extends HttpServlet {
         String maSP = request.getParameter("maSP");
         try {
             conn = ConnectionUtils.getConnection();
-            DBUtils.deleteSanPham(conn, maSP);
+          //  DBUtils.deleteSanPham(conn, maSP);
 
             // Quay về trang product management
             new productManagement().doGet(request, response);
