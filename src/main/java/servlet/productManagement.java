@@ -64,6 +64,5 @@ public class productManagement extends HttpServlet {
         } finally {
             doGet(request, response);
         }
-
     }
 }
