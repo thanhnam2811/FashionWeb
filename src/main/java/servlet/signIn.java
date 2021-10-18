@@ -64,7 +64,10 @@ public class signIn extends HttpServlet {
 				}
 				else
 				{
-					request.getRequestDispatcher("productManagement").forward(request, response);
+					//request.getRequestDispatcher("productManagement").forward(request, response);
+					String contextPath = request.getContextPath();
+					response.sendRedirect(contextPath + "/productManagement");
+
 				}
 			}
 			else
