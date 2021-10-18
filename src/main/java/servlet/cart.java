@@ -11,10 +11,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import beans.SanPhamInCart;
+import beans.*;
 import conn.ConnectionUtils;
-import utils.DBUtils;
+import utils.*;
 
 /**
  * Servlet implementation class cart
@@ -50,11 +51,17 @@ public class cart extends HttpServlet {
 		List<SanPhamInCart> listSPinCart = null;
 		try {
 			conn = ConnectionUtils.getConnection();
-			listSPinCart = DBUtils.getSanPhamInCart(conn,"1");//
-			request.setAttribute("listSPinCart", listSPinCart);
-			//
-			double sum = DBUtils.tongTienInCart(conn,"1");
-			request.setAttribute("sumAll",sum);
+
+			HttpSession session = request.getSession();
+			Users u = MyUtils.getLoginedUser(session);
+			if(u != null) {
+				String id = String.valueOf(u.getMaKH());
+				listSPinCart = DBUtils.getSanPhamInCart(conn, id);//
+				request.setAttribute("listSPinCart", listSPinCart);
+				//
+				double sum = DBUtils.tongTienInCart(conn, id);
+				request.setAttribute("sumAll", sum);
+			}
 			//
 		} catch (SQLException throwables) {
 			throwables.printStackTrace();
