@@ -273,14 +273,12 @@ public class DBUtils {
 
         pstm.executeUpdate();
     }
-    public static Users getUserByUsername(Connection conn,String username) throws SQLException{
-        String sql = "select *\n"
-                + "from Users\n"
-                + "where userName = ? ";
 
-        PreparedStatement pstm = conn.prepareStatement(sql);
-        pstm.setString(1, username);
-        ResultSet rs = pstm.executeQuery();
+    public static Users findUser(Connection conn, String username, String password) throws SQLException {
+        CallableStatement cstm = conn.prepareCall("{call find_User(?,?)}");
+        cstm.setString(1, username);
+        cstm.setString(2, password);
+        ResultSet rs = cstm.executeQuery();
         while (rs.next()) {
             return new Users(rs.getInt(1),
                     rs.getString(2),
@@ -289,7 +287,7 @@ public class DBUtils {
                     rs.getString(5),
                     rs.getString(6),
                     rs.getString(7),
-                    rs.getString(8));
+                    rs.getInt(8));
         }
         return null;
     }
@@ -313,13 +311,99 @@ public class DBUtils {
         cstm.setString(1, maSP);
         cstm.execute();
     }
+    public static void EditUserInfo_password(Connection conn,int maKH,String npassword) throws SQLException {
+        String sql =" Update Users"
+                +" set password=?"
+                +" where maKH=?";
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        pstm.setString(1, npassword);
+        pstm.setInt(2, maKH);
+        pstm.executeUpdate();
+    }
+    public static Users getInfoUser(Connection conn, int idmaKH) throws SQLException {
+        String sql = "select * from users"
+                + " where maKH=?";
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        pstm.setInt(1, idmaKH);
+        ResultSet rs = pstm.executeQuery();
+        Users user = new Users();
+
+        while (rs.next()) {
+            int maKH = rs.getInt("maKH");
+            String hoTen = rs.getString("hoTen");
+            String sdt = rs.getString("sdt");
+            Date ngaySinh = rs.getDate("ngaySinh");
+            String diaChi = rs.getString("diaChi");
+            String userName = rs.getString("userName");
+            String password = rs.getString("password");
+            int roleID = rs.getInt("roleID");
+            user = new Users(maKH, hoTen, sdt, ngaySinh, diaChi, userName,password,roleID);
+        }
+        return user;
+    }
+    public static void EditUserInfo(Connection conn,int maKH,String hoTen,String sdt,Date ngaySinh,String diaChi) throws SQLException {
+        String sql =" Update Users"
+                +" set hoTen =?,"
+                +" sdt=?,"
+                +" ngaySinh=?,"
+                +" diaChi=?"
+                +" where maKH=?";
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        pstm.setString(1, hoTen);
+        pstm.setString(2, sdt);
+        pstm.setDate(3, ngaySinh);
+        pstm.setString(4, diaChi);
+        pstm.setInt(5, maKH);
+        pstm.executeUpdate();
+    }
+    public static List<ChiTietDonHang> getChiTietDonHang_bymaKH(Connection conn, int idmaKH) throws SQLException {
+        String sql = "	select ChiTietDonHang.ID,ChiTietDonHang.maDH,ChiTietDonHang.maSP,ChiTietDonHang.soLuongSP,ChiTietDonHang.thanhTien"
+                + "	from ChiTietDonHang join DonHang on ChiTietDonHang.maDH=DonHang.maDH"
+                + "	where  DonHang.maKH=?";
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        pstm.setInt(1, idmaKH);
+        ResultSet rs = pstm.executeQuery();
+        List<ChiTietDonHang> list = new ArrayList<ChiTietDonHang>();
+
+
+        while (rs.next()) {
+            int ID = rs.getInt("ID");
+            int maDH = rs.getInt("maDH");
+            int maSP = rs.getInt("maSP");
+            int soLuongSP = rs.getInt("soLuongSP");
+            float thanhTien = rs.getFloat("thanhTien");
+            ChiTietDonHang chiTietDonHang = new ChiTietDonHang(ID, maDH, maSP, soLuongSP, thanhTien);
+            list.add(chiTietDonHang);
+        }
+        return list;
+    }
+
+
+    public static List<DonHang> getlistDonHang_bymaKH(Connection conn, int idmaKH) throws SQLException {
+        String sql = " select DonHang.maDH,DonHang.maKH,DonHang.ngayMua,DonHang.tongTien,DonHang.maDV"
+                + " from DonHang join Users on DonHang.maKH=Users.maKH"
+                + " where  DonHang.maKH=?";
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        pstm.setInt(1, idmaKH);
+        ResultSet rs = pstm.executeQuery();
+        List<DonHang> list = new ArrayList<DonHang>();
+
+
+        while (rs.next()) {
+            int maDH = rs.getInt("maDH");
+            int maKH = rs.getInt("maKH");
+            Date ngayMua = rs.getDate("ngayMua");
+            float tongTien = rs.getFloat("tongTien");
+            int maDV = rs.getInt("maDV");
+            DonHang donHang = new DonHang(maDH, maKH, ngayMua, tongTien, maDV);
+            list.add(donHang);
+        }
+        return list;
+    }
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         Connection conn = ConnectionUtils.getConnection();
-//		List<SanPham> ListSP = DBUtils.getAllSanPham(conn);
-//		for (SanPham sanPham : ListSP) {
-//			System.out.println(sanPham);
-//		}
+
 
         List<LoaiSP> listLSP = DBUtils.getAllLoaiSP(conn);
         for (LoaiSP l : listLSP) {

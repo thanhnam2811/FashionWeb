@@ -1,10 +1,11 @@
 package servlet;
 
 import java.io.IOException;
-import java.sql.Connection;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.List;
-
+import java.sql.Connection;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -12,23 +13,24 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import beans.SanPhamInCart;
+
+import beans.LoaiSP;
+import beans.SanPham;
 import beans.Users;
 import conn.ConnectionUtils;
 import utils.DBUtils;
-import utils.MyUtils;
 
 /**
- * Servlet implementation class deleteCartByID
+ * Servlet implementation class edituserinfo
  */
-@WebServlet(urlPatterns = "/deleteCartByID", name = "deleteCartByID")
-public class deleteCartByID extends HttpServlet {
+@WebServlet(urlPatterns = "/edituserinfo", name = "edituserinfo")
+public class edituserinfo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public deleteCartByID() {
+    public edituserinfo() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,28 +40,21 @@ public class deleteCartByID extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-		
 		Connection conn;
-		List<SanPhamInCart> listSPinCart = null;
-		try {
+		Users user = null;
+		try {	
 			conn = ConnectionUtils.getConnection();
-			//
-			String cartID = request.getParameter("cartID");
-			DBUtils.deleteCartByID(conn, cartID);
-			//
-			HttpSession session = request.getSession();
-			Users u = MyUtils.getLoginedUser(session);
-			if(u != null) {
-				String id = String.valueOf(u.getMaKH());
-				listSPinCart = DBUtils.getSanPhamInCart(conn, id);//
-				request.setAttribute("listSPinCart", listSPinCart);
-				//
-				double sum = DBUtils.tongTienInCart(conn, id);
-				request.setAttribute("sumAll", sum);
-			}
-			//
-			request.getRequestDispatcher("/WEB-INF/views/cart.jsp").forward(request, response);
+			HttpSession session= request.getSession();
+			Users a = (Users) session.getAttribute("loginedUser");
+			int maKH=a.getMaKH();
+			user = DBUtils.getInfoUser(conn, maKH);
+
+			String hoTen=request.getParameter("hoten");
+			String sdt=request.getParameter("sdt");
+			Date ngaySinh=Date.valueOf(request.getParameter("namsinh"));
+			String diaChi=request.getParameter("diachi");
+			DBUtils.EditUserInfo(conn, maKH, hoTen, sdt, ngaySinh, diaChi);
+			response.sendRedirect("userinfo?maKH=1");
 		} catch (ClassNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -67,6 +62,8 @@ public class deleteCartByID extends HttpServlet {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+		
+		
 	}
 
 	/**

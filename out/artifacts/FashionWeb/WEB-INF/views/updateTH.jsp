@@ -1,8 +1,13 @@
 <%@ page import="beans.SanPham" %>
 <%@ page import="beans.ThuongHieu" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<<<<<<< HEAD
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+=======
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+>>>>>>> master/master
 <!DOCTYPE html>
 <html lang="en">
 
@@ -252,9 +257,14 @@
             <!-- Block2 -->
             <div class="block2" id="create">
                 <!-- Create new product -->
+<<<<<<< HEAD
                 <div class="m-lr-auto bor10 p-lr-40 p-t-30 p-b-40 m-r-40 m-lr-0-xl p-lr-15-sm" items="${brand}">
                     <form action="${pageContext.request.contextPath}/brandControll?action=update&maTH=${brand.maTH}"
                           method="post">
+=======
+                <div class="m-lr-auto bor10 p-lr-40 p-t-30 p-b-40 m-r-40 m-lr-0-xl p-lr-15-sm" items ="${brand}">
+                    <form action="${pageContext.request.contextPath}/brandControll?action=update&maTH=${brand.maTH}" method="post" >
+>>>>>>> master/master
                         <h4 class="mtext-109 cl2 p-b-30">
                             Modify Brand
                         </h4>
@@ -319,8 +329,12 @@
                             </div>
                         </div>
 
+<<<<<<< HEAD
                         <button type="submit"
                                 class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+=======
+                        <button type="submit" class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+>>>>>>> master/master
                             Update Brand
                         </button>
                     </form>

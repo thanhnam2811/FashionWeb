@@ -19,9 +19,20 @@
                 </div>
 
                 <div class="right-top-bar flex-w h-full">
-                    <a href="#" class="flex-c-m trans-04 p-lr-25">
-                        Tài khoản của tôi
-                    </a>
+                    <c:if test="${sessionScope.loginedUser==null}">
+                        <a href="${pageContext.request.contextPath}/signIn" class="flex-c-m trans-04 p-lr-25">
+                            Đăng nhập
+                        </a>
+                    </c:if>
+                    <c:if test="${sessionScope.loginedUser!=null}">
+                        <a href="${pageContext.request.contextPath}/userinfo" class="flex-c-m trans-04 p-lr-24">
+                            My account
+                        </a>
+                        <a href="${pageContext.request.contextPath}/signOut" class="flex-c-m trans-04 p-lr-24">
+                            Đăng xuất
+                        </a>
+                    </c:if>
+
 
                 </div>
 

@@ -20,14 +20,14 @@ import utils.*;
 @WebServlet(urlPatterns = "/signIn", name = "signIn")
 public class signIn extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public signIn() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public signIn() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -52,11 +52,11 @@ public class signIn extends HttpServlet {
 		Users u = new Users();
 		try {
 			conn = ConnectionUtils.getConnection();
-			u =  DBUtils.getUserByUsername(conn, username);
+			u =  DBUtils.findUser(conn, username, password);
 
-			if(u != null && u.getPassword().equals(password))
+			if(u != null)
 			{
-				if(u.getRoleID() == null)
+				if((u.getRoleID()) == 0)
 				{
 					HttpSession session = request.getSession();
 					MyUtils.storeLoginedUser(session, u);
