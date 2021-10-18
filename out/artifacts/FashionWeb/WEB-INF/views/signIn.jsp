@@ -25,6 +25,7 @@
                 <form action="signIn" method="post">
                     <input type="text" name="username" required="" placeholder="Username">
                     <input type="password" name="password" required="" placeholder="Password">
+                    <span style="color: rgb(238, 17, 17);" id="message_error">${errorString }</span>
                     <input type="submit" name="" value="Đăng nhập">
                 </form>
                 <a href="#" style="font-size: 15px;">Quên mật khẩu</a>
