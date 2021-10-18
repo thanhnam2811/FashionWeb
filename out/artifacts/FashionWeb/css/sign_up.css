@@ -1,0 +1,293 @@
+:root {
+    --main-color: #c0392b;
+    --body-bg: #181616;
+    --box-bg: #221f1f;
+    --text-color: #ffffff;
+    --nav-height: 60px;
+    --space-top: 20px
+}
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.containernav {
+    max-width: 1920px;
+    padding: 0 40px;
+    margin: auto;
+}
+
+.nav-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 99;
+    background-color: #000000;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--text-color);
+    height: var(--nav-height);
+}
+
+.nav a {
+    color: var(--text-color);
+}
+
+.num-chair,
+h1,
+.main-color {
+    color: var(--main-color);
+}
+
+.logo {
+    font-size: 2rem;
+    font-weight: 900;
+    text-decoration: none;
+}
+
+.nav-menu {
+    list-style-type: none;
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.nav-menu li~li {
+    margin-left: 30px;
+}
+
+.buttom a,
+.nav-menu a {
+    text-transform: uppercase;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.nav-menu a.bth:hover,
+a.logo:hover a.movie-item:hover {
+    color: unset;
+}
+
+.bth {
+    color: #ffffff;
+    padding: 0.25rem 1.5rem;
+    text-transform: uppercase;
+    font-size: 1.25rem;
+    font-weight: 500;
+    display: inline-flex;
+    position: relative;
+    align-items: center;
+}
+
+.bth-hover::before {
+    z-index: 1;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 50%;
+    height: 100%;
+    background-color: var(--main-color);
+    transition: 0.3s ease-in-out;
+}
+
+.bth-hover:hover::before {
+    width: 100%;
+}
+
+.bth i,
+.bth span {
+    z-index: 1;
+}
+
+.bth i {
+    margin-right: 1px;
+}
+
+.hamburger-menu {
+    --size: 30px;
+    height: var(--size);
+    width: var(--size);
+    cursor: pointer;
+    z-index: 101;
+    position: relative;
+    display: none;
+    align-items: center;
+}
+
+.hamburger {
+    position: relative;
+}
+
+.hamburger,
+.hamburger::before,
+.hamburger::after {
+    width: var(--size);
+    height: 3px;
+    border-radius: 0.5rem;
+    background-color: var(--text-color);
+    transition: 0.4s;
+}
+
+.hamburger::before,
+.hamburger::after {
+    content: "";
+    position: absolute;
+    left: 0;
+}
+
+.hamburger::before {
+    top: -10px;
+}
+
+.hamburger::after {
+    bottom: -10px;
+}
+
+.hamburger-menu.active .hamburger {
+    background-color: transparent;
+}
+
+.hamburger-menu.active .hamburger::before {
+    transform-origin: top left;
+    transform: rotate(45deg);
+    left: 6px;
+}
+
+.hamburger-menu.active .hamburger::after {
+    transform-origin: bottom left;
+    transform: rotate(-45deg);
+    left: 6px;
+}
+
+
+/*--- */
+
+@import url('https://fonts.googleapis.com/css?family=Oxygen');
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Oxygen', sans-serif;
+    letter-spacing: 1px;
+}
+
+form {
+    margin: auto;
+    width: 45%;
+    /* border: 3px solid purple; */
+    padding: 20px;
+    margin-top: 60px;
+    margin-right: 70px;
+    background: rgb(181, 229, 245);
+    opacity: 0.85;
+}
+
+h2 {
+    text-align: center;
+    margin: 0px 150px;
+    color: rgb(28, 43, 48);
+}
+
+input[type=text] {
+    width: 95%;
+    padding: 5px;
+    margin: 5px 0;
+    box-sizing: border-box;
+}
+
+label {
+    /* color: lavender; */
+    font-size: 20px;
+    color: rgb(23, 46, 51);
+}
+
+input[type=password] {
+    width: 95%;
+    padding: 5px;
+    margin: 5px 0;
+    box-sizing: border-box;
+    background-image: url('../images/icons/m_icon_password.png');
+    background-position: 500px 0px;
+    background-repeat: no-repeat;
+}
+
+input[type=username] {
+    width: 95%;
+    padding: 5px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    background-image: url('../images/icons/username.png');
+    background-position: 500px 0px;
+    background-repeat: no-repeat;
+}
+
+input[type=date] {
+    display: inline-block;
+    margin-left: 5px;
+}
+
+input#submit {
+    padding: 7px;
+    width: 25%;
+    border-radius: 10px;
+    border: none;
+    /* position: absolute; */
+    bottom: 10px;
+    cursor: pointer;
+    margin: 0px 200px;
+    background: linear-gradient(to right, #fc00ff, #00dbde);
+    font-size: 20px;
+}
+
+input#submit:hover {
+    background: linear-gradient(to right, #fc466b, #3f5efb);
+}
+
+section {
+    margin-top: -60px;
+    width: 100%;
+    height: 100vh;
+    background: url(../images/background/sign_up.jpg);
+    background-size: cover;
+}
+
+
+/*  */
+
+
+/* input#dateOfBirth {
+    position: relative;
+    width: 120px;
+    height: 25px;
+    color: white;
+}
+
+input#dateOfBirth:before {
+    position: absolute;
+    top: 10px;
+    left: 5px;
+    content: attr(data-date);
+    display: inline-block;
+    color: black;
+}
+
+input#dateOfBirth::-webkit-datetime-edit,
+input#dateOfBirth::-webkit-inner-spin-button,
+input#dateOfBirth::-webkit-clear-button {
+    display: none;
+}
+
+input#dateOfBirth::-webkit-calendar-picker-indicator {
+    position: absolute;
+    top: 10px;
+    right: 0;
+    color: black;
+    opacity: 1;
+} */
