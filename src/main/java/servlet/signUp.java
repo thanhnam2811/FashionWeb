@@ -64,7 +64,7 @@ public class signUp extends HttpServlet {
 			e1.printStackTrace();
 		}
 		
-		request.getRequestDispatcher("/WEB-INF/views/signIn.jsp").forward(request, response);
+		request.getRequestDispatcher("/signIn").forward(request, response);
 	}
 
 }

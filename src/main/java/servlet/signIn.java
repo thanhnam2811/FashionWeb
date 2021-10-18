@@ -60,11 +60,15 @@ public class signIn extends HttpServlet {
 				{
 					HttpSession session = request.getSession();
 					MyUtils.storeLoginedUser(session, u);
-					request.getRequestDispatcher("home").forward(request, response);
+				//	request.getRequestDispatcher("/home").forward(request, response);
+					request.getServletContext().getRequestDispatcher("/home").forward(request, response);
+
 				}
 				else
 				{
-					request.getRequestDispatcher("productManagement").forward(request, response);
+				//	request.getRequestDispatcher("/productManagement").forward(request, response);
+					String contextPath = request.getContextPath();
+					response.sendRedirect(contextPath +"/productManagement");
 				}
 			}
 			else
