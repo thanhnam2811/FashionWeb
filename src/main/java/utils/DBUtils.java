@@ -179,14 +179,14 @@ public class DBUtils {
         return thuongHieu;
     }
 
-    public static List<SanPhamInCart> getSanPhamInCart(Connection conn, String maKH) throws SQLException {
+    public static List<SanPhamInCart> getSanPhamInCart(Connection conn, int maKH) throws SQLException {
         String sql = "Select ChiTietGioHang.ID, ChiTietGioHang.maSP,ChiTietGioHang.soLuongSP, tenSP,giaSP,hinhSP,ChiTietGioHang.thanhTien\n"
                 + "From ChiTietGioHang, SanPham, Users\n"
                 + "Where ChiTietGioHang.maKH = Users.maKH  and ChiTietGioHang.maSP = SanPham.maSP\n"
                 + "	and Users.maKH = ?";
 
         PreparedStatement pstm = conn.prepareStatement(sql);
-        pstm.setString(1, maKH);
+        pstm.setInt(1, maKH);
         ResultSet rs = pstm.executeQuery();
         List<SanPhamInCart> list = new ArrayList<SanPhamInCart>();
         while (rs.next()) {
@@ -222,15 +222,48 @@ public class DBUtils {
         pstm.executeUpdate();
     }
 
-    public static float tongTienInCart(Connection conn, String id) throws SQLException {
+    public static float tongTienInCart(Connection conn, int id) throws SQLException {
         String sql = "{? = call funcTongTienInCart(?)}";
 
         CallableStatement cstmt = conn.prepareCall(sql);
-        cstmt.setString(2, id);
+        cstmt.setInt(2, id);
         cstmt.registerOutParameter(1, Types.FLOAT);
         cstmt.execute();
         return cstmt.getFloat(1);
 
+    }
+
+    public static int getMaDHMaxOfMaKH(Connection conn, int maKH) throws SQLException {
+        String sql = "{? = call getMaDHMaxOfMaKH(?)}";
+
+        CallableStatement cstmt = conn.prepareCall(sql);
+        cstmt.setInt(2, maKH);
+        cstmt.registerOutParameter(1, Types.INTEGER);
+        cstmt.execute();
+        return cstmt.getInt(1);
+
+    }
+    public static void insertDonHang(Connection conn, DonHang dh) throws SQLException {
+        CallableStatement cstm = conn.prepareCall("{call insert_donhang(?, ?, ?)}");
+        cstm.setInt(1, dh.getMaKH());///
+        cstm.setFloat(2,dh.getTongTien() );
+        cstm.setInt(3, dh.getMaDV());
+        cstm.execute();
+    }
+    public static void insertChiTietDonHang(Connection conn, int maDH, int maSP, int soLuong, float thanhTien)throws SQLException {
+        CallableStatement cstm = conn.prepareCall("{call insert_chiTietDonHang(?, ?, ?,?)}");
+        cstm.setInt(1, maDH);
+        cstm.setInt(2,maSP );
+        cstm.setInt(3, soLuong);
+        cstm.setFloat(4,thanhTien);
+        cstm.execute();
+    }
+    public static void deleteGioHangBymaKH(Connection conn, int maKH)throws SQLException {
+        String sql ="delete ChiTietGioHang\n" +
+                "where maKH = ?";
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        pstm.setInt(1, maKH);
+        pstm.executeUpdate();
     }
 
     public static List<ThuongHieu> getAllThuongHieu(Connection conn) throws SQLException {
