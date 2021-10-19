@@ -40,8 +40,6 @@ public class order extends HttpServlet {
         // response.getWriter().append("Served at: ").append(request.getContextPath());
         doPost(request, response);
        // request.getRequestDispatcher("home").forward(request, response);
-        String contextPath = request.getContextPath();
-        response.sendRedirect(contextPath + "/userinfo");
     }
 
     /**
@@ -61,20 +59,34 @@ public class order extends HttpServlet {
                 int id = u.getMaKH();
                 listSPinCart = DBUtils.getSanPhamInCart(conn, id);//
 
-                //insert don hang
-                float sum = DBUtils.tongTienInCart(conn, id);
-                dh.setMaKH(id);
-                dh.setTongTien(sum);
-                DBUtils.insertDonHang(conn,dh);
-                //insert ChiTietDonHang
-                int maDH = DBUtils.getMaDHMaxOfMaKH(conn,id);
-                for(SanPhamInCart list : listSPinCart)
+                if(listSPinCart.size() == 0)
                 {
-                    DBUtils.insertChiTietDonHang(conn,maDH,list.getMaSP(),list.getSoLuongSP(),list.getThanhTien());
+                    String errorString = "Vui lòng chọn sản phẩm để mua!!";
+                    request.setAttribute("errorString", errorString);
+                    request.getRequestDispatcher("/WEB-INF/views/cart.jsp").forward(request, response);
                 }
-                //Xoa Gio Hang cua User
-                DBUtils.deleteGioHangBymaKH(conn,id);
-
+                else {
+                    //insert don hang
+                    float sum = DBUtils.tongTienInCart(conn, id);
+                    dh.setMaKH(id);
+                    dh.setTongTien(sum);
+                    DBUtils.insertDonHang(conn, dh);
+                    //insert ChiTietDonHang
+                    int maDH = DBUtils.getMaDHMaxOfMaKH(conn, id);
+                    for (SanPhamInCart list : listSPinCart) {
+                        DBUtils.insertChiTietDonHang(conn, maDH, list.getMaSP(), list.getSoLuongSP(), list.getThanhTien());
+                    }
+                    //Xoa Gio Hang cua User
+                    DBUtils.deleteGioHangBymaKH(conn, id);
+                    // Chuyển qua trang user để xem thông tin đơn hàng
+                    String contextPath = request.getContextPath();
+                    response.sendRedirect(contextPath + "/userinfo");
+                }
+            }
+            else
+            {
+                String contextPath = request.getContextPath();
+                response.sendRedirect(contextPath + "/signIn");
             }
             //
         } catch (SQLException throwables) {
