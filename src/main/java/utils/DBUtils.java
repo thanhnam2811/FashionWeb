@@ -400,7 +400,15 @@ public class DBUtils {
         }
         return list;
     }
-
+    public static void Addreview(Connection conn,int maKH,String maSP,String noiDung) throws SQLException {
+        String sql =" insert into BinhLuan(maKH, maSP, noiDung) " +
+                "   values(?,?,?)";
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        pstm.setInt(1, maKH);
+        pstm.setString(2, maSP);
+        pstm.setString(3, noiDung);
+        pstm.executeUpdate();
+    }
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         Connection conn = ConnectionUtils.getConnection();
 

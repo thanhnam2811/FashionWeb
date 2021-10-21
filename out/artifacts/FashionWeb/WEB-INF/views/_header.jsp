@@ -74,11 +74,15 @@
                         </div>
 
                         <!-- Icon header -->
-                        <div class="wrap-icon-header flex-w flex-r-m">
-                            <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
-                                <i class="zmdi zmdi-search"></i>
-                            </div>
 
+                        <div class="wrap-icon-header flex-w flex-r-m">
+
+                                <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
+                                    <i class="zmdi zmdi-search"></i>
+                                </div>
+
+
+                            <c:if test="${sessionScope.loginedUser!=null}">
                             <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
                                  data-notify="${listSPinCart.size()}">
                                 <i class="zmdi zmdi-shopping-cart"></i>
@@ -88,7 +92,9 @@
                                data-notify="0">
                                 <i class="zmdi zmdi-favorite-outline"></i>
                             </a>
+                            </c:if>
                         </div>
+
                     </nav>
                 </div>
             </div>
