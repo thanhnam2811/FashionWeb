@@ -16,6 +16,11 @@ public class addReview extends HttpServlet {
     private static final long serialVersionUID = 1L;
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        doPost(request,response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         Connection conn;
         String maSP  = request.getParameter("maSP");
         try {
@@ -29,7 +34,7 @@ public class addReview extends HttpServlet {
 
                 String noiDung = request.getParameter("textReview");
                 DBUtils.Addreview(conn, maKH,maSP,noiDung);
-                response.sendRedirect("detail");
+                new detail().doGet(request,response);
 
             }
             else {
@@ -43,10 +48,5 @@ public class addReview extends HttpServlet {
             // TODO Auto-generated catch block
             e1.printStackTrace();
         }
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     }
 }

@@ -256,7 +256,7 @@
                                         </div>
                                     </c:forEach>
                                     <!-- Add review -->
-                                    <form action="addReview?maSP=${SP.maSP}" method="post" class="w-full">
+                                    <form action="addReview?maSP=${SP.maSP}" method="post" >
                                         <h5 class="mtext-108 cl2 p-b-7">Add a review</h5>
 
                                         <p class="stext-102 cl6">Your email address will not be
@@ -280,7 +280,7 @@
                                                     review</label>
 
                                                 <input class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10"
-                                                       type="text" name="textReview" value="textReview" placeholder="Hãy nhập bình luận của bạn">
+                                                       type="text" name="textReview"  placeholder="Hãy nhập bình luận của bạn">
                                             </div>
                                         </div>
 
