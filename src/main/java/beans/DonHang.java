@@ -7,7 +7,7 @@ public class DonHang {
 	private int maKH;
 	private Date ngayMua;
 	private float tongTien;
-	private int maDV;
+	private int maDV = 1;
 	public DonHang() {
 	
 	}

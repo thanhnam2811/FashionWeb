@@ -64,7 +64,7 @@
 
 
 <!-- Shoping Cart -->
-<form class="bg0 p-t-75 p-b-85">
+<form class="bg0 p-t-75 p-b-85" action="order" method="get">
     <div class="container">
         <div class="row">
             <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
@@ -132,6 +132,7 @@
                 </div>
             </div>
 
+            <!-- Mua hàng-->
             <div class="col-sm-10 col-lg-7 col-xl-5 m-lr-auto m-b-50">
                 <div class="bor10 p-lr-40 p-t-30 p-b-40 m-l-63 m-r-40 m-lr-0-xl p-lr-15-sm">
                     <h4 class="mtext-109 cl2 p-b-30">
@@ -201,7 +202,7 @@
 								</span>
                         </div>
                     </div>
-
+                    <span style="color: rgb(238, 17, 17);" id="message_error">${errorString }</span>
                     <button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
                         Mua hàng
                     </button>

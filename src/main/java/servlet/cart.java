@@ -55,7 +55,7 @@ public class cart extends HttpServlet {
 			HttpSession session = request.getSession();
 			Users u = MyUtils.getLoginedUser(session);
 			if(u != null) {
-				String id = String.valueOf(u.getMaKH());
+				int id = u.getMaKH();
 				listSPinCart = DBUtils.getSanPhamInCart(conn, id);//
 				request.setAttribute("listSPinCart", listSPinCart);
 				//
