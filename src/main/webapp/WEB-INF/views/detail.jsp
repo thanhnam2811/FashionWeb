@@ -229,7 +229,7 @@
 
                     <!-- - -->
 
-                    <div class="tab-pane fade" id="reviews" role="tabpanel">
+                    <div  class="tab-pane fade" id="reviews" role="tabpanel">
                         <div class="row">
                             <div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
                                 <div class="p-b-30 m-lr-15-sm">
@@ -256,7 +256,7 @@
                                         </div>
                                     </c:forEach>
                                     <!-- Add review -->
-                                    <form class="w-full">
+                                    <form action="addReview?maSP=${SP.maSP}" method="post" >
                                         <h5 class="mtext-108 cl2 p-b-7">Add a review</h5>
 
                                         <p class="stext-102 cl6">Your email address will not be
@@ -269,37 +269,26 @@
                                                 class="item-rating pointer zmdi zmdi-star-outline"></i> <i
                                                 class="item-rating pointer zmdi zmdi-star-outline"></i> <i
                                                 class="item-rating pointer zmdi zmdi-star-outline"></i> <i
-                                                class="item-rating pointer zmdi zmdi-star-outline"></i> <input
-                                                class="dis-none" type="number" name="rating">
+                                                class="item-rating pointer zmdi zmdi-star-outline"></i>
+
 												</span>
                                         </div>
 
                                         <div class="row p-b-25">
                                             <div class="col-12 p-b-5">
-                                                <label class="stext-102 cl3" for="review">Your
+                                                <label class="stext-102 cl3" >Your
                                                     review</label>
-                                                <textarea
-                                                        class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10"
-                                                        id="review" name="review"></textarea>
-                                            </div>
 
-                                            <div class="col-sm-6 p-b-5">
-                                                <label class="stext-102 cl3" for="name">Name</label> <input
-                                                    class="size-111 bor8 stext-102 cl2 p-lr-20" id="name"
-                                                    type="text" name="name">
-                                            </div>
-
-                                            <div class="col-sm-6 p-b-5">
-                                                <label class="stext-102 cl3" for="email">Email</label> <input
-                                                    class="size-111 bor8 stext-102 cl2 p-lr-20" id="email"
-                                                    type="text" name="email">
+                                                <input class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10"
+                                                       type="text" name="textReview"  placeholder="Hãy nhập bình luận của bạn">
                                             </div>
                                         </div>
 
-                                        <button
-                                                class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10">
-                                            Submit
-                                        </button>
+<%--                                        <button--%>
+<%--                                                class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10" value="submit">--%>
+<%--                                            Submit--%>
+<%--                                        </button>--%>
+                                        <input class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10" id="submit" type="submit" name="submit" value="Thêm bình luận">
                                     </form>
                                 </div>
                             </div>

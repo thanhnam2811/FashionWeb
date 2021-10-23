@@ -142,14 +142,18 @@
 
 						<!-- -->
 
-						<label>Họ và tên:</label> <input type="text"
-														 value="${info.hoTen }" name="hoten"> <br> <label>Số
-						điện thoại:</label> <input type="text" value="${info.sdt }" name="sdt">
-						<br> <label>Ngày tháng năm sinh:</label> <input type="date"
-																		name="namsinh" value="${info.ngaySinh }"> <br> <label>Địa
-						chỉ:</label> <input type="text" value="${info.diaChi }" name="diachi">
-						<br> <input id="submit" type="submit" name="submit"
-									value="Cập nhật">
+						<label>Họ và tên:</label>
+						<input type="text" value="${info.hoTen }" name="hoten">
+						<br>
+						<label>Số điện thoại:</label>
+						<input type="text" value="${info.sdt }" name="sdt">
+						<br>
+						<label>Ngày tháng năm sinh:</label>
+						<input type="date" name="namsinh" value="${info.ngaySinh }"> <br>
+						<label>Địa chỉ:</label>
+						<input type="text" value="${info.diaChi }" name="diachi">
+						<br>
+						<input id="submit" type="submit" name="submit" value="Cập nhật">
 					</form>
 				</section>
 
@@ -173,8 +177,8 @@
 															  placeholder="ConfirmPassword" id="cpassword" name="cpassword" />
 				<br>
 				<p>${mess2 }</p>
-				<span style="color: rgb(238, 17, 17);" id="message_error"></span> <input
-					id="submit" type="submit" name="submit" value="Cập nhật">
+				<span style="color: rgb(238, 17, 17);" id="message_error"></span>
+				<input id="submit" type="submit" name="submit" value="Cập nhật">
 			</form>
 
 		</div>

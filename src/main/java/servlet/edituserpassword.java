@@ -59,7 +59,7 @@ public class edituserpassword extends HttpServlet {
 				new userinfo().doGet(request, response);
 			} else {
 				DBUtils.EditUserInfo_password(conn, maKH, newpassword);
-				response.sendRedirect("userinfo?maKH=1");
+				response.sendRedirect("userinfo");
 			}
 
 		} catch (ClassNotFoundException e1) {

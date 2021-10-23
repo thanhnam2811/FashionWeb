@@ -54,7 +54,7 @@ public class edituserinfo extends HttpServlet {
 			Date ngaySinh=Date.valueOf(request.getParameter("namsinh"));
 			String diaChi=request.getParameter("diachi");
 			DBUtils.EditUserInfo(conn, maKH, hoTen, sdt, ngaySinh, diaChi);
-			response.sendRedirect("userinfo?maKH=1");
+			response.sendRedirect("userinfo");
 		} catch (ClassNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
