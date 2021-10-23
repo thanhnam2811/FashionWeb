@@ -57,6 +57,7 @@ public class productManagement extends HttpServlet {
 
             conn = ConnectionUtils.getConnection();
             DBUtils.insertSanPham(conn, sp);
+            new cart().doPost(request,response);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } catch (ClassNotFoundException e) {
