@@ -60,19 +60,21 @@ public class cart extends HttpServlet {
 		// TODO Auto-generated method stub
 		Connection conn;
 		List<SanPhamInCart> listSPinCart = null;
+		List<VanChuyen> listVanChuyen=null;
 		try {
 			conn = ConnectionUtils.getConnection();
 
 			HttpSession session = request.getSession();
 			Users u = MyUtils.getLoginedUser(session);
 			if(u != null) {
+				listVanChuyen=DBUtils.getAllVanChuyen(conn);
 				int id = u.getMaKH();
 				listSPinCart = DBUtils.getSanPhamInCart(conn, id);//
 				request.setAttribute("listSPinCart", listSPinCart);
 				//
 				double sum = DBUtils.tongTienInCart(conn, id);
 				request.setAttribute("sumAll", sum);
-
+				request.setAttribute("listVanChuyen",listVanChuyen);
 			}
 			//
 		} catch (SQLException throwables) {

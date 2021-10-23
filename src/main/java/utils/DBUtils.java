@@ -45,6 +45,22 @@ public class DBUtils {
         }
         return list;
     }
+    // Load all VanChuyen
+    public static List<VanChuyen> getAllVanChuyen(Connection conn) throws SQLException {
+        CallableStatement cstm = conn.prepareCall("{call load_VanChuyen()}");
+        ResultSet rs = cstm.executeQuery();
+        List<VanChuyen> list = new ArrayList<VanChuyen>();
+        while (rs.next()) {
+            int maDV = rs.getInt("maDV");
+            String tenDV = rs.getString("tenDV");
+            String email = rs.getString("email");
+            String SDT = rs.getString("SDT");
+            String diaChi = rs.getString("diaChi");
+            VanChuyen vanChuyen = new VanChuyen(maDV,tenDV,email,SDT,diaChi);
+            list.add(vanChuyen);
+        }
+        return list;
+    }
 
     public static SanPham getttSanPham(Connection conn, String idSP) throws SQLException {
 //		String sql = "select * from sanpham"
@@ -442,6 +458,7 @@ public class DBUtils {
         pstm.setString(3, noiDung);
         pstm.executeUpdate();
     }
+
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         Connection conn = ConnectionUtils.getConnection();
 
