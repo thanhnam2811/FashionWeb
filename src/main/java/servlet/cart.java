@@ -39,7 +39,18 @@ public class cart extends HttpServlet {
 		// TODO Auto-generated method stub
 		// response.getWriter().append("Served at: ").append(request.getContextPath());
 		doPost(request, response);
-		request.getRequestDispatcher("/WEB-INF/views/cart.jsp").forward(request, response);
+		HttpSession session = request.getSession();
+		Users u = MyUtils.getLoginedUser(session);
+		if(u != null) {
+			request.getRequestDispatcher("/WEB-INF/views/cart.jsp").forward(request, response);
+		}
+		else
+		{
+			String contextPath = request.getContextPath();
+			response.sendRedirect(contextPath + "/signIn");
+		}
+
+
 	}
 
 	/**
@@ -61,6 +72,7 @@ public class cart extends HttpServlet {
 				//
 				double sum = DBUtils.tongTienInCart(conn, id);
 				request.setAttribute("sumAll", sum);
+
 			}
 			//
 		} catch (SQLException throwables) {
