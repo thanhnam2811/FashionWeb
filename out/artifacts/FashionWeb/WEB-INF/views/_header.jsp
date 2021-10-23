@@ -64,7 +64,7 @@
                                 </li>
 
                                 <li>
-                                    <a href="../../about.html">About</a>
+                                    <a href="${pageContext.request.contextPath}/about">About</a>
                                 </li>
 
                                 <li>
