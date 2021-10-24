@@ -458,16 +458,23 @@ public class DBUtils {
         pstm.setString(3, noiDung);
         pstm.executeUpdate();
     }
+    public static void Deletereview(Connection conn, String maCMT) throws SQLException {
+        CallableStatement cstm = conn.prepareCall("{call delete_BinhLuan(?)}");
+
+        cstm.setString(1, maCMT);
+
+        cstm.execute();
+    }
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         Connection conn = ConnectionUtils.getConnection();
 
+        Deletereview(conn,"2");
+//        List<LoaiSP> listLSP = DBUtils.getAllLoaiSP(conn);
+//        for (LoaiSP l : listLSP) {
+//            System.out.println(l);
+//        }
 
-        List<LoaiSP> listLSP = DBUtils.getAllLoaiSP(conn);
-        for (LoaiSP l : listLSP) {
-            System.out.println(l);
-        }
-
-        System.out.println(getttSanPham(conn, "34"));
+//        System.out.println(getttSanPham(conn, "34"));
     }
 }
