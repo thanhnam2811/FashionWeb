@@ -275,6 +275,14 @@ public class DBUtils {
         cstm.setFloat(4,thanhTien);
         cstm.execute();
     }
+    public static void addSpToCart(Connection conn, int maKH, int maSP, int soLuong, float thanhTien)throws SQLException {
+        CallableStatement cstm = conn.prepareCall("{call insert_chiTietGioHang(?, ?, ?,?)}");
+        cstm.setInt(1, maKH);
+        cstm.setInt(2,maSP );
+        cstm.setInt(3, soLuong);
+        cstm.setFloat(4,thanhTien);
+        cstm.execute();
+    }
     public static void deleteGioHangBymaKH(Connection conn, int maKH)throws SQLException {
         String sql ="delete ChiTietGioHang\n" +
                 "where maKH = ?";
