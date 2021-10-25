@@ -67,17 +67,19 @@ public class order extends HttpServlet {
                 }
                 else {
                     //insert don hang
+                    //Loi Trigger khi mua hàng
                     float sum = DBUtils.tongTienInCart(conn, id);
                     dh.setMaKH(id);
                     dh.setTongTien(sum);
                     DBUtils.insertDonHang(conn, dh);
+                    //Xoa Gio Hang cua User
+                    DBUtils.deleteGioHangBymaKH(conn, id);
                     //insert ChiTietDonHang
                     int maDH = DBUtils.getMaDHMaxOfMaKH(conn, id);
                     for (SanPhamInCart list : listSPinCart) {
                         DBUtils.insertChiTietDonHang(conn, maDH, list.getMaSP(), list.getSoLuongSP(), list.getThanhTien());
                     }
-                    //Xoa Gio Hang cua User
-                    DBUtils.deleteGioHangBymaKH(conn, id);
+
                     // Chuyển qua trang user để xem thông tin đơn hàng
                     String contextPath = request.getContextPath();
                     response.sendRedirect(contextPath + "/userinfo");

@@ -94,7 +94,7 @@
                                     <td class="column-4">
                                         <div class="wrap-num-product flex-w m-l-auto m-r-0">
                                             <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-                                                <a href="updateNumProductByID?cartID=${o.ID}&numProduct=${o.soLuongSP -1}"><i
+                                                <a href="updateNumProductByID?cartID=${o.ID}&numProduct=${o.soLuongSP -1}"><i style="padding: 15px"
                                                         class="fs-16 zmdi zmdi-minus"></i></a>
                                             </div>
 
@@ -102,7 +102,7 @@
                                                    name="numProduct" value="${o.soLuongSP}">
 
                                             <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-                                                <a href="updateNumProductByID?cartID=${o.ID}&numProduct=${o.soLuongSP +1}"><i
+                                                <a href="updateNumProductByID?cartID=${o.ID}&numProduct=${o.soLuongSP +1}"><i style="padding: 15px"
                                                         class="fs-16 zmdi zmdi-plus"></i></a>
                                             </div>
                                         </div>

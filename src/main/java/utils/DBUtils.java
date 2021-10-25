@@ -6,6 +6,7 @@ import java.util.List;
 
 import beans.*;
 import conn.ConnectionUtils;
+import servlet.UserManagement;
 
 public class DBUtils {
     // Load all sanpham
@@ -265,7 +266,42 @@ public class DBUtils {
         pstm.setInt(1, maKH);
         pstm.executeUpdate();
     }
+// Admin User
+// Load all sanpham
+public static List<Users> getAllUser(Connection conn) throws SQLException {
 
+    CallableStatement cstm = conn.prepareCall("{call load_Users()}");
+    ResultSet rs = cstm.executeQuery();
+    List<Users> list = new ArrayList<Users>();
+    while (rs.next()) {
+        int maKH = rs.getInt("maKH");
+        String hoTen = rs.getString("hoTen");
+        String sdt = rs.getString("sdt");
+        Date ngaySinh = rs.getDate("ngaySinh");
+        String diaChi = rs.getString("diaChi");
+        String userName = rs.getString("userName");
+        String password = rs.getString("password");
+        int roleID = rs.getInt("roleID");
+        Users user = new Users(maKH, hoTen, sdt, ngaySinh, diaChi, userName, password, roleID);
+        list.add(user);
+    }
+    return list;
+}
+public static List<Role> getAllRold(Connection conn) throws SQLException {
+
+        CallableStatement cstm = conn.prepareCall("{call load_role()}");
+        ResultSet rs = cstm.executeQuery();
+        List<Role> list = new ArrayList<Role>();
+        while (rs.next()) {
+            int roleID = rs.getInt("roleID");
+            String name = rs.getString("name");
+            Role role = new Role( roleID,name);
+            list.add(role);
+        }
+        return list;
+    }
+
+    //
     public static List<ThuongHieu> getAllThuongHieu(Connection conn) throws SQLException {
         CallableStatement cstm = conn.prepareCall("{call load_ThuongHieu()}");
         ResultSet rs = cstm.executeQuery();
@@ -306,6 +342,21 @@ public class DBUtils {
 
         pstm.executeUpdate();
     }
+    public static void insertAdmin(Connection conn,String hoten, String sdt, Date ngaySinh,
+                                  String diaChi,String username,String password,int roleID)throws SQLException{
+        String sql ="insert into Users(hoTen, sdt, ngaySinh, diaChi, username, password,roleID) "
+                + "values(?,?, ?,?, ?, ?,?)";
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        pstm.setString(1, hoten);
+        pstm.setString(2, sdt);
+        pstm.setDate(3, ngaySinh);
+        pstm.setString(4, diaChi);
+        pstm.setString(5, username);
+        pstm.setString(6, password);
+        pstm.setInt(7, roleID);
+
+        pstm.executeUpdate();
+    }
 
     public static Users findUser(Connection conn, String username, String password) throws SQLException {
         CallableStatement cstm = conn.prepareCall("{call find_User(?,?)}");
@@ -342,6 +393,11 @@ public class DBUtils {
     public static void deleteSanPham(Connection conn, String maSP) throws SQLException {
         CallableStatement cstm = conn.prepareCall("{call delete_SanPham(?)}");
         cstm.setString(1, maSP);
+        cstm.execute();
+    }
+    public static void deleteUser(Connection conn, int maKH) throws SQLException {
+        CallableStatement cstm = conn.prepareCall("{call delete_Users(?)}");
+        cstm.setInt(1, maKH);
         cstm.execute();
     }
     public static void EditUserInfo_password(Connection conn,int maKH,String npassword) throws SQLException {
@@ -387,6 +443,25 @@ public class DBUtils {
         pstm.setDate(3, ngaySinh);
         pstm.setString(4, diaChi);
         pstm.setInt(5, maKH);
+        pstm.executeUpdate();
+    }
+    public static void EditUser(Connection conn,int maKH,String hoTen,String sdt,Date ngaySinh,String diaChi, String username,int roleID) throws SQLException {
+        String sql =" Update Users"
+                +" set hoTen =?,"
+                +" sdt=?,"
+                +" ngaySinh=?,"
+                +" diaChi=?"
+                +" username=?"
+                +" roleID=?"
+                +" where maKH=?";
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        pstm.setString(1, hoTen);
+        pstm.setString(2, sdt);
+        pstm.setDate(3, ngaySinh);
+        pstm.setString(4, diaChi);
+        pstm.setString(5,username);
+        pstm.setInt(6,roleID);
+        pstm.setInt(7, maKH);
         pstm.executeUpdate();
     }
     public static List<ChiTietDonHang> getChiTietDonHang_bymaKH(Connection conn, int idmaKH) throws SQLException {
