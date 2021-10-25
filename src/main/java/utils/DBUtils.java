@@ -46,6 +46,22 @@ public class DBUtils {
         }
         return list;
     }
+    // Load all VanChuyen
+    public static List<VanChuyen> getAllVanChuyen(Connection conn) throws SQLException {
+        CallableStatement cstm = conn.prepareCall("{call load_VanChuyen()}");
+        ResultSet rs = cstm.executeQuery();
+        List<VanChuyen> list = new ArrayList<VanChuyen>();
+        while (rs.next()) {
+            int maDV = rs.getInt("maDV");
+            String tenDV = rs.getString("tenDV");
+            String email = rs.getString("email");
+            String SDT = rs.getString("SDT");
+            String diaChi = rs.getString("diaChi");
+            VanChuyen vanChuyen = new VanChuyen(maDV,tenDV,email,SDT,diaChi);
+            list.add(vanChuyen);
+        }
+        return list;
+    }
 
     public static SanPham getttSanPham(Connection conn, String idSP) throws SQLException {
 //		String sql = "select * from sanpham"
@@ -517,15 +533,23 @@ public static List<Role> getAllRold(Connection conn) throws SQLException {
         pstm.setString(3, noiDung);
         pstm.executeUpdate();
     }
+    public static void Deletereview(Connection conn, String maCMT) throws SQLException {
+        CallableStatement cstm = conn.prepareCall("{call delete_BinhLuan(?)}");
+
+        cstm.setString(1, maCMT);
+
+        cstm.execute();
+    }
+
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         Connection conn = ConnectionUtils.getConnection();
 
+        Deletereview(conn,"2");
+//        List<LoaiSP> listLSP = DBUtils.getAllLoaiSP(conn);
+//        for (LoaiSP l : listLSP) {
+//            System.out.println(l);
+//        }
 
-        List<LoaiSP> listLSP = DBUtils.getAllLoaiSP(conn);
-        for (LoaiSP l : listLSP) {
-            System.out.println(l);
-        }
-
-        System.out.println(getttSanPham(conn, "34"));
+//        System.out.println(getttSanPham(conn, "34"));
     }
 }

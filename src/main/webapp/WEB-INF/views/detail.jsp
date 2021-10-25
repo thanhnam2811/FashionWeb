@@ -234,8 +234,14 @@
                             <div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
                                 <div class="p-b-30 m-lr-15-sm">
                                     <!-- Review -->
-                                    <c:forEach items="${listBL}" var="o" begin="0" end="5">
+                                    <!--DeleteReview-->
+                                    <c:forEach items="${listBL}" var="o">
                                         <div class="flex-w flex-t p-b-68">
+                                            <c:if test="${sessionScope.loginedUser.roleID==1}">
+                                                <form action="deleteReview?maSP=${SP.maSP}&maCMT=${o.maCMT}" method="post" >
+                                                    <input class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10" id="submit" type="submit" name="submit" value="Xóa bình luận">
+                                                </form>
+                                            </c:if>
                                             <div class="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6">
                                                 <img src="images/avatar-01.jpg" alt="AVATAR">
                                             </div>
@@ -251,9 +257,11 @@
 													</span>
                                                 </div>
                                                 <p class="stext-102 cl6">Ngày đăng: ${o.ngayDang }</p>
-                                                <p class="stext-102 cl6">${o.noiDung}</p>
+
+                                                <span class="mtext-107 cl2 p-r-20">${o.noiDung}</span>
                                             </div>
                                         </div>
+
                                     </c:forEach>
                                     <!-- Add review -->
                                     <form action="addReview?maSP=${SP.maSP}" method="post" >
