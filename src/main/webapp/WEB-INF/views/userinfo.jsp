@@ -102,6 +102,7 @@
 				<div class="flex-grow-1">
 					<h5>Mã đơn hàng: ${p.maDH } &emsp;  Ngày mua:${p.ngayMua } &emsp; Tổng
 						tiền: <fmt:formatNumber maxFractionDigits="0" value="${p.tongTien}"/>đ</h5>
+					<h5>Người nhận: ${p.tenNguoiNhan } &emsp;  Địa chỉ:${p.diaChi } &emsp; SDT: ${p.sdt}</h5>
 
 					<table border="1">
 						<tr>
@@ -143,17 +144,17 @@
 						<!-- -->
 
 						<label>Họ và tên:</label>
-						<input type="text" value="${info.hoTen }" name="hoten">
+						<input type="text" required="" value="${info.hoTen }" name="hoten">
 						<br>
 						<label>Số điện thoại:</label>
-						<input type="text" value="${info.sdt }" name="sdt">
+						<input type="text" required="" value="${info.sdt }" name="sdt">
 						<br>
 						<label>Ngày tháng năm sinh:</label>
-						<input type="date" name="namsinh" value="${info.ngaySinh }"> <br>
+						<input type="date" required="" name="namsinh" value="${info.ngaySinh }"> <br>
 						<label>Địa chỉ:</label>
-						<input type="text" value="${info.diaChi }" name="diachi">
+						<input type="text" required="" value="${info.diaChi }" name="diachi">
 						<br>
-						<input id="submit" type="submit" name="submit" value="Cập nhật">
+						<input id="submit"  type="submit" name="submit" value="Cập nhật">
 					</form>
 				</section>
 
@@ -167,16 +168,15 @@
 			<h2 class="mb-5">Thay đổi mật khẩu</h2>
 			<form action="edituserpassword" onsubmit="return checkPassword()"
 				  method="post">
-				<label>Mật khẩu cũ:</label> <input type="password"
-												   placeholder="OldPassword" id="oldpassword" name="oldpassword" />
+				<label>Mật khẩu cũ:</label> <input type="password" required=""
+												   placeholder="OldPassword"  name="oldpassword" />
 				<br>
 				<p>${mess }</p>
-				<label>Mật khẩu mới:</label> <input type="password"
+				<label>Mật khẩu mới:</label> <input type="password" required=""
 													placeholder="NewPassword" id="newpassword" name="newpassword" />
-				<br> <label>Nhập lại mật khẩu:</label> <input type="password"
+				<br> <label>Nhập lại mật khẩu:</label> <input type="password" required=""
 															  placeholder="ConfirmPassword" id="cpassword" name="cpassword" />
 				<br>
-				<p>${mess2 }</p>
 				<span style="color: rgb(238, 17, 17);" id="message_error"></span>
 				<input id="submit" type="submit" name="submit" value="Cập nhật">
 			</form>

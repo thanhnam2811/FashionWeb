@@ -512,7 +512,7 @@ public static List<Role> getAllRold(Connection conn) throws SQLException {
 
 
     public static List<DonHang> getlistDonHang_bymaKH(Connection conn, int idmaKH) throws SQLException {
-        String sql = " select DonHang.maDH,DonHang.maKH,DonHang.ngayMua,DonHang.tongTien,DonHang.maDV"
+        String sql = " select DonHang.maDH,DonHang.maKH,DonHang.tenNguoiNhan,DonHang.diaChi,DonHang.sdt ,DonHang.ngayMua,DonHang.tongTien,DonHang.maDV"
                 + " from DonHang join Users on DonHang.maKH=Users.maKH"
                 + " where  DonHang.maKH=?";
         PreparedStatement pstm = conn.prepareStatement(sql);
@@ -524,10 +524,13 @@ public static List<Role> getAllRold(Connection conn) throws SQLException {
         while (rs.next()) {
             int maDH = rs.getInt("maDH");
             int maKH = rs.getInt("maKH");
+            String tenNguoiNhan = rs.getString("tenNguoiNhan");
+            String diaChi = rs.getString("diaChi");
+            String sdt = rs.getString("sdt");
             Date ngayMua = rs.getDate("ngayMua");
             float tongTien = rs.getFloat("tongTien");
             int maDV = rs.getInt("maDV");
-            DonHang donHang = new DonHang(maDH, maKH, ngayMua, tongTien, maDV);
+            DonHang donHang = new DonHang(maDH, maKH,tenNguoiNhan,diaChi,sdt, ngayMua, tongTien,maDV);
             list.add(donHang);
         }
         return list;
@@ -551,8 +554,8 @@ public static List<Role> getAllRold(Connection conn) throws SQLException {
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         Connection conn = ConnectionUtils.getConnection();
-
-        Deletereview(conn,"2");
+        //EditUserInfo_password(conn,1,"nam1");
+        //Deletereview(conn,"2");
 //        List<LoaiSP> listLSP = DBUtils.getAllLoaiSP(conn);
 //        for (LoaiSP l : listLSP) {
 //            System.out.println(l);
