@@ -294,7 +294,7 @@
                                                     review</label>
 
                                                 <input class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10"
-                                                       type="text" name="textReview"  placeholder="Hãy nhập bình luận của bạn">
+                                                       type="text" id="textReview" name="textReview" required=""  placeholder="Hãy nhập bình luận của bạn">
                                             </div>
                                         </div>
 
@@ -302,7 +302,7 @@
 <%--                                                class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10" value="submit">--%>
 <%--                                            Submit--%>
 <%--                                        </button>--%>
-                                        <input class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10" id="submit" type="submit" name="submit" value="Thêm bình luận">
+                                        <input class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10"  id="submit" type="submit" name="submit" value="Thêm bình luận">
                                     </form>
                                 </div>
                             </div>
