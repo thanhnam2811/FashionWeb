@@ -130,11 +130,13 @@
                                     <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
                                         <i class="fs-16 zmdi zmdi-plus"></i>
                                     </div>
+
                                     <input type="text" name="maSP" style="display: none"
                                            value="${SP.maSP}">
                                     <input type="text" name="giaSP" style="display: none"
                                            value="${SP.giaSP}">
                                 </div>
+                                    <span style="font-size: 15px; color: rgb(238, 17, 17);" id="message_error">${errorString }</span>
                                 <button
                                         class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
                                     Thêm vào giỏ hàng

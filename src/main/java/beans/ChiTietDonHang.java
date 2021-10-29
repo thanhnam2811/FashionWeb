@@ -10,6 +10,12 @@ public class ChiTietDonHang {
 	private float thanhTien;
 	public ChiTietDonHang() {
 	}
+
+	public ChiTietDonHang(int maSP,int soLuongSP)
+	{
+		this.maSP = maSP;
+		this.soLuongSP = soLuongSP;
+	}
 	public ChiTietDonHang(int iD, int maDH, int maSP, int soLuongSP, float thanhTien) {
 		super();
 		ID = iD;
@@ -62,6 +68,7 @@ public class ChiTietDonHang {
 		return 0;
 		
 	}
+
 	@Override
 	public String toString() {
 		return "ChiTietDonHang [ID=" + ID + ", maDH=" + maDH + ", maSP=" + maSP + ", soLuongSP=" + soLuongSP

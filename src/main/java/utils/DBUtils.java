@@ -548,6 +548,25 @@ public static List<Role> getAllRold(Connection conn) throws SQLException {
 
         cstm.execute();
     }
+    //ThongKe
+    public static List<ChiTietDonHang> getSoLuongSPDaMua(Connection conn) throws SQLException {
+        String sql = "Select maSP, Sum(soLuongSP)as SoLuong\n" +
+                "From ChiTietDonHang\n" +
+                "Group by maSP";
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        ResultSet rs = pstm.executeQuery();
+        List<ChiTietDonHang> list = new ArrayList<ChiTietDonHang>();
+
+
+        while (rs.next()) {
+
+            int maSP = rs.getInt("maSP");
+            int soLuongSP = rs.getInt("soLuong");
+            ChiTietDonHang chiTietDonHang = new ChiTietDonHang(maSP, soLuongSP);
+            list.add(chiTietDonHang);
+        }
+        return list;
+    }
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         Connection conn = ConnectionUtils.getConnection();
