@@ -219,7 +219,31 @@ public class DBUtils {
         }
         return list;
     }
+    public static List<ChiTietGioHang> getChiTietGioHangByMaKH(Connection conn, int maKH) throws SQLException {
+        String sql = "Select ChiTietGioHang.ID, ChiTietGioHang.maSP,ChiTietGioHang.soLuongSP, tenSP,giaSP,hinhSP,ChiTietGioHang.thanhTien\n"
+                + "From ChiTietGioHang, SanPham, Users\n"
+                + "Where ChiTietGioHang.maKH = Users.maKH  and ChiTietGioHang.maSP = SanPham.maSP\n"
+                + "	and Users.maKH = ?";
 
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        pstm.setInt(1, maKH);
+        ResultSet rs = pstm.executeQuery();
+        List<ChiTietGioHang> list = new ArrayList<ChiTietGioHang>();
+        while (rs.next()) {
+            int ID = rs.getInt("ID");
+            int idKH = maKH;
+            SanPham sp = new SanPham();
+            sp.setMaSP(rs.getInt("maSP"));
+            sp.setTenSP(rs.getString("tenSP"));
+            sp.setHinhSP(rs.getString("hinhSP"));
+            sp.setSoLuongSP(rs.getInt("soLuongSP"));
+            sp.setGiaSP(rs.getFloat("giaSP"));
+            float thanhTien = rs.getFloat("thanhTien");
+            ChiTietGioHang spInCart = new ChiTietGioHang(ID,idKH,sp,thanhTien);
+            list.add(spInCart);
+        }
+        return list;
+    }
     //
     public static void deleteCartByID(Connection conn, String id) throws SQLException {
         String sql = "{call delete_chiTietGioHang(?)}";

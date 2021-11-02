@@ -79,37 +79,37 @@
                                 <th class="column-5">Xóa</th>
                             </tr>
 
-                            <c:forEach items="${listSPinCart}" var="o">
+                            <c:forEach items="${listChiTietGioHang}" var="o">
                                 <tr class="table_row">
                                     <td class="column-1">
                                         <div class="how-itemcart1">
-                                            <img src="${o.hinhSP}" alt="IMG">
+                                            <img src="${o.sanPham.hinhSP}" alt="IMG">
                                         </div>
                                     </td>
-                                    <td class="column-2">${o.tenSP}</td>
+                                    <td class="column-2">${o.sanPham.tenSP}</td>
                                     <td class="column-3 stext-105 cl3">
                                         <fmt:formatNumber type="number"
-                                                          maxFractionDigits="0" value="${o.giaSP}"/>vnđ
+                                                          maxFractionDigits="0" value="${o.sanPham.giaSP}"/>vnđ
                                     </td>
                                     <td class="column-4">
                                         <div class="wrap-num-product flex-w m-l-auto m-r-0">
                                             <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-                                                <a href="updateNumProductByID?cartID=${o.ID}&numProduct=${o.soLuongSP -1}"><i style="padding: 15px"
+                                                <a href="updateNumProductByID?cartID=${o.id}&numProduct=${o.sanPham.soLuongSP -1}"><i style="padding: 15px"
                                                         class="fs-16 zmdi zmdi-minus"></i></a>
                                             </div>
 
                                             <input class="mtext-104 cl3 txt-center num-product" type="number"
-                                                   name="numProduct" value="${o.soLuongSP}">
+                                                   name="numProduct" value="${o.sanPham.soLuongSP}">
 
                                             <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-                                                <a href="updateNumProductByID?cartID=${o.ID}&numProduct=${o.soLuongSP +1}"><i style="padding: 15px"
+                                                <a href="updateNumProductByID?cartID=${o.id}&numProduct=${o.sanPham.soLuongSP +1}"><i style="padding: 15px"
                                                         class="fs-16 zmdi zmdi-plus"></i></a>
                                             </div>
                                         </div>
                                     </td>
                                     <td class="column-5"><a style="padding: 10px;"
                                                             class="  cl2 size-101 bg1 bor13 hov-btn3 pointer "
-                                                            href="deleteCartByID?cartID=${o.ID}">Xóa</a></td>
+                                                            href="deleteCartByID?cartID=${o.id}">Xóa</a></td>
                                 </tr>
                             </c:forEach>
 

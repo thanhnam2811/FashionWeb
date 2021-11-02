@@ -90,7 +90,7 @@
 
                             <c:if test="${sessionScope.loginedUser!=null}">
                                 <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
-                                     data-notify="${listSPinCart.size()}">
+                                     data-notify="${listChiTietGioHang.size()}">
                                     <i class="zmdi zmdi-shopping-cart"></i>
                                 </div>
 
@@ -225,20 +225,20 @@
 
         <div class="header-cart-content flex-w js-pscroll">
             <ul class="header-cart-wrapitem w-full">
-                <c:forEach items="${listSPinCart}" var="o">
+                <c:forEach items="${listChiTietGioHang}" var="o">
                     <li class="header-cart-item flex-w flex-t m-b-12">
                         <div class="header-cart-item-img">
-                            <img src="${o.hinhSP }" alt="IMG">
+                            <img src="${o.sanPham.hinhSP }" alt="IMG">
                         </div>
 
                         <div class="header-cart-item-txt p-t-8">
                             <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-                                    ${o.tenSP }
+                                    ${o.sanPham.tenSP }
                             </a>
 
                             <span class="header-cart-item-info ">
-								${o.soLuongSP} x  <fmt:formatNumber type="number"
-                                                                    maxFractionDigits="0" value="${o.giaSP}"/>vnđ
+								${o.sanPham.soLuongSP} x  <fmt:formatNumber type="number"
+                                                                    maxFractionDigits="0" value="${o.sanPham.giaSP}"/>vnđ
 							</span>
                         </div>
                     </li>

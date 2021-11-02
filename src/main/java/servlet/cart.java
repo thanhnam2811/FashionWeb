@@ -59,7 +59,7 @@ public class cart extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		Connection conn;
-		List<SanPhamInCart> listSPinCart = null;
+		List<ChiTietGioHang> listChiTietGioHang = null;
 		List<VanChuyen> listVanChuyen=null;
 		try {
 			conn = ConnectionUtils.getConnection();
@@ -69,8 +69,8 @@ public class cart extends HttpServlet {
 			if(u != null) {
 				listVanChuyen=DBUtils.getAllVanChuyen(conn);
 				int id = u.getMaKH();
-				listSPinCart = DBUtils.getSanPhamInCart(conn, id);//
-				request.setAttribute("listSPinCart", listSPinCart);
+				listChiTietGioHang = DBUtils.getChiTietGioHangByMaKH(conn, id);
+				request.setAttribute("listChiTietGioHang", listChiTietGioHang);
 				//
 				double sum = DBUtils.tongTienInCart(conn, id);
 				request.setAttribute("sumAll", sum);
