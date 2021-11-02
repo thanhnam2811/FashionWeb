@@ -48,18 +48,7 @@ public class deleteCartByID extends HttpServlet {
 			String cartID = request.getParameter("cartID");
 			DBUtils.deleteCartByID(conn, cartID);
 			//
-			HttpSession session = request.getSession();
-			Users u = MyUtils.getLoginedUser(session);
-			if(u != null) {
-				int id = u.getMaKH();
-				listSPinCart = DBUtils.getSanPhamInCart(conn, id);//
-				request.setAttribute("listSPinCart", listSPinCart);
-				//
-				double sum = DBUtils.tongTienInCart(conn, id);
-				request.setAttribute("sumAll", sum);
-			}
-			//
-			request.getRequestDispatcher("/WEB-INF/views/cart.jsp").forward(request, response);
+			new cart().doGet(request,response);
 		} catch (ClassNotFoundException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
