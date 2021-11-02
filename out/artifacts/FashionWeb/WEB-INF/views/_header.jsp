@@ -44,7 +44,8 @@
                             <img src="images/icons/logo-01.png" alt="IMG-LOGO">
                         </a>
 
-                        <!-- Menu desktop -->
+                        <!-- Menu desktop for user -->
+                    <c:if test="${sessionScope.loginedUser.roleID!=1}">
                         <div class="menu-desktop">
                             <ul class="main-menu">
                                 <li>
@@ -70,17 +71,46 @@
                                 <li>
                                     <a href="contact.html">Contact</a>
                                 </li>
-                                <c:if test="${sessionScope.loginedUser.roleID==1}">
-                                    <li>
-                                        <a href="${pageContext.request.contextPath}/productManagement">Product Manager</a>
-                                    </li>
-                                </c:if>
 
                             </ul>
                         </div>
+                    </c:if>
+
+                    <!-- Menu desktop for admin -->
+                        <c:if test="${sessionScope.loginedUser.roleID==1}">
+                            <div class="menu-desktop">
+                                <ul class="main-menu">
+                                    <li>
+                                        <a href="${pageContext.request.contextPath}/home">Home</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="${pageContext.request.contextPath}/product">Shop</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="${pageContext.request.contextPath}/productManagement">Product Manager</a>
+                                    </li>
+
+                                    <li >
+                                        <a href="${pageContext.request.contextPath}/brandManagement">Brand Manager</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="${pageContext.request.contextPath}/UserManagement">User Manager</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="${pageContext.request.contextPath}/Statistic">Statistic</a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </c:if>
+
 
                         <!-- Icon header -->
-
+                        <c:if test="${sessionScope.loginedUser.roleID!=1}">
                         <div class="wrap-icon-header flex-w flex-r-m">
 
                             <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
@@ -100,7 +130,7 @@
                                 </a>
                             </c:if>
                         </div>
-
+                        </c:if>
                     </nav>
                 </div>
             </div>
