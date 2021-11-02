@@ -15,6 +15,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 
+import utils.*;
 import conn.ConnectionUtils;
 
 @WebFilter(filterName = "jdbcFilter", urlPatterns = { "/*" })
@@ -94,7 +95,7 @@ public class JDBCFilter implements Filter {
 				conn.setAutoCommit(false);
 
 				// Lưu trữ đối tượng Connection vào attribute của request.
-				// MyUtils.storeConnection(request, conn);
+				MyUtils.storeConnection(request, conn);
 
 				// Cho phép request đi tiếp.
 				// (Đi tới Filter tiếp theo hoặc đi tới mục tiêu).

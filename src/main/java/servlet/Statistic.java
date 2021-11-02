@@ -4,6 +4,7 @@ import beans.ChiTietDonHang;
 import beans.SanPham;
 import conn.ConnectionUtils;
 import utils.DBUtils;
+import utils.MyUtils;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -17,19 +18,17 @@ import java.util.List;
 public class Statistic extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Connection conn;
+
         List<ChiTietDonHang> listSPDaMua;
         List<SanPham> listSP;
         try {
-            conn = ConnectionUtils.getConnection();
+            Connection conn = MyUtils.getStoredConnection(request);
             listSPDaMua = DBUtils.getSoLuongSPDaMua(conn);
             listSP = DBUtils.getAllSanPham(conn);
             request.setAttribute("listSP", listSP);
             request.setAttribute("listSPDaMua",listSPDaMua);
             request.getRequestDispatcher("/WEB-INF/views/statistics.jsp").forward(request, response);
 
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         } catch (SQLException e) {
             e.printStackTrace();
         }

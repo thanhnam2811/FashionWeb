@@ -48,10 +48,9 @@ public class signIn extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String errorString = null;
-		Connection conn;
 		Users u = new Users();
 		try {
-			conn = ConnectionUtils.getConnection();
+			Connection conn = MyUtils.getStoredConnection(request);
 			u =  DBUtils.findUser(conn, username, password);
 
 			if(u != null)
@@ -79,9 +78,6 @@ public class signIn extends HttpServlet {
 				request.setAttribute("errorString", errorString);
 				request.getRequestDispatcher("/WEB-INF/views/signIn.jsp").forward(request, response);
 			}
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

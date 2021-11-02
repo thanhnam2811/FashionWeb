@@ -16,6 +16,7 @@ import beans.SanPham;
 import beans.SanPhamInCart;
 import conn.ConnectionUtils;
 import utils.DBUtils;
+import utils.MyUtils;
 
 /**
  * Servlet implementation class home
@@ -37,12 +38,12 @@ public class home extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		Connection conn;
+
 		List<SanPham> listSP;
 		List<LoaiSP> listLoaiSP;
 
 		try {
-			conn = ConnectionUtils.getConnection();
+			Connection conn = MyUtils.getStoredConnection(request);
 			listSP = DBUtils.getAllSanPham(conn);
 			listLoaiSP = DBUtils.getAllLoaiSP(conn);
 			request.setAttribute("listSP", listSP);
@@ -50,7 +51,7 @@ public class home extends HttpServlet {
 
 			new cart().doPost(request, response);
 			request.getRequestDispatcher("/WEB-INF/views/index.jsp").forward(request, response);
-		} catch (ClassNotFoundException | SQLException e1) {
+		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}

@@ -19,6 +19,7 @@ import beans.SanPham;
 import beans.Users;
 import conn.ConnectionUtils;
 import utils.DBUtils;
+import utils.MyUtils;
 
 /**
  * Servlet implementation class edituserinfo
@@ -40,10 +41,10 @@ public class edituserinfo extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		Connection conn;
+
 		Users user = null;
-		try {	
-			conn = ConnectionUtils.getConnection();
+		try {
+			Connection conn = MyUtils.getStoredConnection(request);
 			HttpSession session= request.getSession();
 			Users a = (Users) session.getAttribute("loginedUser");
 			int maKH=a.getMaKH();
@@ -55,9 +56,6 @@ public class edituserinfo extends HttpServlet {
 			String diaChi=request.getParameter("diachi");
 			DBUtils.EditUserInfo(conn, maKH, hoTen, sdt, ngaySinh, diaChi);
 			response.sendRedirect("userinfo");
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
 		} catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();

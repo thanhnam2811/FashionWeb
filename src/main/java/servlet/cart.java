@@ -58,11 +58,11 @@ public class cart extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		Connection conn;
+
 		List<ChiTietGioHang> listChiTietGioHang = null;
 		List<VanChuyen> listVanChuyen=null;
 		try {
-			conn = ConnectionUtils.getConnection();
+			Connection conn = MyUtils.getStoredConnection(request);
 
 			HttpSession session = request.getSession();
 			Users u = MyUtils.getLoginedUser(session);
@@ -79,8 +79,6 @@ public class cart extends HttpServlet {
 			//
 		} catch (SQLException throwables) {
 			throwables.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		}
 	}
 

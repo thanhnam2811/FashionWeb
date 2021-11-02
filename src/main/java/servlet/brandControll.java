@@ -4,6 +4,7 @@ import beans.ThuongHieu;
 import conn.ConnectionUtils;
 import utils.AdminManagerBrand;
 import utils.DBUtils;
+import utils.MyUtils;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -17,14 +18,14 @@ import java.util.List;
 public class brandControll extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Connection conn;
+
         List<ThuongHieu> listTH;
         try {
-            conn = ConnectionUtils.getConnection();
+            Connection conn = MyUtils.getStoredConnection(request);
             listTH = DBUtils.getAllThuongHieu(conn);
             request.setAttribute("listTH", listTH);
             request.getRequestDispatcher("/WEB-INF/views/brand_management.jsp").forward(request, response);
-        } catch (ClassNotFoundException | SQLException e1) {
+        } catch (SQLException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
         }

@@ -5,6 +5,7 @@ import beans.SanPham;
 import beans.Users;
 import conn.ConnectionUtils;
 import utils.DBUtils;
+import utils.MyUtils;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -19,7 +20,7 @@ import java.util.List;
 public class editUser extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Connection conn = null;
+
         int maKH = Integer.parseInt(request.getParameter("maKH"));
         Users user;
 
@@ -27,7 +28,7 @@ public class editUser extends HttpServlet {
         List<Role> listRole;
 
         try {
-            conn = ConnectionUtils.getConnection();
+            Connection conn = MyUtils.getStoredConnection(request);
             listUser = DBUtils.getAllUser(conn);
             listRole = DBUtils.getAllRold(conn);
             user = DBUtils.getInfoUser(conn,maKH);
@@ -35,7 +36,7 @@ public class editUser extends HttpServlet {
             request.setAttribute("listRole", listRole);
             request.setAttribute("user", user);
             request.getRequestDispatcher("/WEB-INF/views/editUser.jsp").forward(request, response);
-        } catch (ClassNotFoundException | SQLException e1) {
+        } catch (SQLException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
         }

@@ -7,11 +7,28 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
+import java.util.List;
+import beans.ChiTietGioHang;
 import beans.Users;
 
 public class MyUtils {
 
+	public static final String ATT_NAME_CONNECTION = "ATTRIBUTE_FOR_CONNECTION";
+
+	private static final String ATT_NAME_USER_NAME = "ATTRIBUTE_FOR_STORE_USER_NAME_IN_COOKIE";
+
+	// Lưu trữ Connection vào attribute của request.
+	// Thông tin lưu trữ này chỉ tồn tại trong thời gian yêu cầu (request)
+	// cho tới khi dữ liệu được trả về trình duyệt người dùng.
+	public static void storeConnection(ServletRequest request, Connection conn) {
+		request.setAttribute(ATT_NAME_CONNECTION, conn);
+	}
+
+	// Lấy đối tượng Connection đã được lưu trữ trong attribute của request.
+	public static Connection getStoredConnection(ServletRequest request) {
+		Connection conn = (Connection) request.getAttribute(ATT_NAME_CONNECTION);
+		return conn;
+	}
 	// Lưu trữ thông tin người dùng đã login vào Session.
 	public static void storeLoginedUser(HttpSession session, Users loginedUser) {
 		// Trên JSP có thể truy cập thông qua ${loginedUser}
@@ -22,5 +39,16 @@ public class MyUtils {
 	public static Users getLoginedUser(HttpSession session) {
 		Users loginedUser = (Users) session.getAttribute("loginedUser");
 		return loginedUser;
+	}
+	// Lưu trữ thông tin giỏ hàng vào Session.
+	public static void storeUserCart(HttpSession session, List<ChiTietGioHang> userCart) {
+		// Trên JSP có thể truy cập thông qua ${loginedUser}
+		session.setAttribute("userCart", userCart);
+	}
+
+	// Lấy thông tin giỏ hàng lưu trữ trong Session.
+	public static List<ChiTietGioHang> getUserCart(HttpSession session) {
+		List<ChiTietGioHang> userCart = (List<ChiTietGioHang>) session.getAttribute("userCart");
+		return userCart;
 	}
 }

@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import conn.ConnectionUtils;
 import utils.DBUtils;
+import utils.MyUtils;
 
 /**
  * Servlet implementation class signUp
@@ -47,7 +48,7 @@ public class signUp extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		Connection conn;
+
 		String hoten = request.getParameter("hoten");
 		String sdt = request.getParameter("sdt");
 		String ngaySinh =  request.getParameter("ngaySinh");
@@ -57,9 +58,9 @@ public class signUp extends HttpServlet {
 		
 		Date date = Date.valueOf(ngaySinh);
 		try {
-			conn = ConnectionUtils.getConnection();
+			Connection conn = MyUtils.getStoredConnection(request);
 			DBUtils.insertUser(conn, hoten,sdt,date,diaChi,username,password);
-		} catch (ClassNotFoundException | SQLException e1) {
+		} catch ( SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}

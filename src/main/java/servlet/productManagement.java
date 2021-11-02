@@ -5,6 +5,7 @@ import beans.SanPham;
 import beans.ThuongHieu;
 import conn.ConnectionUtils;
 import utils.DBUtils;
+import utils.MyUtils;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -20,13 +21,13 @@ public class productManagement extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
-        Connection conn;
+
         List<SanPham> listSP;
         List<LoaiSP> listLoaiSP;
         List<ThuongHieu> listTH;
 
         try {
-            conn = ConnectionUtils.getConnection();
+            Connection conn = MyUtils.getStoredConnection(request);
             listSP = DBUtils.getAllSanPham(conn);
             listLoaiSP = DBUtils.getAllLoaiSP(conn);
             listTH = DBUtils.getAllThuongHieu(conn);
@@ -34,7 +35,7 @@ public class productManagement extends HttpServlet {
             request.setAttribute("listLoaiSP", listLoaiSP);
             request.setAttribute("listTH", listTH);
             request.getRequestDispatcher("/WEB-INF/views/product-management.jsp").forward(request, response);
-        } catch (ClassNotFoundException | SQLException e1) {
+        } catch (SQLException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
         }

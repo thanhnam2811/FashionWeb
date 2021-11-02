@@ -2,6 +2,7 @@ package servlet;
 
 import conn.ConnectionUtils;
 import utils.DBUtils;
+import utils.MyUtils;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -15,15 +16,15 @@ import java.sql.SQLException;
 public class deleteProduct extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Connection conn = null;
+
         String maSP = request.getParameter("maSP");
         try {
-            conn = ConnectionUtils.getConnection();
+            Connection conn = MyUtils.getStoredConnection(request);
             DBUtils.deleteSanPham(conn, maSP);
 
             // Quay về trang product management
             new productManagement().doGet(request, response);
-        } catch (SQLException | ClassNotFoundException throwables) {
+        } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }

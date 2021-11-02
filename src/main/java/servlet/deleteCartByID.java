@@ -40,19 +40,17 @@ public class deleteCartByID extends HttpServlet {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		
-		Connection conn;
+
 		List<SanPhamInCart> listSPinCart = null;
 		try {
-			conn = ConnectionUtils.getConnection();
+			Connection conn = MyUtils.getStoredConnection(request);
 			//
 			String cartID = request.getParameter("cartID");
 			DBUtils.deleteCartByID(conn, cartID);
 			//
 			new cart().doGet(request,response);
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (SQLException e1) {
+		}
+		catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}

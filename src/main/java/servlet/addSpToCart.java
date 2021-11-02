@@ -24,49 +24,43 @@ public class addSpToCart extends HttpServlet {
 //        response.setContentType("text/html;charset=UTF-8");
 
         //
-        Connection conn;
+
         List<SanPhamInCart> listSPinCart = null;
         DonHang dh = new DonHang();
-        try {
-            conn = ConnectionUtils.getConnection();
 
-            HttpSession session = request.getSession();
-            Users u = MyUtils.getLoginedUser(session);
-            if(u != null) {
-                int maKH = u.getMaKH();
-                int num = Integer.parseInt(request.getParameter("numSP"));
-                int maSP = Integer.parseInt(request.getParameter("maSP"));
-                Float giaSP = Float.parseFloat(request.getParameter("giaSP"));
+        HttpSession session = request.getSession();
+        Users u = MyUtils.getLoginedUser(session);
+        if(u != null) {
+            int maKH = u.getMaKH();
+            int num = Integer.parseInt(request.getParameter("numSP"));
+            int maSP = Integer.parseInt(request.getParameter("maSP"));
+            Float giaSP = Float.parseFloat(request.getParameter("giaSP"));
 
-                Float thanhTien = giaSP * num;
-                try {
-                    DBUtils.addSpToCart(conn, maKH, maSP, num, thanhTien);
-                    // Chuyển qua trang home
-                    String contextPath = request.getContextPath();
-                    response.sendRedirect(contextPath + "/home");
-                } catch (SQLException throwables) {
-
-                    String error = "Sản phẩm không đủ đáp ứng hoặc đã được chọn trong giỏ hàng!!";
-                    request.setAttribute("errorString", error);
-                    request.setAttribute("maSP",maSP);
-                    new detail().doGet(request,response);
-
-                    throwables.printStackTrace();
-
-                }
-
-            }
-            else
-            {
+            Float thanhTien = giaSP * num;
+            try {
+                Connection conn = MyUtils.getStoredConnection(request);
+                DBUtils.addSpToCart(conn, maKH, maSP, num, thanhTien);
+                // Chuyển qua trang home
                 String contextPath = request.getContextPath();
-                response.sendRedirect(contextPath + "/signIn");
+                response.sendRedirect(contextPath + "/home");
+            } catch (SQLException throwables) {
+
+                String error = "Sản phẩm không đủ đáp ứng hoặc đã được chọn trong giỏ hàng!!";
+                request.setAttribute("errorString", error);
+                request.setAttribute("maSP",maSP);
+                new detail().doGet(request,response);
+
+                throwables.printStackTrace();
+
             }
-            //
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+
         }
+        else
+        {
+            String contextPath = request.getContextPath();
+            response.sendRedirect(contextPath + "/signIn");
+        }
+
     }
 
     @Override

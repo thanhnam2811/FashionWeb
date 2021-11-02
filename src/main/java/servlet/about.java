@@ -15,7 +15,7 @@ import beans.LoaiSP;
 import beans.SanPham;
 import beans.SanPhamInCart;
 import conn.ConnectionUtils;
-import utils.DBUtils;
+import utils.*;
 
 /**
  * Servlet implementation class home
@@ -37,15 +37,10 @@ public class about extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
-        Connection conn;
-        try {
-            conn = ConnectionUtils.getConnection();
+
             new cart().doPost(request, response);
             request.getRequestDispatcher("/WEB-INF/views/about.jsp").forward(request, response);
-        } catch (ClassNotFoundException | SQLException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-        }
+
     }
 
     /**
