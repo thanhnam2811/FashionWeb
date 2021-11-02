@@ -285,10 +285,14 @@ public class DBUtils {
 
     }
     public static void insertDonHang(Connection conn, DonHang dh) throws SQLException {
-        CallableStatement cstm = conn.prepareCall("{call insert_donhang(?, ?, ?)}");
+        CallableStatement cstm = conn.prepareCall("{call insert_donhang(?, ?, ? ,? ,? ,?)}");
+        // DonHang(maKH, tenNguoiNhan, diaChi,sdt,tongTien, maDV)
         cstm.setInt(1, dh.getMaKH());///
-        cstm.setFloat(2,dh.getTongTien() );
-        cstm.setInt(3, dh.getMaDV());
+        cstm.setString(2,dh.getTenNguoiNhan());
+        cstm.setString(3,dh.getDiaChi());
+        cstm.setString(4,dh.getSdt());
+        cstm.setFloat(5,dh.getTongTien());
+        cstm.setInt(6, dh.getMaDV());
         cstm.execute();
     }
     public static void insertChiTietDonHang(Connection conn, int maDH, int maSP, int soLuong, float thanhTien)throws SQLException {

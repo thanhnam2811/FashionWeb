@@ -159,34 +159,25 @@
 										Thông tin khách hàng:
 									</span>
 
-
-
                                 <div class="bor8 bg0 m-b-12">
-                                    <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="state"
+                                    <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="province"
                                            placeholder="Tỉnh / Thành phố">
                                 </div>
 
                                 <div class="bor8 bg0 m-b-22">
-                                    <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="postcode"
+                                    <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="phoneNumber"
                                            placeholder="Số điện thoại">
                                 </div>
 
-                                <span class="stext-112 cl8">
-										Hình thức thanh toán
-                                </span>
-                                <div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
-                                    <select class="js-select2" name="time">
-                                        <option>Thanh toán...</option>
-                                        <option>Tiền mặt</option>
-                                        <option>Internet banking</option>
-                                    </select>
-                                    <div class="dropDownSelect2"></div>
+                                <div class="bor8 bg0 m-b-22">
+                                    <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="nameReceiver"
+                                           placeholder="Tên người nhận">
                                 </div>
                                 <span class="stext-112 cl8">
 										Phương thức vận chuyển
                                 </span>
                                 <div  class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
-                                    <select class="js-select2" name="time">
+                                    <select class="js-select2" name="service">
                                         <c:forEach items="${listVanChuyen}" var="o">
                                             <option value="${o.maDV}">${o.tenDV}</option>
                                         </c:forEach>

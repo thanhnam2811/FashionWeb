@@ -70,6 +70,10 @@ public class order extends HttpServlet {
                     //Loi Trigger khi mua hàng
                     float sum = DBUtils.tongTienInCart(conn, id);
                     dh.setMaKH(id);
+                    dh.setTenNguoiNhan(request.getParameter("nameReceiver"));
+                    dh.setDiaChi(request.getParameter("province"));
+                    dh.setSdt(request.getParameter("phoneNumber"));
+                    dh.setMaDV(Integer.parseInt(request.getParameter("service")));
                     dh.setTongTien(sum);
                     DBUtils.insertDonHang(conn, dh);
                     //Xoa Gio Hang cua User
