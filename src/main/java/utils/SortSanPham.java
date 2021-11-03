@@ -60,6 +60,28 @@ public class SortSanPham {
         return max;
     }
 
+    public static List<SanPham> SearchSP(Connection conn, String search) throws SQLException {
+        List<SanPham> list = new ArrayList<SanPham>();
+        String searchtxt = "%" +search + "%";
+        CallableStatement cstm = null;
+        cstm = conn.prepareCall("{call searchSP(?)}");
+        cstm.setString(1,searchtxt);
+        ResultSet rs = cstm.executeQuery();
+        while (rs.next()) {
+            int maSP = rs.getInt("maSP");
+            String tenSP = rs.getString("tenSP");
+            int maTH = rs.getInt("maTH");
+            int maLoaiSP = rs.getInt("maLoaiSP");
+            String hinhSP = rs.getString("hinhSP");
+            float giaSP = rs.getFloat("giaSP");
+            int soLuongSP = rs.getInt("soLuongSP");
+            Date ngayDangBan = rs.getDate("ngayDangBan");
+            SanPham sp = new SanPham(maSP, tenSP, maTH, maLoaiSP, hinhSP, giaSP, soLuongSP, ngayDangBan);
+            list.add(sp);
+        }
+        return list;
+    }
+
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         Connection conn = ConnectionUtils.getConnection();
         System.out.println(getMaxPrice(conn));

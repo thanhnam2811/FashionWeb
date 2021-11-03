@@ -6,6 +6,7 @@ import com.microsoft.sqlserver.jdbc.SQLServerConnection;
 import conn.ConnectionUtils;
 import conn.SQLServerConnUtils;
 import utils.DBUtils;
+import utils.SortSanPham;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -39,7 +40,7 @@ public class SearchControll extends HttpServlet {
             else
                 search = request.getParameter("key");
 
-            listSP = DBUtils.SearchSP(conn, search);
+            listSP = SortSanPham.SearchSP(conn, search);
 
             if(request.getParameter("brand") == null)
                 brand = 0;
