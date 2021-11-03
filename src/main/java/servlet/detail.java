@@ -17,6 +17,7 @@ import beans.SanPham;
 import beans.ThuongHieu;
 import conn.ConnectionUtils;
 import utils.DBUtils;
+import utils.MyUtils;
 
 /**
  * Servlet implementation class productdetail
@@ -38,7 +39,7 @@ public class detail extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
-        Connection conn;
+
         SanPham SP;
         List<SanPham> listSP = null;
         List<BinhLuan> listBL = null;
@@ -46,7 +47,7 @@ public class detail extends HttpServlet {
         String maSP = request.getParameter("maSP");
         ThuongHieu TH = null;
         try {
-            conn = ConnectionUtils.getConnection();
+            Connection conn = MyUtils.getStoredConnection(request);;
             SP = DBUtils.getttSanPham(conn, maSP);
             loaiSP = DBUtils.getLoaiSP_bymaSP(conn, maSP);
             String maLoaiSP = String.valueOf(SP.getMaLoaiSP());
@@ -65,9 +66,6 @@ public class detail extends HttpServlet {
 
             new cart().doPost(request, response);
             request.getRequestDispatcher("/WEB-INF/views/detail.jsp").forward(request, response);
-        } catch (ClassNotFoundException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
         } catch (SQLException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();

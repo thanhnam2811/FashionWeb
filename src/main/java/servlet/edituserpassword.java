@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import beans.Users;
 import conn.ConnectionUtils;
 import utils.DBUtils;
+import utils.MyUtils;
 
 @WebServlet(urlPatterns = "/edituserpassword", name = "edituserpassword")
 public class edituserpassword extends HttpServlet {
@@ -35,10 +36,10 @@ public class edituserpassword extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		Connection conn;
+
 		Users user = null;
 		try {
-			conn = ConnectionUtils.getConnection();
+			Connection conn = MyUtils.getStoredConnection(request);
 			HttpSession session= request.getSession();
 			Users a = (Users) session.getAttribute("loginedUser");
 			int maKH=a.getMaKH();
@@ -62,10 +63,7 @@ public class edituserpassword extends HttpServlet {
 				response.sendRedirect("userinfo");
 			}
 
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (SQLException e1) {
+		}catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}

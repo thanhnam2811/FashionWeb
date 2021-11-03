@@ -4,6 +4,7 @@ import beans.ThuongHieu;
 import conn.ConnectionUtils;
 import utils.AdminManagerBrand;
 import utils.DBUtils;
+import utils.MyUtils;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -16,19 +17,17 @@ import java.sql.SQLException;
 public class callUpdateBrand extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Connection conn;
+
         String id = (String) request.getParameter("id");
         ThuongHieu th = null;
         try{
-            conn = conn = ConnectionUtils.getConnection();
+            Connection conn = MyUtils.getStoredConnection(request);
             th = AdminManagerBrand.load_TH_byMaTH(conn, id);
             request.setAttribute("brand",th);
             request.getRequestDispatcher("/WEB-INF/views/updateTH.jsp").forward(request, response);
         }
         catch (SQLException throwables) {
             throwables.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
     }
 

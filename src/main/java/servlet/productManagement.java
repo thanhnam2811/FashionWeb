@@ -3,8 +3,10 @@ package servlet;
 import beans.LoaiSP;
 import beans.SanPham;
 import beans.ThuongHieu;
+import beans.Users;
 import conn.ConnectionUtils;
 import utils.DBUtils;
+import utils.MyUtils;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -20,23 +22,35 @@ public class productManagement extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
-        Connection conn;
+
         List<SanPham> listSP;
         List<LoaiSP> listLoaiSP;
         List<ThuongHieu> listTH;
 
-        try {
-            conn = ConnectionUtils.getConnection();
-            listSP = DBUtils.getAllSanPham(conn);
-            listLoaiSP = DBUtils.getAllLoaiSP(conn);
-            listTH = DBUtils.getAllThuongHieu(conn);
-            request.setAttribute("listSP", listSP);
-            request.setAttribute("listLoaiSP", listLoaiSP);
-            request.setAttribute("listTH", listTH);
-            request.getRequestDispatcher("/WEB-INF/views/product-management.jsp").forward(request, response);
-        } catch (ClassNotFoundException | SQLException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
+        HttpSession session = request.getSession();
+        Users u = MyUtils.getLoginedUser(session);
+        if(u == null) {
+            String contextPath = request.getContextPath();
+            response.sendRedirect(contextPath + "/signIn");
+        }
+        else {
+            if (u.getRoleID() == 1) {
+                try {
+                    Connection conn = MyUtils.getStoredConnection(request);
+                    listSP = DBUtils.getAllSanPham(conn);
+                    listLoaiSP = DBUtils.getAllLoaiSP(conn);
+                    listTH = DBUtils.getAllThuongHieu(conn);
+                    request.setAttribute("listSP", listSP);
+                    request.setAttribute("listLoaiSP", listLoaiSP);
+                    request.setAttribute("listTH", listTH);
+                    request.getRequestDispatcher("/WEB-INF/views/product-management.jsp").forward(request, response);
+                } catch (SQLException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+            } else {
+                request.getRequestDispatcher("/WEB-INF/views/errorAccess.jsp").forward(request, response);
+            }
         }
     }
 
@@ -57,6 +71,7 @@ public class productManagement extends HttpServlet {
 
             conn = ConnectionUtils.getConnection();
             DBUtils.insertSanPham(conn, sp);
+            new cart().doPost(request,response);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } catch (ClassNotFoundException e) {

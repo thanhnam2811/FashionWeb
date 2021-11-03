@@ -39,7 +39,18 @@ public class cart extends HttpServlet {
 		// TODO Auto-generated method stub
 		// response.getWriter().append("Served at: ").append(request.getContextPath());
 		doPost(request, response);
-		request.getRequestDispatcher("/WEB-INF/views/cart.jsp").forward(request, response);
+		HttpSession session = request.getSession();
+		Users u = MyUtils.getLoginedUser(session);
+		if(u != null) {
+			request.getRequestDispatcher("/WEB-INF/views/cart.jsp").forward(request, response);
+		}
+		else
+		{
+			String contextPath = request.getContextPath();
+			response.sendRedirect(contextPath + "/signIn");
+		}
+
+
 	}
 
 	/**
@@ -47,26 +58,27 @@ public class cart extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		Connection conn;
-		List<SanPhamInCart> listSPinCart = null;
+
+		List<ChiTietGioHang> listChiTietGioHang = null;
+		List<VanChuyen> listVanChuyen=null;
 		try {
-			conn = ConnectionUtils.getConnection();
+			Connection conn = MyUtils.getStoredConnection(request);
 
 			HttpSession session = request.getSession();
 			Users u = MyUtils.getLoginedUser(session);
 			if(u != null) {
+				listVanChuyen=DBUtils.getAllVanChuyen(conn);
 				int id = u.getMaKH();
-				listSPinCart = DBUtils.getSanPhamInCart(conn, id);//
-				request.setAttribute("listSPinCart", listSPinCart);
+				listChiTietGioHang = DBUtils.getChiTietGioHangByMaKH(conn, id);
+				request.setAttribute("listChiTietGioHang", listChiTietGioHang);
 				//
 				double sum = DBUtils.tongTienInCart(conn, id);
 				request.setAttribute("sumAll", sum);
+				request.setAttribute("listVanChuyen",listVanChuyen);
 			}
 			//
 		} catch (SQLException throwables) {
 			throwables.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		}
 	}
 

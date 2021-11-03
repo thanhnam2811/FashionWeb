@@ -1,8 +1,10 @@
 package servlet;
 
 import beans.ThuongHieu;
+import beans.Users;
 import conn.ConnectionUtils;
 import utils.DBUtils;
+import utils.MyUtils;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
@@ -16,19 +18,30 @@ import java.util.List;
 public class brandManagement extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Connection conn;
+
         List<ThuongHieu> listTH =null;
-        try{
-            conn = ConnectionUtils.getConnection();
-            listTH = DBUtils.getAllThuongHieu(conn);
-            request.setAttribute("listTH", listTH);
-            request.getRequestDispatcher("/WEB-INF/views/brand_management.jsp").forward(request, response);
+
+        HttpSession session = request.getSession();
+        Users u = MyUtils.getLoginedUser(session);
+        if(u == null) {
+            String contextPath = request.getContextPath();
+            response.sendRedirect(contextPath + "/signIn");
         }
-        catch( SQLException e1){
-            e1.printStackTrace();
-        }
-        catch(ClassNotFoundException c){
-            c.printStackTrace();
+        else {
+            if (u.getRoleID() == 1) {
+                try {
+                    Connection conn = MyUtils.getStoredConnection(request);
+                    listTH = DBUtils.getAllThuongHieu(conn);
+                    request.setAttribute("listTH", listTH);
+                    request.getRequestDispatcher("/WEB-INF/views/brand_management.jsp").forward(request, response);
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                }
+            }
+            else
+            {
+                request.getRequestDispatcher("/WEB-INF/views/errorAccess.jsp").forward(request, response);
+            }
         }
     }
 

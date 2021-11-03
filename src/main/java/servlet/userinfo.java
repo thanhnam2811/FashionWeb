@@ -20,6 +20,7 @@ import beans.SanPham;
 import beans.Users;
 import conn.ConnectionUtils;
 import utils.DBUtils;
+import utils.MyUtils;
 
 
 @WebServlet(urlPatterns = "/userinfo", name = "userinfo")
@@ -38,14 +39,14 @@ public class userinfo extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Connection conn;
+
 		Users user = null;
 		List<DonHang> listDH= null;
 		List<ChiTietDonHang> listCTDH=null;
 		List<SanPham> listSP = null;
 		try {
 
-			conn = ConnectionUtils.getConnection();
+			Connection conn = MyUtils.getStoredConnection(request);
 			HttpSession session= request.getSession();
 			Users a = (Users) session.getAttribute("loginedUser");
 			int maKH=a.getMaKH();
@@ -59,10 +60,7 @@ public class userinfo extends HttpServlet {
 			request.setAttribute("listSP", listSP);
 			request.setAttribute("info", user);
 			request.getRequestDispatcher("/WEB-INF/views/userinfo.jsp").forward(request, response);
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} catch (SQLException e1) {
+		}  catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}

@@ -13,10 +13,18 @@ public class SanPham {
     private int soLuongSP;
     private Date ngayDangBan;
 
+
     public SanPham(int maSP, String tenSP, int maTH, int maLoaiSP, String hinhSP, float giaSP, Date ngayDangBan) {
     }
     public SanPham(){
 
+    }
+    public SanPham(int maSP, String tenSP, String hinhSP, float giaSP, int soLuongSP) {
+        this.maSP = maSP;
+        this.tenSP = tenSP;
+        this.hinhSP = hinhSP;
+        this.giaSP = giaSP;
+        this.soLuongSP = soLuongSP;
     }
     public SanPham(int maSP, String tenSP, int maTH, int maLoaiSP, String hinhSP, float giaSP, int soLuongSP, Date ngayDangBan) {
         this.maSP = maSP;

@@ -44,7 +44,8 @@
                             <img src="images/icons/logo-01.png" alt="IMG-LOGO">
                         </a>
 
-                        <!-- Menu desktop -->
+                        <!-- Menu desktop for user -->
+                    <c:if test="${sessionScope.loginedUser.roleID!=1}">
                         <div class="menu-desktop">
                             <ul class="main-menu">
                                 <li>
@@ -55,46 +56,73 @@
                                     <a href="${pageContext.request.contextPath}/product">Shop</a>
                                 </li>
 
-                                <li class="label1" data-label1="hot">
-                                    <a href="${pageContext.request.contextPath}/cart">Features</a>
+                                <li>
+                                    <a href="${pageContext.request.contextPath}/about">About</a>
                                 </li>
 
                                 <li>
-                                    <a href="blog.html">Blog</a>
+                                    <a href="${pageContext.request.contextPath}/contact">Contact</a>
                                 </li>
 
-                                <li>
-                                    <a href="../../about.html">About</a>
-                                </li>
-
-                                <li>
-                                    <a href="contact.html">Contact</a>
-                                </li>
                             </ul>
                         </div>
+                    </c:if>
+
+                    <!-- Menu desktop for admin -->
+                        <c:if test="${sessionScope.loginedUser.roleID==1}">
+                            <div class="menu-desktop">
+                                <ul class="main-menu">
+                                    <li>
+                                        <a href="${pageContext.request.contextPath}/home">Home</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="${pageContext.request.contextPath}/product">Shop</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="${pageContext.request.contextPath}/productManagement">Product Manager</a>
+                                    </li>
+
+                                    <li >
+                                        <a href="${pageContext.request.contextPath}/brandManagement">Brand Manager</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="${pageContext.request.contextPath}/UserManagement">User Manager</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="${pageContext.request.contextPath}/Statistic">Statistic</a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </c:if>
+
 
                         <!-- Icon header -->
-
+                        <c:if test="${sessionScope.loginedUser.roleID!=1}">
                         <div class="wrap-icon-header flex-w flex-r-m">
 
-                                <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
-                                    <i class="zmdi zmdi-search"></i>
-                                </div>
+                            <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
+                                <i class="zmdi zmdi-search"></i>
+                            </div>
 
 
                             <c:if test="${sessionScope.loginedUser!=null}">
-                            <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
-                                 data-notify="${listSPinCart.size()}">
-                                <i class="zmdi zmdi-shopping-cart"></i>
-                            </div>
+                                <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
+                                     data-notify="${listChiTietGioHang.size()}">
+                                    <i class="zmdi zmdi-shopping-cart"></i>
+                                </div>
 
-                            <a href="#" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
-                               data-notify="0">
-                                <i class="zmdi zmdi-favorite-outline"></i>
-                            </a>
+                                <a href="#" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
+                                   data-notify="0">
+                                    <i class="zmdi zmdi-favorite-outline"></i>
+                                </a>
                             </c:if>
                         </div>
-
+                        </c:if>
                     </nav>
                 </div>
             </div>
@@ -179,7 +207,9 @@
                 <li>
                     <a href="contact.html">Contact</a>
                 </li>
+
                 </ul>
+
             </div>
 
             <!-- Modal Search -->
@@ -217,20 +247,20 @@
 
         <div class="header-cart-content flex-w js-pscroll">
             <ul class="header-cart-wrapitem w-full">
-                <c:forEach items="${listSPinCart}" var="o">
+                <c:forEach items="${listChiTietGioHang}" var="o">
                     <li class="header-cart-item flex-w flex-t m-b-12">
                         <div class="header-cart-item-img">
-                            <img src="${o.hinhSP }" alt="IMG">
+                            <img src="${o.sanPham.hinhSP }" alt="IMG">
                         </div>
 
                         <div class="header-cart-item-txt p-t-8">
                             <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-                                    ${o.tenSP }
+                                    ${o.sanPham.tenSP }
                             </a>
 
                             <span class="header-cart-item-info ">
-								${o.soLuongSP} x  <fmt:formatNumber type="number"
-                                                                    maxFractionDigits="0" value="${o.giaSP}"/>vnđ
+								${o.sanPham.soLuongSP} x  <fmt:formatNumber type="number"
+                                                                    maxFractionDigits="0" value="${o.sanPham.giaSP}"/>vnđ
 							</span>
                         </div>
                     </li>
@@ -259,4 +289,3 @@
         </div>
     </div>
 </div>
-

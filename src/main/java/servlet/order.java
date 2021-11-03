@@ -47,11 +47,11 @@ public class order extends HttpServlet {
      */
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
-        Connection conn;
+
         List<SanPhamInCart> listSPinCart = null;
         DonHang dh = new DonHang();
         try {
-            conn = ConnectionUtils.getConnection();
+            Connection conn = MyUtils.getStoredConnection(request);
 
             HttpSession session = request.getSession();
             Users u = MyUtils.getLoginedUser(session);
@@ -67,17 +67,23 @@ public class order extends HttpServlet {
                 }
                 else {
                     //insert don hang
+                    //Loi Trigger khi mua hàng
                     float sum = DBUtils.tongTienInCart(conn, id);
                     dh.setMaKH(id);
+                    dh.setTenNguoiNhan(request.getParameter("nameReceiver"));
+                    dh.setDiaChi(request.getParameter("province"));
+                    dh.setSdt(request.getParameter("phoneNumber"));
+                    dh.setMaDV(Integer.parseInt(request.getParameter("service")));
                     dh.setTongTien(sum);
                     DBUtils.insertDonHang(conn, dh);
+                    //Xoa Gio Hang cua User
+                    DBUtils.deleteGioHangBymaKH(conn, id);
                     //insert ChiTietDonHang
                     int maDH = DBUtils.getMaDHMaxOfMaKH(conn, id);
                     for (SanPhamInCart list : listSPinCart) {
                         DBUtils.insertChiTietDonHang(conn, maDH, list.getMaSP(), list.getSoLuongSP(), list.getThanhTien());
                     }
-                    //Xoa Gio Hang cua User
-                    DBUtils.deleteGioHangBymaKH(conn, id);
+
                     // Chuyển qua trang user để xem thông tin đơn hàng
                     String contextPath = request.getContextPath();
                     response.sendRedirect(contextPath + "/userinfo");
@@ -91,8 +97,6 @@ public class order extends HttpServlet {
             //
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
         }
     }
 

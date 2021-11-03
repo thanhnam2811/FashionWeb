@@ -5,6 +5,7 @@ import beans.SanPham;
 import beans.ThuongHieu;
 import conn.ConnectionUtils;
 import utils.DBUtils;
+import utils.MyUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -46,7 +47,7 @@ public class editProduct extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        Connection conn = null;
+
         // SanPham(int maSP, String tenSP, int maTH, int maLoaiSP, String hinhSP, float giaSP, int soLuongSP, Date ngayDangBan)
         int maSP, maTH, maLoaiSP, soLuongSP;
         float giaSP;
@@ -60,13 +61,11 @@ public class editProduct extends HttpServlet {
             soLuongSP = Integer.valueOf(request.getParameter("soLuongSP"));
             giaSP = Float.valueOf(request.getParameter("giaSP"));
             ngayDangBan = Date.valueOf(request.getParameter("ngayDangBan"));
-            conn = ConnectionUtils.getConnection();
+            Connection conn = MyUtils.getStoredConnection(request);
             DBUtils.updateSanPham(conn, maSP, tenSP, maTH, maLoaiSP, hinhSP, giaSP, soLuongSP, ngayDangBan);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (NumberFormatException e) {
+        }  catch (NumberFormatException e) {
             e.printStackTrace();
             request.setAttribute("maSP", request.getParameter("maSP"));
             request.setAttribute("errorString", e.getMessage());

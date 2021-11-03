@@ -10,7 +10,7 @@ public class Users {
 	private String diaChi;
 	private String userName;
 	private String password;
-	private int roleID;
+	private int roleID = 0;
 	public Users() {
 	}
 	public Users(int maKH, String hoTen, String sdt, Date ngaySinh, String diaChi, String userName, String password,

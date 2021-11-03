@@ -118,24 +118,30 @@
 
                         <div class="flex-w flex-r-m p-b-10">
                             <div class="size-204 flex-w flex-m respon6-next">
+                                <form action="addSpToCart" method="get">
                                 <div class="wrap-num-product flex-w m-r-20 m-tb-10">
-                                    <div
-                                            class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
+                                    <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
                                         <i class="fs-16 zmdi zmdi-minus"></i>
                                     </div>
 
                                     <input class="mtext-104 cl3 txt-center num-product"
-                                           type="number" name="num-product" value="1">
+                                           type="number" name="numSP" value="1">
 
                                     <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
                                         <i class="fs-16 zmdi zmdi-plus"></i>
                                     </div>
-                                </div>
 
+                                    <input type="text" name="maSP" style="display: none"
+                                           value="${SP.maSP}">
+                                    <input type="text" name="giaSP" style="display: none"
+                                           value="${SP.giaSP}">
+                                </div>
+                                    <span style="font-size: 15px; color: rgb(238, 17, 17);" id="message_error">${errorString }</span>
                                 <button
                                         class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
                                     Thêm vào giỏ hàng
                                 </button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -234,8 +240,14 @@
                             <div class="col-sm-10 col-md-8 col-lg-6 m-lr-auto">
                                 <div class="p-b-30 m-lr-15-sm">
                                     <!-- Review -->
-                                    <c:forEach items="${listBL}" var="o" begin="0" end="5">
+                                    <!--DeleteReview-->
+                                    <c:forEach items="${listBL}" var="o">
                                         <div class="flex-w flex-t p-b-68">
+                                            <c:if test="${sessionScope.loginedUser.roleID==1}">
+                                                <form action="deleteReview?maSP=${SP.maSP}&maCMT=${o.maCMT}" method="post" >
+                                                    <input class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10" id="submit" type="submit" name="submit" value="Xóa bình luận">
+                                                </form>
+                                            </c:if>
                                             <div class="wrap-pic-s size-109 bor0 of-hidden m-r-18 m-t-6">
                                                 <img src="images/avatar-01.jpg" alt="AVATAR">
                                             </div>
@@ -251,12 +263,14 @@
 													</span>
                                                 </div>
                                                 <p class="stext-102 cl6">Ngày đăng: ${o.ngayDang }</p>
-                                                <p class="stext-102 cl6">${o.noiDung}</p>
+
+                                                <span class="mtext-107 cl2 p-r-20">${o.noiDung}</span>
                                             </div>
                                         </div>
+
                                     </c:forEach>
                                     <!-- Add review -->
-                                    <form action="addReview?maSP=${SP.maSP}" method="post" class="w-full">
+                                    <form action="addReview?maSP=${SP.maSP}" method="post" >
                                         <h5 class="mtext-108 cl2 p-b-7">Add a review</h5>
 
                                         <p class="stext-102 cl6">Your email address will not be
@@ -280,7 +294,7 @@
                                                     review</label>
 
                                                 <input class="size-110 bor8 stext-102 cl2 p-lr-20 p-tb-10"
-                                                       type="text" name="textReview" value="textReview" placeholder="Hãy nhập bình luận của bạn">
+                                                       type="text" id="textReview" name="textReview" required=""  placeholder="Hãy nhập bình luận của bạn">
                                             </div>
                                         </div>
 
@@ -288,7 +302,7 @@
 <%--                                                class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10" value="submit">--%>
 <%--                                            Submit--%>
 <%--                                        </button>--%>
-                                        <input class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10" id="submit" type="submit" name="submit" value="Thêm bình luận">
+                                        <input class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10"  id="submit" type="submit" name="submit" value="Thêm bình luận">
                                     </form>
                                 </div>
                             </div>
@@ -324,7 +338,7 @@
                         <div class="block2">
                             <div class="block2-pic hov-img0">
                                 <img src="${p.hinhSP }" alt="IMG-PRODUCT">
-                                <a href="${pageContext.request.contextPath}/detail?maSP=${o.maSP}"
+                                <a href="${pageContext.request.contextPath}/detail?maSP=${p.maSP}"
                                    class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04">
                                     Detail
                                 </a>
