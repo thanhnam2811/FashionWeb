@@ -104,7 +104,7 @@
                                 <td class="column-5">${o.userName}</td>
                                 <td class="column-6">${o.roleID}</td>
                                 <td class="column-7">
-                                    <a href="${pageContext.request.contextPath}/editUser?maKH=${o.maKH}">
+                                    <a <c:if test="${o.roleID == 0}">style="display: none" </c:if> href="${pageContext.request.contextPath}/editUser?maKH=${o.maKH}">
                                         <div class="flex-c-m stext-101 cl2 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">
                                             Sửa
                                         </div>
