@@ -190,7 +190,7 @@
             </li>
 
             <li>
-                <div class="right-top-bar flex-w h-full">
+                <div class="right-top-bar flex-w ">
                     <c:if test="${sessionScope.loginedUser==null}">
                         <a href="${pageContext.request.contextPath}/signIn" class="flex-c-m p-lr-10 trans-04">
                             Đăng nhập
