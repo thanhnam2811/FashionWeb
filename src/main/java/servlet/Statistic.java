@@ -2,6 +2,7 @@ package servlet;
 
 import beans.ChiTietDonHang;
 import beans.SanPham;
+import beans.Users;
 import conn.ConnectionUtils;
 import utils.DBUtils;
 import utils.MyUtils;
@@ -21,16 +22,31 @@ public class Statistic extends HttpServlet {
 
         List<ChiTietDonHang> listSPDaMua;
         List<SanPham> listSP;
-        try {
-            Connection conn = MyUtils.getStoredConnection(request);
-            listSPDaMua = DBUtils.getSoLuongSPDaMua(conn);
-            listSP = DBUtils.getAllSanPham(conn);
-            request.setAttribute("listSP", listSP);
-            request.setAttribute("listSPDaMua",listSPDaMua);
-            request.getRequestDispatcher("/WEB-INF/views/statistics.jsp").forward(request, response);
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+        HttpSession session = request.getSession();
+        Users u = MyUtils.getLoginedUser(session);
+        if(u == null) {
+            String contextPath = request.getContextPath();
+            response.sendRedirect(contextPath + "/signIn");
+        }
+        else {
+            if (u.getRoleID() == 1) {
+                try {
+                    Connection conn = MyUtils.getStoredConnection(request);
+                    listSPDaMua = DBUtils.getSoLuongSPDaMua(conn);
+                    listSP = DBUtils.getAllSanPham(conn);
+                    request.setAttribute("listSP", listSP);
+                    request.setAttribute("listSPDaMua", listSPDaMua);
+                    request.getRequestDispatcher("/WEB-INF/views/statistics.jsp").forward(request, response);
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            else
+            {
+                request.getRequestDispatcher("/WEB-INF/views/errorAccess.jsp").forward(request, response);
+            }
         }
 
     }

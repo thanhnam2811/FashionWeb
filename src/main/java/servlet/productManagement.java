@@ -3,6 +3,7 @@ package servlet;
 import beans.LoaiSP;
 import beans.SanPham;
 import beans.ThuongHieu;
+import beans.Users;
 import conn.ConnectionUtils;
 import utils.DBUtils;
 import utils.MyUtils;
@@ -26,18 +27,30 @@ public class productManagement extends HttpServlet {
         List<LoaiSP> listLoaiSP;
         List<ThuongHieu> listTH;
 
-        try {
-            Connection conn = MyUtils.getStoredConnection(request);
-            listSP = DBUtils.getAllSanPham(conn);
-            listLoaiSP = DBUtils.getAllLoaiSP(conn);
-            listTH = DBUtils.getAllThuongHieu(conn);
-            request.setAttribute("listSP", listSP);
-            request.setAttribute("listLoaiSP", listLoaiSP);
-            request.setAttribute("listTH", listTH);
-            request.getRequestDispatcher("/WEB-INF/views/product-management.jsp").forward(request, response);
-        } catch (SQLException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
+        HttpSession session = request.getSession();
+        Users u = MyUtils.getLoginedUser(session);
+        if(u == null) {
+            String contextPath = request.getContextPath();
+            response.sendRedirect(contextPath + "/signIn");
+        }
+        else {
+            if (u.getRoleID() == 1) {
+                try {
+                    Connection conn = MyUtils.getStoredConnection(request);
+                    listSP = DBUtils.getAllSanPham(conn);
+                    listLoaiSP = DBUtils.getAllLoaiSP(conn);
+                    listTH = DBUtils.getAllThuongHieu(conn);
+                    request.setAttribute("listSP", listSP);
+                    request.setAttribute("listLoaiSP", listLoaiSP);
+                    request.setAttribute("listTH", listTH);
+                    request.getRequestDispatcher("/WEB-INF/views/product-management.jsp").forward(request, response);
+                } catch (SQLException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+            } else {
+                request.getRequestDispatcher("/WEB-INF/views/errorAccess.jsp").forward(request, response);
+            }
         }
     }
 

@@ -22,19 +22,31 @@ public class UserManagement extends HttpServlet {
 
         List<Users> listUser;
         List<Role> listRole;
-
-        try {
-            Connection conn = MyUtils.getStoredConnection(request);
-            listUser = DBUtils.getAllUser(conn);
-            listRole = DBUtils.getAllRold(conn);
-            request.setAttribute("listUser", listUser);
-            request.setAttribute("listRole", listRole);
-            request.getRequestDispatcher("/WEB-INF/views/user_management.jsp").forward(request, response);
-        } catch ( SQLException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
+        HttpSession session = request.getSession();
+        Users u = MyUtils.getLoginedUser(session);
+        if(u == null) {
+            String contextPath = request.getContextPath();
+            response.sendRedirect(contextPath + "/signIn");
         }
-
+        else {
+            if (u.getRoleID() == 1) {
+                try {
+                    Connection conn = MyUtils.getStoredConnection(request);
+                    listUser = DBUtils.getAllUser(conn);
+                    listRole = DBUtils.getAllRold(conn);
+                    request.setAttribute("listUser", listUser);
+                    request.setAttribute("listRole", listRole);
+                    request.getRequestDispatcher("/WEB-INF/views/user_management.jsp").forward(request, response);
+                } catch (SQLException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+            }
+            else
+            {
+                request.getRequestDispatcher("/WEB-INF/views/errorAccess.jsp").forward(request, response);
+            }
+        }
 
     }
 
