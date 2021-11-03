@@ -173,8 +173,8 @@
 
         <ul class="main-menu-m">
             <li>
-                <a href="index.html">Home</a>
-                <span class="arrow-main-menu-m">
+                    <a href="index.html">Home</a>
+                    <span class="arrow-main-menu-m">
 						<i class="fa fa-angle-right" aria-hidden="true"></i>
 					</span>
             <li>

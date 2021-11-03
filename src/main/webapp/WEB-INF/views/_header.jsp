@@ -1,13 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: thanh
-  Date: 09/10/2021
-  Time: 8:52 CH
-  To change this template use File | Settings | File Templates.
---%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
 <header class="header-v4">
     <!-- Header desktop -->
     <div class="container-menu-desktop">
@@ -45,38 +40,30 @@
                         </a>
 
                         <!-- Menu desktop for user -->
-                    <c:if test="${sessionScope.loginedUser.roleID!=1}">
-                        <div class="menu-desktop">
-                            <ul class="main-menu">
-                                <li>
-                                    <a href="${pageContext.request.contextPath}/home">Home</a>
-                                </li>
+                        <c:if test="${sessionScope.loginedUser.roleID!=1}">
+                            <div class="menu-desktop">
+                                <ul class="main-menu">
+                                    <li>
+                                        <a href="${pageContext.request.contextPath}/home">Home</a>
+                                    </li>
 
-                                <li>
-                                    <a href="${pageContext.request.contextPath}/product">Shop</a>
-                                </li>
+                                    <li>
+                                        <a href="${pageContext.request.contextPath}/product">Shop</a>
+                                    </li>
 
-                                <li class="label1" data-label1="hot">
-                                    <a href="${pageContext.request.contextPath}/cart">Features</a>
-                                </li>
+                                    <li>
+                                        <a href="${pageContext.request.contextPath}/about">About</a>
+                                    </li>
 
-                                <li>
-                                    <a href="blog.html">Blog</a>
-                                </li>
+                                    <li>
+                                        <a href="${pageContext.request.contextPath}/contact">Contact</a>
+                                    </li>
 
-                                <li>
-                                    <a href="${pageContext.request.contextPath}/about">About</a>
-                                </li>
+                                </ul>
+                            </div>
+                        </c:if>
 
-                                <li>
-                                    <a href="${pageContext.request.contextPath}/contact">Contact</a>
-                                </li>
-
-                            </ul>
-                        </div>
-                    </c:if>
-
-                    <!-- Menu desktop for admin -->
+                        <!-- Menu desktop for admin -->
                         <c:if test="${sessionScope.loginedUser.roleID==1}">
                             <div class="menu-desktop">
                                 <ul class="main-menu">
@@ -111,114 +98,34 @@
 
                         <!-- Icon header -->
                         <c:if test="${sessionScope.loginedUser.roleID!=1}">
-                        <div class="wrap-icon-header flex-w flex-r-m">
+                            <div class="wrap-icon-header flex-w flex-r-m">
 
-                            <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
-                                <i class="zmdi zmdi-search"></i>
-                            </div>
-
-
-                            <c:if test="${sessionScope.loginedUser!=null}">
-                                <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
-                                     data-notify="${listChiTietGioHang.size()}">
-                                    <i class="zmdi zmdi-shopping-cart"></i>
+                                <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
+                                    <i class="zmdi zmdi-search"></i>
                                 </div>
 
-                                <a href="#" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
-                                   data-notify="0">
-                                    <i class="zmdi zmdi-favorite-outline"></i>
-                                </a>
-                            </c:if>
-                        </div>
+
+                                <c:if test="${sessionScope.loginedUser!=null}">
+                                    <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
+                                         data-notify="${listChiTietGioHang.size()}">
+                                        <i class="zmdi zmdi-shopping-cart"></i>
+                                    </div>
+
+                                    <a href="#" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti"
+                                       data-notify="0">
+                                        <i class="zmdi zmdi-favorite-outline"></i>
+                                    </a>
+                                </c:if>
+                            </div>
                         </c:if>
                     </nav>
                 </div>
             </div>
 
-            <!-- Header Mobile -->
-            <div class="wrap-header-mobile">
-                <!-- Logo moblie -->
-                <div class="logo-mobile">
-                    <a href="${pageContext.request.contextPath}/home"><img src="images/icons/logo-01.png"
-                                                                           alt="IMG-LOGO"></a>
-                </div>
-
-                <!-- Icon header -->
-                <div class="wrap-icon-header flex-w flex-r-m m-r-15">
-                    <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 js-show-modal-search">
-                        <i class="zmdi zmdi-search"></i>
-                    </div>
-
-                    <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart"
-                         data-notify="2">
-                        <i class="zmdi zmdi-shopping-cart"></i>
-                    </div>
-
-                    <a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti"
-                       data-notify="0">
-                        <i class="zmdi zmdi-favorite-outline"></i>
-                    </a>
-                </div>
-
-                <!-- Button show menu -->
-                <div class="btn-show-menu-mobile hamburger hamburger--squeeze">
-                        <span class="hamburger-box">
-					<span class="hamburger-inner"></span>
-                        </span>
-                </div>
-            </div>
 
 
-            <!-- Menu Mobile -->
-            <div class="menu-mobile">
-                <ul class="topbar-mobile">
-                    <li>
-                        <div class="left-top-bar">
-                            Giao hàng miễn phí cho đơn đặt hàng tiêu chuẩn trên 10 triệu VNĐ
-                        </div>
-                    </li>
 
-                    <li>
-                        <div class="right-top-bar flex-w h-full">
-                            <a href="#" class="flex-c-m p-lr-10 trans-04">
-                                My Account
-                            </a>
-                        </div>
-                    </li>
-                </ul>
 
-                <ul class="main-menu-m">
-                    <li>
-                        <a href="${pageContext.request.contextPath}/home">Home</a>
-                </ul>
-                <span class="arrow-main-menu-m">
-						<i class="fa fa-angle-right" aria-hidden="true"></i>
-					</span>
-                </li>
-
-                <li>
-                    <a href="${pageContext.request.contextPath}/product">Shop</a>
-                </li>
-
-                <li>
-                    <a href="${pageContext.request.contextPath}/cart" class="label1 rs1" data-label1="hot">Features</a>
-                </li>
-
-                <li>
-                    <a href="blog.html">Blog</a>
-                </li>
-
-                <li>
-                    <a href="../../about.html">About</a>
-                </li>
-
-                <li>
-                    <a href="contact.html">Contact</a>
-                </li>
-
-                </ul>
-
-            </div>
 
             <!-- Modal Search -->
             <div class="modal-search-header flex-c-m trans-04 js-hide-modal-search">
@@ -236,6 +143,130 @@
                 </div>
             </div>
         </div>
+    </div>
+    <!-- Header Mobile -->
+    <div class="wrap-header-mobile">
+        <!-- Logo moblie -->
+        <div class="logo-mobile">
+            <a href="${pageContext.request.contextPath}/home"><img src="images/icons/logo-01.png"
+                                                                   alt="IMG-LOGO"></a>
+        </div>
+
+        <!-- Icon header -->
+        <div class="wrap-icon-header flex-w flex-r-m m-r-15">
+            <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 js-show-modal-search">
+                <i class="zmdi zmdi-search"></i>
+            </div>
+
+            <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart"
+                 data-notify="${listChiTietGioHang.size()}">
+                <i class="zmdi zmdi-shopping-cart"></i>
+            </div>
+
+            <a href="#" class="dis-block icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti"
+               data-notify="0">
+                <i class="zmdi zmdi-favorite-outline"></i>
+            </a>
+        </div>
+
+        <!-- Button show menu -->
+        <div class="btn-show-menu-mobile hamburger hamburger--squeeze">
+                        <span class="hamburger-box">
+					<span class="hamburger-inner"></span>
+                        </span>
+        </div>
+    </div>
+
+    <!-- Menu Mobile -->
+    <div class="menu-mobile">
+        <ul class="topbar-mobile">
+            <li>
+                <div class="left-top-bar">
+                    Giao hàng miễn phí cho đơn đặt hàng tiêu chuẩn trên 10 triệu VNĐ
+                </div>
+            </li>
+
+            <li>
+                <div class="right-top-bar flex-w h-full">
+                    <c:if test="${sessionScope.loginedUser==null}">
+                        <a href="${pageContext.request.contextPath}/signIn" class="flex-c-m p-lr-10 trans-04">
+                            Đăng nhập
+                        </a>
+                    </c:if>
+                    <c:if test="${sessionScope.loginedUser!=null}">
+                        <a href="${pageContext.request.contextPath}/userinfo" class="flex-c-m p-lr-10 trans-04">
+                                My account
+                        </a>
+                        <a href="${pageContext.request.contextPath}/signOut" class="flex-c-m p-lr-10 trans-04">
+                                Đăng xuất
+                        </a>
+                    </c:if>
+                    </div>
+            </li>
+        </ul>
+        <c:if test="${sessionScope.loginedUser.roleID!=1}">
+        <ul class="main-menu-m">
+            <li>
+                <a href="${pageContext.request.contextPath}/home">Home</a>
+                <span class="arrow-main-menu-m">
+						<i class="fa fa-angle-right" aria-hidden="true"></i>
+					</span>
+            </li>
+
+            <li>
+                <a href="${pageContext.request.contextPath}/product">Shop</a>
+            </li>
+
+            <li>
+                <a href="${pageContext.request.contextPath}/cart" class="label1 rs1" data-label1="hot">Features</a>
+            </li>
+
+            <li>
+                <a href="blog.html">Blog</a>
+            </li>
+
+            <li>
+                <a href="${pageContext.request.contextPath}/about">About</a>
+            </li>
+
+            <li>
+                <a href="contact.html">Contact</a>
+            </li>
+
+        </ul>
+        </c:if>
+        <c:if test="${sessionScope.loginedUser.roleID==1}">
+            <ul class="main-menu-m">
+                <li>
+                    <a href="${pageContext.request.contextPath}/home">Home</a>
+                    <span class="arrow-main-menu-m">
+                        <i class="fa fa-angle-right" aria-hidden="true"></i>
+                    </span>
+                </li>
+
+                <li>
+                        <a href="${pageContext.request.contextPath}/product">Shop</a>
+                </li>
+
+                <li>
+                    <a href="${pageContext.request.contextPath}/productManagement">Product Manager</a>
+                </li>
+
+                <li>
+                    <a href="${pageContext.request.contextPath}/brandManagement">Brand Manager</a>
+                </li>
+
+                <li>
+                    <a href="${pageContext.request.contextPath}/UserManagement">User Manager</a>
+                </li>
+
+                <li>
+                    <a href="${pageContext.request.contextPath}/Statistic">Statistic</a>
+                </li>
+
+            </ul>
+        </c:if>
+
     </div>
 </header>
 <!-- Cart -->
@@ -268,7 +299,7 @@
 
                             <span class="header-cart-item-info ">
 								${o.sanPham.soLuongSP} x  <fmt:formatNumber type="number"
-                                                                    maxFractionDigits="0" value="${o.sanPham.giaSP}"/>vnđ
+                                                                            maxFractionDigits="0" value="${o.sanPham.giaSP}"/>vnđ
 							</span>
                         </div>
                     </li>
