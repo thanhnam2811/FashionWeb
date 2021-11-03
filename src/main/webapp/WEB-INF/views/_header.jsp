@@ -56,14 +56,6 @@
                                     <a href="${pageContext.request.contextPath}/product">Shop</a>
                                 </li>
 
-                                <li class="label1" data-label1="hot">
-                                    <a href="${pageContext.request.contextPath}/cart">Features</a>
-                                </li>
-
-                                <li>
-                                    <a href="blog.html">Blog</a>
-                                </li>
-
                                 <li>
                                     <a href="${pageContext.request.contextPath}/about">About</a>
                                 </li>
