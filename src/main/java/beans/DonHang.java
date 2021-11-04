@@ -14,7 +14,11 @@ public class DonHang {
 
 	public DonHang() {
 	}
-
+	public DonHang(Date ngayMua, float tongTien)
+	{
+		this.ngayMua = ngayMua;
+		this.tongTien = tongTien;
+	}
 	public DonHang(int maDH, int maKH, String tenNguoiNhan, String diaChi, String sdt, Date ngayMua, float tongTien, int maDV) {
 		this.maDH = maDH;
 		this.maKH = maKH;

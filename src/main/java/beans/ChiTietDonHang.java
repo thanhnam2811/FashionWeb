@@ -1,6 +1,8 @@
 package beans;
 
 import java.util.List;
+import java.sql.Date;
+
 
 public class ChiTietDonHang {
 	private int ID;

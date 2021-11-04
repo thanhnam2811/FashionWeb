@@ -61,10 +61,6 @@
                                 </li>
 
                                 <li>
-                                    <a href="blog.html">Blog</a>
-                                </li>
-
-                                <li>
                                     <a href="${pageContext.request.contextPath}/about">About</a>
                                 </li>
 

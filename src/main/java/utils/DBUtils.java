@@ -598,6 +598,24 @@ public static List<Role> getAllRold(Connection conn) throws SQLException {
         }
         return list;
     }
+    public static List<DonHang> getDanhThuTheoNgay(Connection conn) throws SQLException {
+        String sql = "Select ngayMua, Sum(tongTien)as tongTien\n" +
+                "From DonHang\n" +
+                "Group by ngayMua";
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        ResultSet rs = pstm.executeQuery();
+        List<DonHang> list = new ArrayList<DonHang>();
+
+
+        while (rs.next()) {
+
+            Date ngayMua = rs.getDate("ngayMua");
+            float tongTien = rs.getInt("tongTien");
+            DonHang dh = new DonHang(ngayMua, tongTien);
+            list.add(dh);
+        }
+        return list;
+    }
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         Connection conn = ConnectionUtils.getConnection();

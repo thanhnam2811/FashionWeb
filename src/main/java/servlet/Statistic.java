@@ -1,6 +1,7 @@
 package servlet;
 
 import beans.ChiTietDonHang;
+import beans.DonHang;
 import beans.SanPham;
 import beans.Users;
 import conn.ConnectionUtils;
@@ -22,6 +23,7 @@ public class Statistic extends HttpServlet {
 
         List<ChiTietDonHang> listSPDaMua;
         List<SanPham> listSP;
+        List<DonHang> listDH;
 
         HttpSession session = request.getSession();
         Users u = MyUtils.getLoginedUser(session);
@@ -35,8 +37,10 @@ public class Statistic extends HttpServlet {
                     Connection conn = MyUtils.getStoredConnection(request);
                     listSPDaMua = DBUtils.getSoLuongSPDaMua(conn);
                     listSP = DBUtils.getAllSanPham(conn);
+                    listDH = DBUtils.getDanhThuTheoNgay(conn);
                     request.setAttribute("listSP", listSP);
                     request.setAttribute("listSPDaMua", listSPDaMua);
+                    request.setAttribute("listDT", listDH);
                     request.getRequestDispatcher("/WEB-INF/views/statistics.jsp").forward(request, response);
 
                 } catch (SQLException e) {

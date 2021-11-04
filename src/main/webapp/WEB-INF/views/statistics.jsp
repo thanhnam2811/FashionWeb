@@ -56,19 +56,6 @@
     <div class="container">
         <canvas id="myChart"></canvas>
     </div>
-<%--    <script>--%>
-<%--        var lineChartData = {--%>
-<%--            labels: [<c:forEach items="${listSPDaMua}" var="o">'${o.gettenSP(listSP)}',</c:forEach>],--%>
-<%--            datasets: [--%>
-<%--                {--%>
-<%--                    fillColor: "#FC8213",--%>
-<%--                    data: [<c:forEach items="${listSPDaMua}" var="o">${o.soLuongSP},</c:forEach>]--%>
-<%--                }--%>
-<%--            ]--%>
-
-<%--        };--%>
-<%--        new Chart(document.getElementById("myChart").getContext("2d")).Line(lineChartData);--%>
-<%--    </script>--%>
     <script>
         let myChart = document.getElementById('myChart').getContext('2d');
         // Global Options
@@ -86,15 +73,6 @@
                         <c:forEach items="${listSPDaMua}" var="o">${o.soLuongSP},</c:forEach>
                     ],
                     backgroundColor:'rgba(54, 162, 235, 0.6)',
-                    // backgroundColor:[
-                    //     'rgba(255, 99, 132, 0.6)',
-                    //     'rgba(54, 162, 235, 0.6)',
-                    //     'rgba(255, 206, 86, 0.6)',
-                    //     'rgba(75, 192, 192, 0.6)',
-                    //     'rgba(153, 102, 255, 0.6)',
-                    //     'rgba(255, 159, 64, 0.6)',
-                    //     'rgba(255, 99, 132, 0.6)'
-                    // ],
                     borderWidth:2,
                     borderColor:'#777',
                     hoverBorderWidth:3,
@@ -129,6 +107,58 @@
         });
     </script>
 </div>
+<%--Danh thu theo ngày--%>
+<div id="chartContainer" style="height: 500px; width: 100%;">
+
+</div>
+<script type="text/javascript">
+    window.onload = function () {
+        var chart = new CanvasJS.Chart("chartContainer",
+            {
+                title:{
+                    text: "Danh thu theo ngày"
+                },
+                axisX:{
+                    title: "Ngày bán",
+                    gridThickness: 2
+                },
+                axisY: {
+                    title: "Doanh thu (VNĐ)"
+                },
+                data: [
+                    {
+                        type: "area",
+                        dataPoints: [//array
+                            <c:forEach items="${listDT}" var="o">{ x: new Date(getYear("${o.ngayMua}"),getMonth("${o.ngayMua}"),getDate("${o.ngayMua}")) , y: ${o.tongTien} },</c:forEach>
+
+                        ]
+                    }
+                ]
+            });
+
+        chart.render();
+    }
+    function getYear(date)
+    {
+        var d = new Date(date);
+        return d.getFullYear();
+    }
+    function getMonth(date)
+    {
+        var d = new Date(date);
+        return d.getMonth() +1;
+    }
+    function getDate(date)
+    {
+        var d = new Date(date);
+        return d.getDate();
+    }
+
+
+</script>
+
+
+<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
 <!-- Footer -->
 <jsp:include page="_footer.jsp"/>
