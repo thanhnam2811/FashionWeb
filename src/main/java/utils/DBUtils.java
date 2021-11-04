@@ -596,7 +596,7 @@ public static List<Role> getAllRold(Connection conn) throws SQLException {
 //                "From DonHang\n" +
 //                "Group by ngayMua";
 
-        String sql = "{call getDanhThuTheoNgay()}";
+        String sql = "{call getDoanhThuTheoNgay()}";
         PreparedStatement pstm = conn.prepareStatement(sql);
         ResultSet rs = pstm.executeQuery();
         List<DonHang> list = new ArrayList<DonHang>();
