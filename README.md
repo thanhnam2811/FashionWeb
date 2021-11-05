@@ -1,5 +1,3 @@
-ĐẶC TẢ GIỚI THIỆU ĐỀ TÀI
-WEBSITE BÁN ĐỒ THỜI TRANG 
 Thành viên:
 Cao Hoài Tấn 			- 19110454
 Nguyễn Ngọc Trung 		- 19110490
