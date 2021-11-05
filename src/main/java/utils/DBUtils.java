@@ -617,6 +617,27 @@ public static List<Role> getAllRold(Connection conn) throws SQLException {
         return list;
     }
 
+    public static List<SanPham> getSPBanNhieu(Connection conn) throws SQLException {
+        CallableStatement cstm = conn.prepareCall("{call load_SPBanNhieu()}");
+        ResultSet rs = cstm.executeQuery();
+        List<SanPham> list = new ArrayList<SanPham>();
+
+        while (rs.next()) {
+            int maSP = rs.getInt("maSP");
+            String tenSP = rs.getString("tenSP");
+            int maTH = rs.getInt("maTH");
+            int maLoaiSP = rs.getInt("maLoaiSP");
+            String hinhSP = rs.getString("hinhSP");
+            float giaSP = rs.getFloat("giaSP");
+            int soLuongSP = rs.getInt("soLuongSP");
+            Date ngayDangBan = rs.getDate("ngayDangBan");
+            SanPham sp = new SanPham(maSP, tenSP, maTH, maLoaiSP, hinhSP, giaSP, soLuongSP, ngayDangBan);
+            list.add(sp);
+        }
+        return list;
+    }
+
+
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         Connection conn = ConnectionUtils.getConnection();
         //EditUserInfo_password(conn,1,"nam1");

@@ -53,7 +53,7 @@
 
     <!-- Product Feature -->
     <div class="row isotope-grid">
-      <c:forEach items="${listSP}" var="o" begin="${(page-1)*numP_display}" end="${(page-1)*numP_display + (numP_display - 1)}">
+      <c:forEach items="${listSP}" var="o" begin="0" end="${(page-1)*numP_display + (numP_display - 1)}">
         <!-- Block2 -->
         <div class="block2 col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item ${o.maLoaiSP}">
           <div class="block2-pic hov-img0">
@@ -90,20 +90,14 @@
       </c:forEach>
     </div>
 
-    <!-- Load more (update later)-->
-    <%-- <div class="flex-c-m flex-w w-full p-t-45">
-         <a href="#" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
-             1
-         </a>
-         <a href="#" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
-             2
-         </a>
-         <a href="#" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
-             3
-         </a>
-     </div>--%>
+    <div class="flex-c-m flex-w w-full p-t-45">
+      <a href="${pageContext.request.contextPath}/SearchControll?key=${key}&brand=${brand}&page=${page == totalpage ? page: page+1}"
+         class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
+        Load More
+      </a>
+    </div>
 
-    <div class="container">
+<%--    <div class="container">
       <div class="flex">
         <ul>
           <c:forEach var="p" begin="1" end="${totalpage}">
@@ -113,7 +107,7 @@
           <div class="bar"></div>
         </ul>
       </div>
-    </div>
+    </div>--%>
 
   </div>
 </section>

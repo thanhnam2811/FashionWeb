@@ -134,7 +134,7 @@
                             Create Brand
                         </h4>
 
-                        <div class="flex-w flex-t p-tb-34">
+                        <%--<div class="flex-w flex-t p-tb-34">
                             <div class="size-208">
 								<span class="stext-110 cl2">
 									Mã Thương Hiệu
@@ -144,10 +144,10 @@
                             <div class="size-101">
                                 <div class="bor8 bg0 size-101">
                                     <input class="stext-111 cl2 plh3 size-111 p-lr-15" type="text" name="maTH"
-                                           placeholder="mã thương hiệu">
+                                           placeholder="mã thương hiệu" disabled>
                                 </div>
                             </div>
-                        </div>
+                        </div>--%>
 
                         <div class="flex-w flex-t p-tb-34">
                             <div class="size-208">

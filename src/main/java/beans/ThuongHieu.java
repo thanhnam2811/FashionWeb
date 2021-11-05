@@ -13,6 +13,13 @@ public class ThuongHieu {
 		this.emailTH = emailTH;
 		this.hinhTH = hinhTH;
 	}
+	public ThuongHieu( String tenTH, String emailTH, String hinhTH) {
+		this.maTH = maTH;
+		this.tenTH = tenTH;
+		this.emailTH = emailTH;
+		this.hinhTH = hinhTH;
+	}
+
 	public int getMaTH() {
 		return maTH;
 	}

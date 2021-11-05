@@ -19,16 +19,6 @@ public class brandControll extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        List<ThuongHieu> listTH;
-        try {
-            Connection conn = MyUtils.getStoredConnection(request);
-            listTH = DBUtils.getAllThuongHieu(conn);
-            request.setAttribute("listTH", listTH);
-            request.getRequestDispatcher("/WEB-INF/views/brand_management.jsp").forward(request, response);
-        } catch (SQLException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-        }
     }
 
     @Override
@@ -40,11 +30,11 @@ public class brandControll extends HttpServlet {
             int delmaTH;
             if(action.equals("insert"))
             {
-                int maTH = Integer.valueOf(request.getParameter("maTH"));
+                //int maTH = Integer.valueOf(request.getParameter("maTH"));
                 String tenTH = request.getParameter("tenTH");
                 String emailTH = request.getParameter("emailTH");
                 String hinhTH = request.getParameter("hinhTH");
-                th =new ThuongHieu(maTH, tenTH, emailTH, hinhTH);
+                th = new ThuongHieu(tenTH, emailTH, hinhTH);
             }
             if(action.equals("delete") )
             {
@@ -72,7 +62,8 @@ public class brandControll extends HttpServlet {
             e.printStackTrace();
         }
         finally {
-            doGet(request, response);
+            String contextPath = request.getContextPath();
+            response.sendRedirect(contextPath + "/brandManagement");
         }
     }
 }

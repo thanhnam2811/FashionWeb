@@ -41,18 +41,38 @@ public class home extends HttpServlet {
 
 		List<SanPham> listSP;
 		List<LoaiSP> listLoaiSP;
-
+		int numP_display = 12;
+		int page = 1;
+		int brand = 0;
+		int totalpage = 0;
 		try {
 			Connection conn = MyUtils.getStoredConnection(request);
-			listSP = DBUtils.getAllSanPham(conn);
 			listLoaiSP = DBUtils.getAllLoaiSP(conn);
+
+			brand = request.getParameter("brand") == null ? 0 :Integer.valueOf(request.getParameter("brand"));
+			page  = request.getParameter("page") == null ? 1 : Integer.valueOf(request.getParameter("page"));
+
+			if (brand != 0) {
+				listSP = DBUtils.getSanPhambymaLoaiSP(conn,String.valueOf(brand));
+			}
+			else
+				listSP = DBUtils.getSPBanNhieu(conn);
+
+			totalpage = listSP.size()%numP_display == 0 ? listSP.size()/numP_display : listSP.size()/numP_display+1;
+			if(page < 0 || page > totalpage)
+				page = totalpage;
+
 			request.setAttribute("listSP", listSP);
 			request.setAttribute("listLoaiSP", listLoaiSP);
+			request.setAttribute("page", page);
+			request.setAttribute("brand", brand);
+			request.setAttribute("numP_display",numP_display);
+			request.setAttribute("totalpage", totalpage);
 
 			new cart().doPost(request, response);
 			request.getRequestDispatcher("/WEB-INF/views/index.jsp").forward(request, response);
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
+			//TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 	}
