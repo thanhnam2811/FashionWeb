@@ -345,16 +345,16 @@ END;
 go
 
 --
-drop procedure if exists  EditUserInfo_password
+drop procedure if exists EditUserInfo_password
 go
 create procedure EditUserInfo_password
-    @maKH int,
-    @new_password varchar(MAX),
-    @old_password varchar(MAX)
+	@password varchar(MAX),
+	@maKH int
 as
-    Update Users
-    set password = @new_password
-    where maKH= @maKH 
-	and password = HASHBYTES('SHA2_512', @old_password+CAST('namtrungtantoan' as varchar(30)))
+BEGIN
+	Update Users
+        set password=@password
+        where maKH= @maKH
+END;
 go
 

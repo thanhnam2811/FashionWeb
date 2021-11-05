@@ -1,12 +1,11 @@
 package utils;
 
+import beans.*;
+import conn.ConnectionUtils;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import beans.*;
-import conn.ConnectionUtils;
-import servlet.UserManagement;
 
 public class DBUtils {
     // Load all sanpham
@@ -46,6 +45,7 @@ public class DBUtils {
         }
         return list;
     }
+
     // Load all VanChuyen
     public static List<VanChuyen> getAllVanChuyen(Connection conn) throws SQLException {
         CallableStatement cstm = conn.prepareCall("{call load_VanChuyen()}");
@@ -57,7 +57,7 @@ public class DBUtils {
             String email = rs.getString("email");
             String SDT = rs.getString("SDT");
             String diaChi = rs.getString("diaChi");
-            VanChuyen vanChuyen = new VanChuyen(maDV,tenDV,email,SDT,diaChi);
+            VanChuyen vanChuyen = new VanChuyen(maDV, tenDV, email, SDT, diaChi);
             list.add(vanChuyen);
         }
         return list;
@@ -219,13 +219,14 @@ public class DBUtils {
         }
         return list;
     }
+
     public static List<ChiTietGioHang> getChiTietGioHangByMaKH(Connection conn, int maKH) throws SQLException {
 //        String sql = "Select ChiTietGioHang.ID, ChiTietGioHang.maSP,ChiTietGioHang.soLuongSP, tenSP,giaSP,hinhSP,ChiTietGioHang.thanhTien\n"
 //                + "From ChiTietGioHang, SanPham, Users\n"
 //                + "Where ChiTietGioHang.maKH = Users.maKH  and ChiTietGioHang.maSP = SanPham.maSP\n"
 //                + "	and Users.maKH = ?";
 
-        String sql ="{call getChiTietGioHangByMaKH(?)}";
+        String sql = "{call getChiTietGioHangByMaKH(?)}";
 
         PreparedStatement pstm = conn.prepareStatement(sql);
         pstm.setInt(1, maKH);
@@ -241,11 +242,12 @@ public class DBUtils {
             sp.setSoLuongSP(rs.getInt("soLuongSP"));
             sp.setGiaSP(rs.getFloat("giaSP"));
             float thanhTien = rs.getFloat("thanhTien");
-            ChiTietGioHang spInCart = new ChiTietGioHang(ID,idKH,sp,thanhTien);
+            ChiTietGioHang spInCart = new ChiTietGioHang(ID, idKH, sp, thanhTien);
             list.add(spInCart);
         }
         return list;
     }
+
     //
     public static void deleteCartByID(Connection conn, String id) throws SQLException {
         String sql = "{call delete_chiTietGioHang(?)}";
@@ -286,34 +288,38 @@ public class DBUtils {
         return cstmt.getInt(1);
 
     }
+
     public static void insertDonHang(Connection conn, DonHang dh) throws SQLException {
         CallableStatement cstm = conn.prepareCall("{call insert_donhang(?, ?, ? ,? ,? ,?)}");
         // DonHang(maKH, tenNguoiNhan, diaChi,sdt,tongTien, maDV)
         cstm.setInt(1, dh.getMaKH());///
-        cstm.setString(2,dh.getTenNguoiNhan());
-        cstm.setString(3,dh.getDiaChi());
-        cstm.setString(4,dh.getSdt());
-        cstm.setFloat(5,dh.getTongTien());
+        cstm.setString(2, dh.getTenNguoiNhan());
+        cstm.setString(3, dh.getDiaChi());
+        cstm.setString(4, dh.getSdt());
+        cstm.setFloat(5, dh.getTongTien());
         cstm.setInt(6, dh.getMaDV());
         cstm.execute();
     }
-    public static void insertChiTietDonHang(Connection conn, int maDH, int maSP, int soLuong, float thanhTien)throws SQLException {
+
+    public static void insertChiTietDonHang(Connection conn, int maDH, int maSP, int soLuong, float thanhTien) throws SQLException {
         CallableStatement cstm = conn.prepareCall("{call insert_chiTietDonHang(?, ?, ?,?)}");
         cstm.setInt(1, maDH);
-        cstm.setInt(2,maSP );
+        cstm.setInt(2, maSP);
         cstm.setInt(3, soLuong);
-        cstm.setFloat(4,thanhTien);
+        cstm.setFloat(4, thanhTien);
         cstm.execute();
     }
-    public static void addSpToCart(Connection conn, int maKH, int maSP, int soLuong, float thanhTien)throws SQLException {
+
+    public static void addSpToCart(Connection conn, int maKH, int maSP, int soLuong, float thanhTien) throws SQLException {
         CallableStatement cstm = conn.prepareCall("{call insert_chiTietGioHang(?, ?, ?,?)}");
         cstm.setInt(1, maKH);
-        cstm.setInt(2,maSP );
+        cstm.setInt(2, maSP);
         cstm.setInt(3, soLuong);
-        cstm.setFloat(4,thanhTien);
+        cstm.setFloat(4, thanhTien);
         cstm.execute();
     }
-    public static void deleteGioHangBymaKH(Connection conn, int maKH)throws SQLException {
+
+    public static void deleteGioHangBymaKH(Connection conn, int maKH) throws SQLException {
 //        String sql ="delete ChiTietGioHang\n" +
 //                "where maKH = ?";
 
@@ -322,28 +328,30 @@ public class DBUtils {
         pstm.setInt(1, maKH);
         pstm.executeUpdate();
     }
-// Admin User
-// Load all sanpham
-public static List<Users> getAllUser(Connection conn) throws SQLException {
 
-    CallableStatement cstm = conn.prepareCall("{call load_Users()}");
-    ResultSet rs = cstm.executeQuery();
-    List<Users> list = new ArrayList<Users>();
-    while (rs.next()) {
-        int maKH = rs.getInt("maKH");
-        String hoTen = rs.getString("hoTen");
-        String sdt = rs.getString("sdt");
-        Date ngaySinh = rs.getDate("ngaySinh");
-        String diaChi = rs.getString("diaChi");
-        String userName = rs.getString("userName");
-        String password = rs.getString("password");
-        int roleID = rs.getInt("roleID");
-        Users user = new Users(maKH, hoTen, sdt, ngaySinh, diaChi, userName, password, roleID);
-        list.add(user);
+    // Admin User
+// Load all sanpham
+    public static List<Users> getAllUser(Connection conn) throws SQLException {
+
+        CallableStatement cstm = conn.prepareCall("{call load_Users()}");
+        ResultSet rs = cstm.executeQuery();
+        List<Users> list = new ArrayList<Users>();
+        while (rs.next()) {
+            int maKH = rs.getInt("maKH");
+            String hoTen = rs.getString("hoTen");
+            String sdt = rs.getString("sdt");
+            Date ngaySinh = rs.getDate("ngaySinh");
+            String diaChi = rs.getString("diaChi");
+            String userName = rs.getString("userName");
+            String password = rs.getString("password");
+            int roleID = rs.getInt("roleID");
+            Users user = new Users(maKH, hoTen, sdt, ngaySinh, diaChi, userName, password, roleID);
+            list.add(user);
+        }
+        return list;
     }
-    return list;
-}
-public static List<Role> getAllRold(Connection conn) throws SQLException {
+
+    public static List<Role> getAllRold(Connection conn) throws SQLException {
 
         CallableStatement cstm = conn.prepareCall("{call load_role()}");
         ResultSet rs = cstm.executeQuery();
@@ -351,7 +359,7 @@ public static List<Role> getAllRold(Connection conn) throws SQLException {
         while (rs.next()) {
             int roleID = rs.getInt("roleID");
             String name = rs.getString("name");
-            Role role = new Role( roleID,name);
+            Role role = new Role(roleID, name);
             list.add(role);
         }
         return list;
@@ -384,8 +392,9 @@ public static List<Role> getAllRold(Connection conn) throws SQLException {
         cstm.setDate(7, sp.getNgayDangBan());
         cstm.execute();
     }
-    public static void insertUser(Connection conn,String hoten, String sdt, Date ngaySinh,
-                                  String diaChi,String username,String password)throws SQLException{
+
+    public static void insertUser(Connection conn, String hoten, String sdt, Date ngaySinh,
+                                  String diaChi, String username, String password) throws SQLException {
 //        String sql ="insert into Users(hoTen, sdt, ngaySinh, diaChi, username, password) "
 //                + "values(?,?, ?,?, ?, ?)";
 
@@ -400,8 +409,9 @@ public static List<Role> getAllRold(Connection conn) throws SQLException {
 
         pstm.executeUpdate();
     }
-    public static void insertAdmin(Connection conn,String hoten, String sdt, Date ngaySinh,
-                                  String diaChi,String username,String password,int roleID)throws SQLException{
+
+    public static void insertAdmin(Connection conn, String hoten, String sdt, Date ngaySinh,
+                                   String diaChi, String username, String password, int roleID) throws SQLException {
 //        String sql ="insert into Users(hoTen, sdt, ngaySinh, diaChi, username, password,roleID) "
 //                + "values(?,?, ?,?, ?, ?,?)";
 
@@ -455,21 +465,24 @@ public static List<Role> getAllRold(Connection conn) throws SQLException {
         cstm.setString(1, maSP);
         cstm.execute();
     }
+
     public static void deleteUser(Connection conn, int maKH) throws SQLException {
         CallableStatement cstm = conn.prepareCall("{call delete_Users(?)}");
         cstm.setInt(1, maKH);
         cstm.execute();
     }
-    public static void EditUserInfo_password(Connection conn,int maKH,String npassword) throws SQLException {
-//        String sql =" Update Users"
-//                +" set password=?"
-//                +" where maKH=?";
-        String sql = "{cal EditUserInfo_password(?,?)}";
+
+    public static boolean EditUserInfo_password(Connection conn, int maKH, String npassword, String opassword) throws SQLException {
+        String sql = "{call EditUserInfo_password(?,?,?)}";
         PreparedStatement pstm = conn.prepareStatement(sql);
-        pstm.setString(1, npassword);
-        pstm.setInt(2, maKH);
-        pstm.executeUpdate();
+        pstm.setInt(1, maKH);
+        pstm.setString(2, npassword);
+        pstm.setString(3, opassword);
+        if (pstm.executeUpdate()==0)
+            return false;
+        return true;
     }
+
     public static Users getInfoUser(Connection conn, int idmaKH) throws SQLException {
         CallableStatement cstm = conn.prepareCall("{call load_UserInfo_bymaKH(?)}");
         cstm.setInt(1, idmaKH);
@@ -484,11 +497,12 @@ public static List<Role> getAllRold(Connection conn) throws SQLException {
             String userName = rs.getString("userName");
             String password = rs.getString("password");
             int roleID = rs.getInt("roleID");
-            user = new Users(maKH, hoTen, sdt, ngaySinh, diaChi, userName,password,roleID);
+            user = new Users(maKH, hoTen, sdt, ngaySinh, diaChi, userName, password, roleID);
         }
         return user;
     }
-    public static void EditUserInfo(Connection conn,int maKH,String hoTen,String sdt,Date ngaySinh,String diaChi) throws SQLException {
+
+    public static void EditUserInfo(Connection conn, int maKH, String hoTen, String sdt, Date ngaySinh, String diaChi) throws SQLException {
         CallableStatement cstm = conn.prepareCall("{call update_UserInfo_bymaKH(?,?,?,?,?)}");
         cstm.setInt(1, maKH);
         cstm.setString(2, hoTen);
@@ -497,7 +511,8 @@ public static List<Role> getAllRold(Connection conn) throws SQLException {
         cstm.setString(5, diaChi);
         cstm.executeUpdate();
     }
-    public static void EditUser(Connection conn,int maKH,String hoTen,String sdt,Date ngaySinh,String diaChi, String username,int roleID) throws SQLException {
+
+    public static void EditUser(Connection conn, int maKH, String hoTen, String sdt, Date ngaySinh, String diaChi, String username, int roleID) throws SQLException {
 //        String sql =" Update Users"
 //                +" set hoTen =?,"
 //                +" sdt=?,"
@@ -512,11 +527,12 @@ public static List<Role> getAllRold(Connection conn) throws SQLException {
         pstm.setString(2, sdt);
         pstm.setDate(3, ngaySinh);
         pstm.setString(4, diaChi);
-        pstm.setString(5,username);
-        pstm.setInt(6,roleID);
+        pstm.setString(5, username);
+        pstm.setInt(6, roleID);
         pstm.setInt(7, maKH);
         pstm.executeUpdate();
     }
+
     public static List<ChiTietDonHang> getChiTietDonHang_bymaKH(Connection conn, int idmaKH) throws SQLException {
         CallableStatement cstm = conn.prepareCall("{call load_listChiTietDonHang_bymaKH(?)}");
         cstm.setInt(1, idmaKH);
@@ -552,12 +568,13 @@ public static List<Role> getAllRold(Connection conn) throws SQLException {
             Date ngayMua = rs.getDate("ngayMua");
             float tongTien = rs.getFloat("tongTien");
             int maDV = rs.getInt("maDV");
-            DonHang donHang = new DonHang(maDH, maKH,tenNguoiNhan,diaChi,sdt, ngayMua, tongTien,maDV);
+            DonHang donHang = new DonHang(maDH, maKH, tenNguoiNhan, diaChi, sdt, ngayMua, tongTien, maDV);
             list.add(donHang);
         }
         return list;
     }
-    public static void Addreview(Connection conn,int maKH,String maSP,String noiDung) throws SQLException {
+
+    public static void Addreview(Connection conn, int maKH, String maSP, String noiDung) throws SQLException {
         CallableStatement cstm = conn.prepareCall("{call insert_BinhLuan(?,?,?)}");
 
         cstm.setInt(1, maKH);
@@ -565,6 +582,7 @@ public static List<Role> getAllRold(Connection conn) throws SQLException {
         cstm.setString(3, noiDung);
         cstm.executeUpdate();
     }
+
     public static void Deletereview(Connection conn, String maCMT) throws SQLException {
         CallableStatement cstm = conn.prepareCall("{call delete_BinhLuan(?)}");
 
@@ -572,6 +590,7 @@ public static List<Role> getAllRold(Connection conn) throws SQLException {
 
         cstm.execute();
     }
+
     //ThongKe
     public static List<ChiTietDonHang> getSoLuongSPDaMua(Connection conn) throws SQLException {
         String sql = "Select maSP, Sum(soLuongSP)as SoLuong\n" +
@@ -591,6 +610,7 @@ public static List<Role> getAllRold(Connection conn) throws SQLException {
         }
         return list;
     }
+
     public static List<DonHang> getDanhThuTheoNgay(Connection conn) throws SQLException {
 //        String sql = "Select ngayMua, Sum(tongTien)as tongTien\n" +
 //                "From DonHang\n" +
@@ -645,7 +665,7 @@ public static List<Role> getAllRold(Connection conn) throws SQLException {
 //        System.out.println(u);
 
 //        System.out.println(getttSanPham(conn, "34"));
-        List<ChiTietDonHang> list = DBUtils.getChiTietDonHang_bymaKH(conn,1);
+        List<ChiTietDonHang> list = DBUtils.getChiTietDonHang_bymaKH(conn, 1);
         for (ChiTietDonHang l : list) {
             System.out.println(l);
         }

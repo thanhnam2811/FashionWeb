@@ -36,30 +36,24 @@ public class edituserpassword extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
-		Users user = null;
+		Connection conn = MyUtils.getStoredConnection(request);
+		HttpSession session= request.getSession();
+		Users user = MyUtils.getLoginedUser(session);
+		if (user == null){
+			response.sendRedirect("signIn");
+			return;
+		}
 		try {
-			Connection conn = MyUtils.getStoredConnection(request);
-			HttpSession session= request.getSession();
-			Users a = (Users) session.getAttribute("loginedUser");
-			int maKH=a.getMaKH();
-			user = DBUtils.getInfoUser(conn, maKH);
-
 			String oldpassword = request.getParameter("oldpassword");
 			String newpassword = request.getParameter("newpassword");
-			String cpassword = request.getParameter("cpassword");
-			if (!user.getPassword().equals(oldpassword)) {
+
+			boolean isSuccess = DBUtils.EditUserInfo_password(conn, user.getMaKH(), newpassword, oldpassword);
+			if (!isSuccess) {
 				String mess = "Mật khẩu cũ không đúng";
 				request.setAttribute("mess", mess);
-				request.setAttribute("maKH", maKH);
-				response.sendRedirect("userinfo");
-			} else if (!cpassword.equals(newpassword)) {
-				String mess = "Confirm mật khẩu mới không đúng";
-				request.setAttribute("mess", mess);
-				request.setAttribute("maKH", maKH);
-				response.sendRedirect("userinfo");
+				request.setAttribute("maKH", user.getMaKH());
+				new userinfo().doGet(request, response);
 			} else {
-				DBUtils.EditUserInfo_password(conn, maKH, newpassword);
 				response.sendRedirect("userinfo");
 			}
 
