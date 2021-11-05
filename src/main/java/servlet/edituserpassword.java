@@ -52,12 +52,12 @@ public class edituserpassword extends HttpServlet {
 				String mess = "Mật khẩu cũ không đúng";
 				request.setAttribute("mess", mess);
 				request.setAttribute("maKH", maKH);
-				new userinfo().doGet(request, response);
+				response.sendRedirect("userinfo");
 			} else if (!cpassword.equals(newpassword)) {
 				String mess = "Confirm mật khẩu mới không đúng";
 				request.setAttribute("mess", mess);
 				request.setAttribute("maKH", maKH);
-				new userinfo().doGet(request, response);
+				response.sendRedirect("userinfo");
 			} else {
 				DBUtils.EditUserInfo_password(conn, maKH, newpassword);
 				response.sendRedirect("userinfo");

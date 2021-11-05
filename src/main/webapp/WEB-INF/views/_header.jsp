@@ -36,7 +36,7 @@
 
                         <!-- Logo desktop -->
                         <a href="${pageContext.request.contextPath}/home" class="logo">
-                            <img src="images/icons/logo-01.png" alt="IMG-LOGO">
+                            <img src="images/icons/Logo-NTTT.png" alt="IMG-LOGO">
                         </a>
 
                         <!-- Menu desktop for user -->

@@ -230,10 +230,14 @@
 
         <!-- Menu Product -->
         <jsp:include page="_menuProduct.jsp"/>
-
+        <div class="p-b-10">
+            <h3 class="ltext-102 cl11">
+                Best Choice Ever
+            </h3>
+        </div>
         <!-- Product Feature -->
         <div class="row isotope-grid" >
-            <c:forEach items="${listSP}" var="o">
+            <c:forEach items="${listSP}" var="o" begin="0" end="${(page-1)*numP_display + (numP_display - 1)}">
                 <!-- Block2 -->
                 <div class="block2 col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item ${o.maLoaiSP}">
                     <div class="block2-pic hov-img0">
@@ -271,7 +275,8 @@
 
         <!-- Load more -->
         <div class="flex-c-m flex-w w-full p-t-45">
-            <a href="#" class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
+            <a href="${pageContext.request.contextPath}/home?brand=${brand == null ? 0 : brand}&page=${page == totalpage ? page: page+1}"
+               class="flex-c-m stext-101 cl5 size-103 bg2 bor1 hov-btn1 p-lr-15 trans-04">
                 Load More
             </a>
         </div>

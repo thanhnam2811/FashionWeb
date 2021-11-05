@@ -107,7 +107,7 @@
         });
     </script>
 </div>
-<%--Danh thu theo ngày--%>
+<%--Doanh thu theo ngày--%>
 <div id="chartContainer" style="height: 500px; width: 100%;">
 
 </div>
@@ -116,7 +116,7 @@
         var chart = new CanvasJS.Chart("chartContainer",
             {
                 title:{
-                    text: "Danh thu theo ngày"
+                    text: "Doanh thu theo ngày"
                 },
                 axisX:{
                     title: "Ngày bán",

@@ -16,10 +16,10 @@
         </button>
 
         <c:forEach items="${listLoaiSP}" var="o">
-            <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5"
-                    data-filter=".${o.maLoaiSP}">
+            <a href="${pageContext.request.contextPath}/product?brand=${o.maLoaiSP}"
+                    class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5">
                     ${o.tenLoaiSP}
-            </button>
+            </a>
         </c:forEach>
     </div>
 <%--Seach and filter--%>
