@@ -113,6 +113,7 @@
                     <p class="stext-102 cl3 p-t-23"> » ĐỔI HÀNG TRONG VÒNG 30 NGÀY</p>
                     <p class="stext-102 cl3 p-t-23"> » HOTLINE BÁN HÀNG 1900 633 501</p>
                     <!--  -->
+                    <c:if test="${sessionScope.loginedUser.roleID!=1}">
                     <div class="p-t-33">
 
 
@@ -145,7 +146,7 @@
                             </div>
                         </div>
                     </div>
-
+                    </c:if>
                     <!--  -->
                     <div class="flex-w flex-m p-l-100 p-t-40 respon7">
                         <div class="flex-m bor9 p-r-10 m-r-11">

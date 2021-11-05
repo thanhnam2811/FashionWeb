@@ -52,8 +52,10 @@
 									href="${pageContext.request.contextPath}/home">Trang Chủ</a></li>
 			<li class="nav-item"><a class="nav-link js-scroll-trigger"
 									href="#about">Thông tin tài khoản</a></li>
+			<c:if test="${sessionScope.loginedUser.roleID!=1}">
 			<li class="nav-item"><a class="nav-link js-scroll-trigger"
 									href="#experience">Lịch sử mua hàng</a></li>
+			</c:if>
 			<li class="nav-item"><a class="nav-link js-scroll-trigger"
 									href="#education">Thay đổi thông tin tài khoản</a></li>
 			<li class="nav-item"><a class="nav-link js-scroll-trigger"
@@ -92,6 +94,7 @@
 	</section>
 	<hr class="m-0" />
 	<!-- Experience-->
+	<c:if test="${sessionScope.loginedUser.roleID!=1}">
 	<section class="resume-section" id="experience">
 		<div class="resume-section-content">
 			<h2 class="mb-5">Lịch sử mua hàng</h2>
@@ -131,6 +134,7 @@
 			</div>
 			</div>
 	</section>
+	</c:if>
 	<hr class="m-0" />
 	<!-- Education-->
 	<section class="resume-section" id="education">
