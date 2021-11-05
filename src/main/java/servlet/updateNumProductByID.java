@@ -48,14 +48,17 @@ public class updateNumProductByID extends HttpServlet {
 			//
 			String cartID = request.getParameter("cartID");
 			String numProduct = request.getParameter("numProduct");
-			//num-product is null
-			DBUtils.update_NumProductInGioHangByID(conn, cartID, numProduct);
-			//
+			if(Integer.valueOf(numProduct )== 0)
+				DBUtils.deleteCartByID(conn, cartID);
+			else
+				DBUtils.update_NumProductInGioHangByID(conn, cartID, numProduct);
+
 			new cart().doGet(request,response);
 		}  catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
+
 	}
 
 	/**
