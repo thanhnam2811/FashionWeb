@@ -1,7 +1,9 @@
 package servlet;
 
+import beans.ChiTietGioHang;
 import beans.LoaiSP;
 import beans.SanPham;
+import beans.Users;
 import conn.ConnectionUtils;
 import utils.DBUtils;
 import utils.MyUtils;
@@ -12,6 +14,7 @@ import javax.servlet.annotation.*;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "product", value = "/product")
@@ -20,12 +23,13 @@ public class product extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
 
-        List<SanPham> listSP;
-        List<LoaiSP> listLoaiSP;
+        List<SanPham> listSP = new ArrayList<SanPham>();
+        List<LoaiSP> listLoaiSP = new ArrayList<LoaiSP>();
         int numP_display = 12;
         int page = 1;
         int brand = 0;
-        int totalpage;
+        int totalpage=0;
+        List<ChiTietGioHang> listChiTietGioHang = new  ArrayList<ChiTietGioHang>();
         try {
             Connection conn = MyUtils.getStoredConnection(request);
             listLoaiSP = DBUtils.getAllLoaiSP(conn);
@@ -42,13 +46,22 @@ public class product extends HttpServlet {
             totalpage = listSP.size()%numP_display == 0 ? listSP.size()/numP_display : listSP.size()/numP_display+1;
             if(page < 0 || page > totalpage)
                 page = totalpage;
+
+            HttpSession session = request.getSession();
+            Users u = MyUtils.getLoginedUser(session);
+            if(u != null){
+                int id = u.getMaKH();
+                listChiTietGioHang = DBUtils.getChiTietGioHangByMaKH(conn, id);
+                request.setAttribute("listChiTietGioHang", listChiTietGioHang);
+            }
+
             request.setAttribute("listSP", listSP);
             request.setAttribute("listLoaiSP", listLoaiSP);
             request.setAttribute("page", page);
             request.setAttribute("brand", brand);
             request.setAttribute("numP_display",numP_display);
             request.setAttribute("totalpage", totalpage);
-            new cart().doPost(request, response);
+
             request.getRequestDispatcher("/WEB-INF/views/product.jsp").forward(request, response);
         } catch (SQLException e1) {
             // TODO Auto-generated catch block

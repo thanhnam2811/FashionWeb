@@ -1,2 +1,4 @@
 # Project exclude paths
 /target/
+/.jpb/persistence-units.xml
+/.idea/runConfigurations.xml
