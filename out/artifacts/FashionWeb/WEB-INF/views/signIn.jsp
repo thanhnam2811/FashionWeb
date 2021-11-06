@@ -19,12 +19,17 @@
                 <h2>NTTT Shop</h2>
                 <p style="text-align:justify">NTTT Shop hiểu rằng, thời trang không phải chỉ là mặt một chiếc áo đẹp mà là mặc một chiếc áo thật sự phù hợp với mình. Góp mặt trên thị trường thời trang Việt Nam từ năm 2020 với gần 1 năm không ngừng phát triển đổi mới và tạo dấu ấn.</p>
                 <a href="about.jsp">Đọc thêm</a>
+                <a style="margin-left:35px; background:steelblue" href="${pageContext.request.contextPath}/home">Home</a>
             </div>
             <div class="login_form">
                 <h1>Đăng nhập</h1>
                 <form action="signIn" method="post">
                     <input type="text" name="username" required="" placeholder="Username">
                     <input type="password" name="password" required="" placeholder="Password">
+                    <div style="display: flex;">
+                        <input style="width: 15px; height: 15px; margin: 0 3px 7px 3px" type="checkbox" name="rememberMe" value="Y">
+                        <Span style="font-size:10px">Remember Me</Span>
+                    </div>
                     <span style="color: rgb(238, 17, 17);" id="message_error">${errorString }</span>
                     <input type="submit" name="" value="Đăng nhập">
                 </form>
