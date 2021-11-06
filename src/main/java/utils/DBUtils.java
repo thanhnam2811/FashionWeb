@@ -196,29 +196,6 @@ public class DBUtils {
         return thuongHieu;
     }
 
-    public static List<SanPhamInCart> getSanPhamInCart(Connection conn, int maKH) throws SQLException {
-        String sql = "Select ChiTietGioHang.ID, ChiTietGioHang.maSP,ChiTietGioHang.soLuongSP, tenSP,giaSP,hinhSP,ChiTietGioHang.thanhTien\n"
-                + "From ChiTietGioHang, SanPham, Users\n"
-                + "Where ChiTietGioHang.maKH = Users.maKH  and ChiTietGioHang.maSP = SanPham.maSP\n"
-                + "	and Users.maKH = ?";
-
-        PreparedStatement pstm = conn.prepareStatement(sql);
-        pstm.setInt(1, maKH);
-        ResultSet rs = pstm.executeQuery();
-        List<SanPhamInCart> list = new ArrayList<SanPhamInCart>();
-        while (rs.next()) {
-            int ID = rs.getInt("ID");
-            int maSP = rs.getInt("maSP");
-            String tenSP = rs.getString("tenSP");
-            String hinhSP = rs.getString("hinhSP");
-            float giaSP = rs.getFloat("giaSP");
-            int soLuongSP = rs.getInt("soLuongSP");
-            float thanhTien = rs.getFloat("thanhTien");
-            SanPhamInCart sp = new SanPhamInCart(ID, maSP, tenSP, hinhSP, giaSP, soLuongSP, thanhTien);
-            list.add(sp);
-        }
-        return list;
-    }
 
     public static List<ChiTietGioHang> getChiTietGioHangByMaKH(Connection conn, int maKH) throws SQLException {
 //        String sql = "Select ChiTietGioHang.ID, ChiTietGioHang.maSP,ChiTietGioHang.soLuongSP, tenSP,giaSP,hinhSP,ChiTietGioHang.thanhTien\n"

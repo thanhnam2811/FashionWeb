@@ -10,11 +10,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import beans.SanPhamInCart;
-import beans.Users;
-import conn.ConnectionUtils;
+import beans.ChiTietGioHang;
 import utils.DBUtils;
 import utils.MyUtils;
 
@@ -41,7 +38,7 @@ public class deleteCartByID extends HttpServlet {
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		
 
-		List<SanPhamInCart> listSPinCart = null;
+		List<ChiTietGioHang> listChiTietGioHang = null;
 		try {
 			Connection conn = MyUtils.getStoredConnection(request);
 			//

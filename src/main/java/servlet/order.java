@@ -48,7 +48,7 @@ public class order extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
 
-        List<SanPhamInCart> listSPinCart = null;
+        List<ChiTietGioHang> listChiTietGioHang = null;
         DonHang dh = new DonHang();
         try {
             Connection conn = MyUtils.getStoredConnection(request);
@@ -57,9 +57,9 @@ public class order extends HttpServlet {
             Users u = MyUtils.getLoginedUser(session);
             if(u != null) {
                 int id = u.getMaKH();
-                listSPinCart = DBUtils.getSanPhamInCart(conn, id);//
+                listChiTietGioHang = DBUtils.getChiTietGioHangByMaKH(conn, id);//
 
-                if(listSPinCart.size() == 0)
+                if(listChiTietGioHang.size() == 0)
                 {
                     String errorString = "Vui lòng chọn sản phẩm để mua!!";
                     request.setAttribute("errorString", errorString);
@@ -80,8 +80,8 @@ public class order extends HttpServlet {
                     DBUtils.deleteGioHangBymaKH(conn, id);
                     //insert ChiTietDonHang
                     int maDH = DBUtils.getMaDHMaxOfMaKH(conn, id);
-                    for (SanPhamInCart list : listSPinCart) {
-                        DBUtils.insertChiTietDonHang(conn, maDH, list.getMaSP(), list.getSoLuongSP(), list.getThanhTien());
+                    for (ChiTietGioHang list : listChiTietGioHang) {
+                        DBUtils.insertChiTietDonHang(conn, maDH, list.getSanPham().getMaSP(), list.getSanPham().getSoLuongSP(), list.getThanhTien());
                     }
 
                     // Chuyển qua trang user để xem thông tin đơn hàng
