@@ -97,13 +97,14 @@
                                     <td class="column-4">
                                         <c:if test="${o.sanPham.soLuongSP > soLuongSP_conlai}">
                                             <p style="color: red; text-align: right">Chỉ còn ${soLuongSP_conlai} SP!</p>
+                                            <c:set var="errorString" value="Không đủ Sản phẩm!!!"/>
                                         </c:if>
                                         <c:if test="${o.sanPham.soLuongSP == soLuongSP_conlai}">
                                             <p style="color: red; text-align: right">Đã đạt số lượng SP tối đa!</p>
                                         </c:if>
                                         <div class="wrap-num-product flex-w m-l-auto m-r-0">
                                             <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-                                                <a href="updateNumProductByID?cartID=${o.id}&numProduct=${o.sanPham.soLuongSP-1}"><i
+                                                <a href="updateNumProductByID?cartID=${o.id}&numProduct=${o.sanPham.soLuongSP>soLuongSP_conlai ? soLuongSP_conlai : o.sanPham.soLuongSP-1}"><i
                                                         style="padding: 15px"
                                                         class="fs-16 zmdi zmdi-minus"></i></a>
                                             </div>
@@ -197,8 +198,6 @@
                                         <c:forEach items="${listVanChuyen}" var="o">
                                             <option value="${o.maDV}">${o.tenDV}</option>
                                         </c:forEach>
-
-
                                     </select>
                                     <div class="dropDownSelect2"></div>
                                 </div>
@@ -226,7 +225,7 @@
 								</span>
                         </div>
                     </div>
-                    <span style="color: rgb(238, 17, 17);" id="message_error">${errorString }</span>
+                    <span style="color: red;" id="message_error">${errorString }</span>
                     <button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
                         Mua hàng
                     </button>

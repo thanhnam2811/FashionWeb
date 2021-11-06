@@ -6,9 +6,12 @@ import beans.Users;
 import utils.DBUtils;
 import utils.MyUtils;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -28,33 +31,25 @@ public class addSpToCart extends HttpServlet {
 
         HttpSession session = request.getSession();
         Users u = MyUtils.getLoginedUser(session);
-        if(u != null) {
+        if (u != null) {
             int maKH = u.getMaKH();
             int num = Integer.parseInt(request.getParameter("numSP"));
             int maSP = Integer.parseInt(request.getParameter("maSP"));
-            Float giaSP = Float.parseFloat(request.getParameter("giaSP"));
-
-            Float thanhTien = giaSP * num;
             try {
                 Connection conn = MyUtils.getStoredConnection(request);
-                DBUtils.addSpToCart(conn, maKH, maSP, num, thanhTien);
+                DBUtils.addSpToCart(conn, maKH, maSP, num);
                 // Chuyển qua trang home
                 String contextPath = request.getContextPath();
                 response.sendRedirect(contextPath + "/home");
             } catch (SQLException throwables) {
-
                 String error = "Sản phẩm không đủ đáp ứng hoặc đã được chọn trong giỏ hàng!!";
                 request.setAttribute("errorString", error);
-                request.setAttribute("maSP",maSP);
-                new detail().doGet(request,response);
-
+                request.setAttribute("maSP", maSP);
+                new detail().doGet(request, response);
                 throwables.printStackTrace();
-
             }
 
-        }
-        else
-        {
+        } else {
             String contextPath = request.getContextPath();
             response.sendRedirect(contextPath + "/signIn");
         }

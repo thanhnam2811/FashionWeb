@@ -287,12 +287,11 @@ public class DBUtils {
         cstm.execute();
     }
 
-    public static void addSpToCart(Connection conn, int maKH, int maSP, int soLuong, float thanhTien) throws SQLException {
-        CallableStatement cstm = conn.prepareCall("{call insert_chiTietGioHang(?, ?, ?,?)}");
+    public static void addSpToCart(Connection conn, int maKH, int maSP, int soLuong) throws SQLException {
+        CallableStatement cstm = conn.prepareCall("{call insert_chiTietGioHang(?, ?, ?)}");
         cstm.setInt(1, maKH);
         cstm.setInt(2, maSP);
         cstm.setInt(3, soLuong);
-        cstm.setFloat(4, thanhTien);
         cstm.execute();
     }
 
@@ -455,7 +454,7 @@ public class DBUtils {
         pstm.setInt(1, maKH);
         pstm.setString(2, npassword);
         pstm.setString(3, opassword);
-        if (pstm.executeUpdate()==0)
+        if (pstm.executeUpdate() == 0)
             return false;
         return true;
     }

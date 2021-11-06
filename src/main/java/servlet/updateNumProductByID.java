@@ -50,7 +50,7 @@ public class updateNumProductByID extends HttpServlet {
 			else
 				DBUtils.update_NumProductInGioHangByID(conn, cartID, numProduct);
 
-			new cart().doGet(request,response);
+			response.sendRedirect(request.getContextPath() + "/cart");
 		}  catch (SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
