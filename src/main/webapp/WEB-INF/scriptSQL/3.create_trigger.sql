@@ -43,21 +43,22 @@ go
 drop trigger if exists check_SL_DatHang
 go
 create trigger check_SL_DatHang on chiTietDonHang
-after insert, update
+after insert
 AS
 declare @ne_sl int, @tonkho int, @maSP int
 select  @ne_sl = ne.soLuongSP, @tonkho = sp.soLuongSP, @maSP = sp.maSP
-from inserted ne inner join SanPham sp on ne.maSP = sp.maSP
-if( @ne_sl > @tonkho)
-Begin
-	print('So luong san pham cua cua hang khong du de dap ung');
-	ROLLBACK;
-End
-else
+from inserted ne, SanPham sp
+where ne.maSP = sp.maSP
 begin
-	update SanPham
-	set soLuongSP = @tonkho - @ne_sl
-	where maSP = @maSP
+	if( @ne_sl > @tonkho)
+	Begin
+	print(N'Cửa hàng chỉ còn ' +  CAST(@tonkho AS NVARCHAR(100)) + N' sp, không thể mua ' + CAST(@ne_sl AS NVARCHAR(100)) + ' sp');
+	ROLLBACK;
+	End
+	else
+		update SanPham
+		set soLuongSP = @tonkho - @ne_sl
+		where maSP = @maSP;
 end
 GO
 

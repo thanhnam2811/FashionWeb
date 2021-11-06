@@ -2,6 +2,7 @@
          pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ page import="utils.DBUtils" %>
 <!DOCTYPE html>
 <html>
 
@@ -79,7 +80,9 @@
                                 <th class="column-5">Xóa</th>
                             </tr>
 
-                            <c:forEach items="${listChiTietGioHang}" var="o">
+                            <c:forEach items="${requestScope.listChiTietGioHang}" var="o">
+                                <c:set var="soLuongSP_conlai"
+                                       value="${DBUtils.getttSanPham(requestScope.ATTRIBUTE_FOR_CONNECTION, o.sanPham.maSP).soLuongSP}"/>
                                 <tr class="table_row">
                                     <td class="column-1">
                                         <div class="how-itemcart1">
@@ -92,19 +95,29 @@
                                                           maxFractionDigits="0" value="${o.sanPham.giaSP}"/>vnđ
                                     </td>
                                     <td class="column-4">
+                                        <c:if test="${o.sanPham.soLuongSP > soLuongSP_conlai}">
+                                            <p style="color: red; text-align: right">Chỉ còn ${soLuongSP_conlai} SP!</p>
+                                        </c:if>
+                                        <c:if test="${o.sanPham.soLuongSP == soLuongSP_conlai}">
+                                            <p style="color: red; text-align: right">Đã đạt số lượng SP tối đa!</p>
+                                        </c:if>
                                         <div class="wrap-num-product flex-w m-l-auto m-r-0">
                                             <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-                                                <a href="updateNumProductByID?cartID=${o.id}&numProduct=${o.sanPham.soLuongSP -1}"><i style="padding: 15px"
+                                                <a href="updateNumProductByID?cartID=${o.id}&numProduct=${o.sanPham.soLuongSP-1}"><i
+                                                        style="padding: 15px"
                                                         class="fs-16 zmdi zmdi-minus"></i></a>
                                             </div>
 
                                             <input class="mtext-104 cl3 txt-center num-product" type="number"
-                                                   name="numProduct" value="${o.sanPham.soLuongSP}">
-
-                                            <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-                                                <a href="updateNumProductByID?cartID=${o.id}&numProduct=${o.sanPham.soLuongSP +1}"><i style="padding: 15px"
-                                                        class="fs-16 zmdi zmdi-plus"></i></a>
-                                            </div>
+                                                   id="SP-${o.sanPham.maSP}" name="numProduct"
+                                                   value="${o.sanPham.soLuongSP}">
+                                            <c:if test="${o.sanPham.soLuongSP < soLuongSP_conlai}">
+                                                <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
+                                                    <a href="updateNumProductByID?cartID=${o.id}&numProduct=${o.sanPham.soLuongSP+1}">
+                                                        <i style="padding: 15px" class="fs-16 zmdi zmdi-plus"></i>
+                                                    </a>
+                                                </div>
+                                            </c:if>
                                         </div>
                                     </td>
                                     <td class="column-5"><a style="padding: 10px;"
@@ -160,23 +173,26 @@
 									</span>
 
                                 <div class="bor8 bg0 m-b-12">
-                                    <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="province" required=""
+                                    <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="province"
+                                           required=""
                                            placeholder="Tỉnh / Thành phố">
                                 </div>
 
                                 <div class="bor8 bg0 m-b-22">
-                                    <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="phoneNumber" required=""
+                                    <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="phoneNumber"
+                                           required=""
                                            placeholder="Số điện thoại">
                                 </div>
 
                                 <div class="bor8 bg0 m-b-22">
-                                    <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="nameReceiver" required=""
+                                    <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="nameReceiver"
+                                           required=""
                                            placeholder="Tên người nhận">
                                 </div>
                                 <span class="stext-112 cl8">
 										Phương thức vận chuyển
                                 </span>
-                                <div  class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
+                                <div class="rs1-select2 rs2-select2 bor8 bg0 m-b-12 m-t-9">
                                     <select class="js-select2" name="service">
                                         <c:forEach items="${listVanChuyen}" var="o">
                                             <option value="${o.maDV}">${o.tenDV}</option>

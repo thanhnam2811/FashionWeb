@@ -7,7 +7,7 @@ public class ChiTietGioHang {
     private SanPham sanPham;
     private float thanhTien;
 
-    public  ChiTietGioHang(){}
+    public ChiTietGioHang(){}
     public ChiTietGioHang(int id, int maKH, SanPham sanPham, float thanhTien) {
         this.id = id;
         this.maKH = maKH;

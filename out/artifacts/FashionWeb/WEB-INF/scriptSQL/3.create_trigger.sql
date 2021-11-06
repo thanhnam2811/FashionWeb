@@ -96,7 +96,7 @@ End
 GO
 
 -------------------------USERS---------------------------
-
+/*
 -- Kiểm tra sdt người dùng nhập và chỉ gồm số và độ dài = 10
 drop trigger if exists check_sdt_users
 go
@@ -114,6 +114,7 @@ begin
 	end
 end
 go
+*/
 
 -- Insert, update Users
 drop trigger if exists after_insert_Users

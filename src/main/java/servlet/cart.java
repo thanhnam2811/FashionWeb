@@ -1,6 +1,7 @@
 package servlet;
 
 import beans.ChiTietGioHang;
+import beans.SanPham;
 import beans.Users;
 import beans.VanChuyen;
 import utils.DBUtils;
@@ -59,6 +60,8 @@ public class cart extends HttpServlet {
 
         List<ChiTietGioHang> listChiTietGioHang = null;
         List<VanChuyen> listVanChuyen = null;
+        List<SanPham> listSP = null;
+
         try {
             Connection conn = MyUtils.getStoredConnection(request);
 
@@ -69,6 +72,7 @@ public class cart extends HttpServlet {
                 int id = u.getMaKH();
                 listChiTietGioHang = DBUtils.getChiTietGioHangByMaKH(conn, id);
                 request.setAttribute("listChiTietGioHang", listChiTietGioHang);
+                request.setAttribute("listSP", listSP);
                 //
                 double sum = DBUtils.tongTienInCart(conn, id);
                 request.setAttribute("sumAll", sum);
