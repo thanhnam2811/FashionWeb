@@ -148,8 +148,7 @@
     <div class="wrap-header-mobile">
         <!-- Logo moblie -->
         <div class="logo-mobile">
-            <a href="${pageContext.request.contextPath}/home"><img src="images/icons/logo-01.png"
-                                                                   alt="IMG-LOGO"></a>
+            <a href="${pageContext.request.contextPath}/home"><img src="images/icons/Logo-NTTT.png" alt="IMG-LOGO"></a>
         </div>
 
         <!-- Icon header -->
