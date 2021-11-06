@@ -13,8 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import beans.LoaiSP;
 import beans.SanPham;
-import beans.SanPhamInCart;
-import conn.ConnectionUtils;
 import utils.DBUtils;
 import utils.MyUtils;
 

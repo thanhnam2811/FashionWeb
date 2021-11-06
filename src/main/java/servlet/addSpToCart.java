@@ -1,9 +1,8 @@
 package servlet;
 
+import beans.ChiTietGioHang;
 import beans.DonHang;
-import beans.SanPhamInCart;
 import beans.Users;
-import conn.ConnectionUtils;
 import utils.DBUtils;
 import utils.MyUtils;
 
@@ -11,7 +10,6 @@ import javax.servlet.*;
 import javax.servlet.http.*;
 import javax.servlet.annotation.*;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
@@ -25,7 +23,7 @@ public class addSpToCart extends HttpServlet {
 
         //
 
-        List<SanPhamInCart> listSPinCart = null;
+        List<ChiTietGioHang> listChiTietGioHang = null;
         DonHang dh = new DonHang();
 
         HttpSession session = request.getSession();
