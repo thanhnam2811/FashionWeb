@@ -48,6 +48,8 @@ public class signIn extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		String errorString = null;
+		String rememberMeStr = request.getParameter("rememberMe");
+		boolean remember = "Y".equals(rememberMeStr);
 		Users u = new Users();
 		try {
 			Connection conn = MyUtils.getStoredConnection(request);
@@ -55,10 +57,22 @@ public class signIn extends HttpServlet {
 
 			if(u != null)
 			{
+				HttpSession session = request.getSession();
+				MyUtils.storeLoginedUser(session, u);
+
+				// Nếu người dùng chọn tính năng "Remember me".
+				if (remember) {
+					MyUtils.storeUserCookie(response, u);
+				}
+				// Ngược lại xóa Cookie
+				else {
+					MyUtils.deleteUserCookie(response);
+				}
+
+				//Kiểm tra quyền truy cập
 				if((u.getRoleID()) == 0)
 				{
-					HttpSession session = request.getSession();
-					MyUtils.storeLoginedUser(session, u);
+
 					request.getRequestDispatcher("home").forward(request, response);
 				}
 				else
@@ -66,8 +80,7 @@ public class signIn extends HttpServlet {
 //					//request.getRequestDispatcher("productManagement").forward(request, response);
 //					String contextPath = request.getContextPath();
 //					response.sendRedirect(contextPath + "/productManagement");
-					HttpSession session = request.getSession();
-					MyUtils.storeLoginedUser(session, u);
+
 					request.getRequestDispatcher("home").forward(request, response);
 
 				}

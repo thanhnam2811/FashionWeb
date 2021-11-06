@@ -422,6 +422,22 @@ public class DBUtils {
         }
         return null;
     }
+    public static Users findUserByUsername(Connection conn, String username) throws SQLException {
+        CallableStatement cstm = conn.prepareCall("{call findUserByUserName(?)}");
+        cstm.setString(1, username);
+        ResultSet rs = cstm.executeQuery();
+        while (rs.next()) {
+            return new Users(rs.getInt(1),
+                    rs.getString(2),
+                    rs.getString(3),
+                    rs.getDate(4),
+                    rs.getString(5),
+                    rs.getString(6),
+                    rs.getString(7),
+                    rs.getInt(8));
+        }
+        return null;
+    }
 
     public static void updateSanPham(Connection conn, int maSP, String tenSP, int maTH, int maLoaiSP, String hinhSP, float giaSP, int soLuongSP, Date ngayDangBan) throws SQLException {
         CallableStatement cstm = conn.prepareCall("{call update_SanPham(?,?,?,?,?,?,?,?)}");
