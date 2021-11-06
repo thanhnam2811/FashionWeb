@@ -358,3 +358,16 @@ as
 	and password = HASHBYTES('SHA2_512', @old_password+CAST('namtrungtantoan' as varchar(30)))
 go
 
+-- find user --
+drop procedure if exists findUserByUserName
+    go
+create procedure findUserByUserName
+    @username varchar(20)
+as
+select *
+from Users
+where
+        Users.userName = @username
+    go
+
+
