@@ -3,6 +3,7 @@ package servlet;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -10,9 +11,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import beans.ChiTietGioHang;
 import beans.LoaiSP;
 import beans.SanPham;
+import beans.Users;
 import utils.DBUtils;
 import utils.MyUtils;
 
@@ -37,6 +41,7 @@ public class home extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
+		List<ChiTietGioHang> listChiTietGioHang = new ArrayList<ChiTietGioHang>();
 		List<SanPham> listSP;
 		List<LoaiSP> listLoaiSP;
 		int numP_display = 12;
@@ -67,7 +72,13 @@ public class home extends HttpServlet {
 			request.setAttribute("numP_display",numP_display);
 			request.setAttribute("totalpage", totalpage);
 
-			new cart().doPost(request, response);
+			HttpSession session = request.getSession();
+			Users u = MyUtils.getLoginedUser(session);
+			if(u != null){
+				int id = u.getMaKH();
+				listChiTietGioHang = DBUtils.getChiTietGioHangByMaKH(conn, id);
+				request.setAttribute("listChiTietGioHang", listChiTietGioHang);
+			}
 			request.getRequestDispatcher("/WEB-INF/views/index.jsp").forward(request, response);
 		} catch (SQLException e1) {
 			//TODO Auto-generated catch block
