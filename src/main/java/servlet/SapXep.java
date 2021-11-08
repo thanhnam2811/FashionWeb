@@ -1,10 +1,13 @@
 package servlet;
 
+import beans.ChiTietGioHang;
 import beans.LoaiSP;
 import beans.SanPham;
+import beans.Users;
 import conn.ConnectionUtils;
 import conn.SQLServerConnUtils;
 import utils.DBUtils;
+import utils.MyUtils;
 import utils.SortSanPham;
 
 import javax.servlet.*;
@@ -22,6 +25,7 @@ public class SapXep extends HttpServlet {
         Connection conn;
         List<SanPham> listSP = null;
         List<LoaiSP> listLoaiSP;
+        List<ChiTietGioHang> listChiTietGioHang = new  ArrayList<ChiTietGioHang>();
         int numP_display = 12;
         int page = 1;
 
@@ -57,7 +61,14 @@ public class SapXep extends HttpServlet {
             request.setAttribute("numP_display",numP_display);
             request.setAttribute("totalpage", totalpage);
 
-            new cart().doPost(request, response);
+            HttpSession session = request.getSession();
+            Users u = MyUtils.getLoginedUser(session);
+            if(u != null){
+                int id = u.getMaKH();
+                listChiTietGioHang = DBUtils.getChiTietGioHangByMaKH(conn, id);
+                request.setAttribute("listChiTietGioHang", listChiTietGioHang);
+            }
+
             request.getRequestDispatcher("/WEB-INF/views/viewsort.jsp").forward(request, response);
 
         }

@@ -12,7 +12,7 @@ public class SQLServerConnUtils {
 		String hostName = "localhost";
 	    String database = "QuanLiShop";
 	    String userName = "sa";
-	    String password = "123";
+	    String password = "08102001";
 
 	    return getSQLServerConnection(hostName, database,
 	            userName, password);
