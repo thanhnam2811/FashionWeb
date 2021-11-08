@@ -2,13 +2,14 @@ package servlet;
 
 import beans.LoaiSP;
 import beans.SanPham;
-import conn.ConnectionUtils;
 import utils.DBUtils;
 import utils.MyUtils;
 
-import javax.servlet.*;
-import javax.servlet.http.*;
-import javax.servlet.annotation.*;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -30,23 +31,23 @@ public class product extends HttpServlet {
             Connection conn = MyUtils.getStoredConnection(request);
             listLoaiSP = DBUtils.getAllLoaiSP(conn);
 
-            brand = request.getParameter("brand") == null ? 0 :Integer.valueOf(request.getParameter("brand"));
-            page  = request.getParameter("page") == null ? 1 : Integer.valueOf(request.getParameter("page"));
+            brand = request.getParameter("brand") == null ? 0 : Integer.valueOf(request.getParameter("brand"));
+            page = request.getParameter("page") == null ? 1 : Integer.valueOf(request.getParameter("page"));
 
             if (brand != 0) {
-                listSP = DBUtils.getSanPhambymaLoaiSP(conn,String.valueOf(brand));
-            }
-            else
+                listSP = DBUtils.getSanPhambymaLoaiSP(conn, String.valueOf(brand));
+            } else
                 listSP = DBUtils.getAllSanPham(conn);
 
-            totalpage = listSP.size()%numP_display == 0 ? listSP.size()/numP_display : listSP.size()/numP_display+1;
-            if(page < 0 || page > totalpage)
+            totalpage = listSP.size() % numP_display == 0 ? listSP.size() / numP_display : listSP.size() / numP_display + 1;
+
+            if (page < 0 || page > totalpage)
                 page = totalpage;
             request.setAttribute("listSP", listSP);
             request.setAttribute("listLoaiSP", listLoaiSP);
             request.setAttribute("page", page);
             request.setAttribute("brand", brand);
-            request.setAttribute("numP_display",numP_display);
+            request.setAttribute("numP_display", numP_display);
             request.setAttribute("totalpage", totalpage);
             new cart().doPost(request, response);
             request.getRequestDispatcher("/WEB-INF/views/product.jsp").forward(request, response);

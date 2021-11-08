@@ -93,13 +93,6 @@ public class DBUtils {
     }
 
     public static List<SanPham> getSanPhambymaLoaiSP(Connection conn, String idmaLoaiSP) throws SQLException {
-//		String sql = "select * from sanpham"
-//				+ " where maLoaiSP=?";
-//		PreparedStatement pstm = conn.prepareStatement(sql);
-//		pstm.setString(1, idmaLoaiSP);
-//		ResultSet rs = pstm.executeQuery();
-//		List<SanPham> list = new ArrayList<SanPham>();
-
         CallableStatement cstm = conn.prepareCall("{call load_ListSanPhambymaLoaiSP(?)}");
         cstm.setString(1, idmaLoaiSP);
         cstm.execute();
@@ -121,14 +114,6 @@ public class DBUtils {
     }
 
     public static LoaiSP getLoaiSP_bymaSP(Connection conn, String idmaSP) throws SQLException {
-//		String sql = "select SanPham.maLoaiSP,tenLoaiSP "
-//				+ " from SanPham  join LoaiSP on SanPham.maLoaiSP=LoaiSP.maLoaiSP"
-//				+" where  SanPham.maSP=?";
-//		PreparedStatement pstm = conn.prepareStatement(sql);
-//		pstm.setString(1, idmaSP);
-//		ResultSet rs = pstm.executeQuery();
-//		LoaiSP loaisanPham = new LoaiSP();
-
         CallableStatement cstm = conn.prepareCall("{call load_LoaiSanPhambymaSP(?)}");
         cstm.setString(1, idmaSP);
         cstm.execute();

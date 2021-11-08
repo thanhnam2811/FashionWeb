@@ -140,13 +140,12 @@
             <div class="col-md-6 col-xl-4 p-b-30 m-lr-auto">
                 <!-- Block1 -->
                 <div class="block1 wrap-pic-w">
-                    <img src="images/banner-01.jpg" alt="IMG-BANNER">
+                    <img src="images/Banner-Quan.png" alt="IMG-BANNER">
 
-                    <a href="product"
-                       class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+                    <a href="product.html" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
                         <div class="block1-txt-child1 flex-col-l">
 								<span class="block1-name ltext-102 trans-04 p-b-8">
-									Women
+									Quần
 								</span>
 
                             <span class="block1-info stext-102 trans-04">
@@ -166,13 +165,12 @@
             <div class="col-md-6 col-xl-4 p-b-30 m-lr-auto">
                 <!-- Block1 -->
                 <div class="block1 wrap-pic-w">
-                    <img src="images/banner-02.jpg" alt="IMG-BANNER">
+                    <img src="images/Banner-Ao.png" alt="IMG-BANNER">
 
-                    <a href="product"
-                       class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+                    <a href="product.html" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
                         <div class="block1-txt-child1 flex-col-l">
 								<span class="block1-name ltext-102 trans-04 p-b-8">
-									Men
+									Áo
 								</span>
 
                             <span class="block1-info stext-102 trans-04">
@@ -192,13 +190,12 @@
             <div class="col-md-6 col-xl-4 p-b-30 m-lr-auto">
                 <!-- Block1 -->
                 <div class="block1 wrap-pic-w">
-                    <img src="images/banner-03.jpg" alt="IMG-BANNER">
+                    <img src="images/Banner-Giay.png" alt="IMG-BANNER">
 
-                    <a href="product"
-                       class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
+                    <a href="product.html" class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
                         <div class="block1-txt-child1 flex-col-l">
 								<span class="block1-name ltext-102 trans-04 p-b-8">
-									Accessories
+									Giày
 								</span>
 
                             <span class="block1-info stext-102 trans-04">
@@ -236,7 +233,7 @@
             </h3>
         </div>
         <!-- Product Feature -->
-        <div class="row isotope-grid" >
+        <div class="row isotope-grid">
             <c:forEach items="${listSP}" var="o" begin="0" end="${(page-1)*numP_display + (numP_display - 1)}">
                 <!-- Block2 -->
                 <div class="block2 col-sm-6 col-md-4 col-lg-3 p-b-35 isotope-item ${o.maLoaiSP}">
@@ -251,7 +248,8 @@
 
                     <div class="block2-txt flex-w flex-t p-t-14">
                         <div class="block2-txt-child1 flex-col-l ">
-                            <a href="${pageContext.request.contextPath}/detail?maSP=${o.maSP}" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
+                            <a href="${pageContext.request.contextPath}/detail?maSP=${o.maSP}"
+                               class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
                                     ${o.tenSP}
                             </a>
 
