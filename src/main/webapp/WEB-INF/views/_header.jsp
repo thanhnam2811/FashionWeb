@@ -40,7 +40,7 @@
                         </a>
 
                         <!-- Menu desktop for user -->
-                        <c:if test="${sessionScope.loginedUser.roleID!=1}">
+                        <c:if test="${sessionScope.loginedUser.roleID!=1 && sessionScope.loginedUser.roleID!=2}">
                             <div class="menu-desktop">
                                 <ul class="main-menu">
                                     <li>
@@ -63,6 +63,29 @@
                             </div>
                         </c:if>
 
+                        <!-- Menu desktop for staff -->
+                        <c:if test="${sessionScope.loginedUser.roleID==2}">
+                            <div class="menu-desktop">
+                                <ul class="main-menu">
+                                    <li>
+                                        <a href="${pageContext.request.contextPath}/home">Home</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="${pageContext.request.contextPath}/product">Shop</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="${pageContext.request.contextPath}/productManagement">Product Manager</a>
+                                    </li>
+
+                                    <li>
+                                        <a href="${pageContext.request.contextPath}/Statistic">Statistic</a>
+                                    </li>
+
+                                </ul>
+                            </div>
+                        </c:if>
                         <!-- Menu desktop for admin -->
                         <c:if test="${sessionScope.loginedUser.roleID==1}">
                             <div class="menu-desktop">
@@ -97,13 +120,8 @@
 
 
                         <!-- Icon header -->
-                        <c:if test="${sessionScope.loginedUser.roleID!=1}">
+                        <c:if test="${sessionScope.loginedUser.roleID!=1 && sessionScope.loginedUser.roleID!=2}">
                             <div class="wrap-icon-header flex-w flex-r-m">
-
-                                <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 js-show-modal-search">
-                                    <i class="zmdi zmdi-search"></i>
-                                </div>
-
 
                                 <c:if test="${sessionScope.loginedUser!=null}">
                                     <div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti js-show-cart"
@@ -152,11 +170,8 @@
         </div>
 
         <!-- Icon header -->
-        <c:if test="${sessionScope.loginedUser.roleID!=1}">
+        <c:if test="${sessionScope.loginedUser.roleID!=1 && sessionScope.loginedUser.roleID!=2}">
         <div class="wrap-icon-header flex-w flex-r-m m-r-15">
-            <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 js-show-modal-search">
-                <i class="zmdi zmdi-search"></i>
-            </div>
             <c:if test="${sessionScope.loginedUser!=null}">
             <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart"
                  data-notify="${listChiTietGioHang.size()}">
@@ -206,7 +221,7 @@
                     </div>
             </li>
         </ul>
-        <c:if test="${sessionScope.loginedUser.roleID!=1}">
+        <c:if test="${sessionScope.loginedUser.roleID!=1 && sessionScope.loginedUser.roleID!=2}">
         <ul class="main-menu-m">
             <li>
                 <a href="${pageContext.request.contextPath}/home">Home</a>
@@ -223,20 +238,42 @@
                 <a href="${pageContext.request.contextPath}/cart" class="label1 rs1" data-label1="hot">Features</a>
             </li>
 
-            <li>
-                <a href="blog.html">Blog</a>
-            </li>
 
             <li>
                 <a href="${pageContext.request.contextPath}/about">About</a>
             </li>
 
             <li>
-                <a href="contact.html">Contact</a>
+                <a href="${pageContext.request.contextPath}/contact">Contact</a>
             </li>
 
         </ul>
         </c:if>
+
+        <!-- Menu desktop for staff -->
+        <c:if test="${sessionScope.loginedUser.roleID==2}">
+            <div class="menu-desktop">
+                <ul class="main-menu">
+                    <li>
+                        <a href="${pageContext.request.contextPath}/home">Home</a>
+                    </li>
+
+                    <li>
+                        <a href="${pageContext.request.contextPath}/product">Shop</a>
+                    </li>
+
+                    <li>
+                        <a href="${pageContext.request.contextPath}/productManagement">Product Manager</a>
+                    </li>
+
+                    <li>
+                        <a href="${pageContext.request.contextPath}/Statistic">Statistic</a>
+                    </li>
+
+                </ul>
+            </div>
+        </c:if>
+
         <c:if test="${sessionScope.loginedUser.roleID==1}">
             <ul class="main-menu-m">
                 <li>
