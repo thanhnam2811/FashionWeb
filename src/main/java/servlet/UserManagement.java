@@ -29,7 +29,7 @@ public class UserManagement extends HttpServlet {
             response.sendRedirect(contextPath + "/signIn");
         }
         else {
-            if (u.getRoleID() == 1) {
+            if (u.getRoleID() == 3) {
                 try {
                     Connection conn = MyUtils.getStoredConnection(request);
                     listUser = DBUtils.getAllUser(conn);

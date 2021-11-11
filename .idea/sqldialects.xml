@@ -7,6 +7,7 @@
     <file url="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/scriptSQL/3.create_trigger.sql" dialect="TSQL" />
     <file url="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/scriptSQL/4.inset_data.sql" dialect="TSQL" />
     <file url="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/scriptSQL/5.create_procedure.sql" dialect="TSQL" />
+    <file url="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/scriptSQL/5.create_procedure_special.sql" dialect="TSQL" />
     <file url="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/scriptSQL/6.create_function.sql" dialect="TSQL" />
   </component>
 </project>

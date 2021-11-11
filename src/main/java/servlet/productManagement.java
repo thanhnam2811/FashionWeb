@@ -34,7 +34,7 @@ public class productManagement extends HttpServlet {
             response.sendRedirect(contextPath + "/signIn");
         }
         else {
-            if (u.getRoleID() == 1 || u.getRoleID() == 2) {
+            if (u.getRoleID() == 2 || u.getRoleID() == 3) {
                 try {
                     Connection conn = MyUtils.getStoredConnection(request);
                     listSP = DBUtils.getAllSanPham(conn);

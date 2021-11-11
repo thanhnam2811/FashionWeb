@@ -7,6 +7,9 @@ create role ViewerRole
 grant SELECT, EXECUTE to ViewerRole
 
 -- create user guess with read-only rules
+if not exists(SELECT name
+              FROM master.sys.server_principals
+              WHERE name = 'guess')
 create login guess with password = 'guess'
 create user guess for login guess
 exec sp_addrolemember ViewerRole, guess

@@ -40,7 +40,7 @@
                         </a>
 
                         <!-- Menu desktop for user -->
-                        <c:if test="${sessionScope.loginedUser.roleID!=1 && sessionScope.loginedUser.roleID!=2}">
+                        <c:if test="${sessionScope.loginedUser.roleID==1 || sessionScope.loginedUser.roleID==null}">
                             <div class="menu-desktop">
                                 <ul class="main-menu">
                                     <li>
@@ -87,7 +87,7 @@
                             </div>
                         </c:if>
                         <!-- Menu desktop for admin -->
-                        <c:if test="${sessionScope.loginedUser.roleID==1}">
+                        <c:if test="${sessionScope.loginedUser.roleID==3}">
                             <div class="menu-desktop">
                                 <ul class="main-menu">
                                     <li>
@@ -120,7 +120,7 @@
 
 
                         <!-- Icon header -->
-                        <c:if test="${sessionScope.loginedUser.roleID!=1 && sessionScope.loginedUser.roleID!=2}">
+                        <c:if test="${sessionScope.loginedUser.roleID==1}">
                             <div class="wrap-icon-header flex-w flex-r-m">
 
                                 <c:if test="${sessionScope.loginedUser!=null}">
@@ -170,7 +170,7 @@
         </div>
 
         <!-- Icon header -->
-        <c:if test="${sessionScope.loginedUser.roleID!=1 && sessionScope.loginedUser.roleID!=2}">
+        <c:if test="${sessionScope.loginedUser.roleID==1}">
         <div class="wrap-icon-header flex-w flex-r-m m-r-15">
             <c:if test="${sessionScope.loginedUser!=null}">
             <div class="icon-header-item cl2 hov-cl1 trans-04 p-r-11 p-l-10 icon-header-noti js-show-cart"
@@ -221,7 +221,7 @@
                     </div>
             </li>
         </ul>
-        <c:if test="${sessionScope.loginedUser.roleID!=1 && sessionScope.loginedUser.roleID!=2}">
+        <c:if test="${sessionScope.loginedUser.roleID==1 || sessionScope.loginedUser.roleID==null}">
         <ul class="main-menu-m">
             <li>
                 <a href="${pageContext.request.contextPath}/home">Home</a>
@@ -274,7 +274,7 @@
             </div>
         </c:if>
 
-        <c:if test="${sessionScope.loginedUser.roleID==1}">
+        <c:if test="${sessionScope.loginedUser.roleID==3}">
             <ul class="main-menu-m">
                 <li>
                     <a href="${pageContext.request.contextPath}/home">Home</a>
