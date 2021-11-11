@@ -22,7 +22,7 @@ public class product extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         // TODO Auto-generated method stub
-
+        new cart().doPost(request, response);
         List<SanPham> listSP = new ArrayList<SanPham>();
         List<LoaiSP> listLoaiSP = new ArrayList<LoaiSP>();
         int numP_display = 12;
@@ -71,6 +71,7 @@ public class product extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
         doGet(request, response);
     }
 }
