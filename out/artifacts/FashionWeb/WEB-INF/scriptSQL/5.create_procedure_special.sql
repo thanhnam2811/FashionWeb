@@ -307,7 +307,7 @@ BEGIN
 END;
 go
 
---
+
 drop procedure if exists Admin_editUser
 go
 create procedure Admin_editUser
@@ -355,8 +355,9 @@ as
     Update Users
     set password = @new_password
     where maKH= @maKH 
-	and password = HASHBYTES('SHA2_512', @old_password+CAST('namtrungtantoan' as varchar(30)))
+	and password = @old_password
 go
+
 
 -- find user --
 drop procedure if exists findUserByUserName

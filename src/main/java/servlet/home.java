@@ -62,8 +62,8 @@ public class home extends HttpServlet {
 				listSP = DBUtils.getSPBanNhieu(conn);
 
 			totalpage = listSP.size()%numP_display == 0 ? listSP.size()/numP_display : listSP.size()/numP_display+1;
-			if(page < 0 || page > totalpage)
-				page = totalpage;
+			if(page <= 0 || page > totalpage)
+				page = 1;
 
 			request.setAttribute("listSP", listSP);
 			request.setAttribute("listLoaiSP", listLoaiSP);

@@ -149,7 +149,7 @@ go
 drop trigger if exists after_insert_update_Users
 go
 create trigger after_insert_update_Users on Users
-after update
+after update, insert
 as
 declare @username varchar(20), @password varchar(max), @roleName varchar(10), @sql nvarchar(max)
 select @username = userName, @password = password, @roleName = Role.name
@@ -157,13 +157,18 @@ from Users, Role
 where Users.roleID = Role.roleID
 begin
 	-- create login
-	set @sql='create login ' + @username + ' with password = ' + @password 
-	exec (@sql)
+	if not exists(SELECT name
+                 FROM master.sys.server_principals
+                 WHERE name = @username)
+	    begin
+	    set @sql='create login ' + @username + ' with password = ''' + @password + ''''
+	    exec (@sql)
+	    end
 	-- create user
 	set @sql='create user ' + @username + ' for login ' + @username
 	exec (@sql)
 	-- add to role
-	set @sql='sp_addrolemember' + @roleName + ', ' + @username
+	set @sql='sp_addrolemember ' + @roleName + ',' + @username
 	exec (@sql)
 end
 

@@ -46,6 +46,7 @@ public class SQLServerConnUtils {
 
 		Connection conn = DriverManager.getConnection(connectionURL, userName,
 				password);
+		System.out.println("Login as " + userName);
 		return conn;
 	}
 }
