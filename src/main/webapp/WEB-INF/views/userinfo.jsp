@@ -13,6 +13,7 @@
 	<meta name="description" content="" />
 	<meta name="author" content="" />
 	<title>Thông tin tài khoản</title>
+	<link rel="icon" type="image/png" href="images/icons/favicon.png"/>
 	<link rel="icon" type="image/x-icon" href="assets/img/Logo.PNG" />
 	<!-- Font Awesome icons (free version)-->
 	<script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js"
@@ -72,7 +73,7 @@
 				Thông tin <span class="text-primary"> tài khoản</span>
 			</h1>
 			<div class="subheading mb-5">
-				NTTT SHOP: <a href="mailto:name@email.com"> ntttshop@email.com</a>
+				N3T SHOP: <a href="mailto:name@email.com"> n3t@gmail.com</a>
 			</div>
 			<section>
 

@@ -32,7 +32,7 @@ public class Statistic extends HttpServlet {
             response.sendRedirect(contextPath + "/signIn");
         }
         else {
-            if (u.getRoleID() == 1) {
+            if (u.getRoleID() == 1 || u.getRoleID() == 2) {
                 try {
                     Connection conn = MyUtils.getStoredConnection(request);
                     listSPDaMua = DBUtils.getSoLuongSPDaMua(conn);
