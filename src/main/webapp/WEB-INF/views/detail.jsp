@@ -118,7 +118,7 @@
                     <p class="stext-102 cl3 p-t-23"> » BẢO HÀNH SẢN PHẨM 90 NGÀY</p>
                     <p class="stext-102 cl3 p-t-23"> » ĐỔI HÀNG TRONG VÒNG 30 NGÀY</p>
                     <!--  -->
-                    <c:if test="${sessionScope.loginedUser.roleID!=1}">
+                    <c:if test="${sessionScope.loginedUser.roleID!=2 && sessionScope.loginedUser.roleID!=3}">
                         <div class="p-t-33">
                             <div class="flex-w flex-r-m p-b-10">
                                 <div class="size-204 flex-w flex-m respon6-next">
