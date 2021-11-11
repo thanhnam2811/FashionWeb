@@ -116,7 +116,7 @@ as
 	from Users
 	where
 		Users.userName = @username and 
-		Users.[password] = HASHBYTES('SHA2_512', @password+CAST('namtrungtantoan' as varchar(30)))
+		Users.[password] = @password;
 go
 
 -- Load info user theo maKH--
@@ -369,4 +369,3 @@ from Users
 where
         Users.userName = @username
 go
-

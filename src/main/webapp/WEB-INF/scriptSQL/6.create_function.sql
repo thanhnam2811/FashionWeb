@@ -29,9 +29,9 @@ AS
 BEGIN
 DECLARE @maDH INT;
 SET @maDH = (select MAX(maDH) as maDH
-		from DonHang
-		group by maKH
-		having maKH=@maKH)
+			from DonHang
+			group by maKH
+			having maKH=@maKH)
 RETURN @maDH;
 END;
 go

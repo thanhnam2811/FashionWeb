@@ -14,7 +14,9 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import beans.Users;
 import utils.*;
 import conn.ConnectionUtils;
 
@@ -42,7 +44,7 @@ public class JDBCFilter implements Filter {
 		//
 		// => /spath
 		String servletPath = request.getServletPath();
-		
+
 		// => /abc/mnp
 		String pathInfo = request.getPathInfo();
 
@@ -55,13 +57,13 @@ public class JDBCFilter implements Filter {
 
 		// Key: servletName.
 		// Value: ServletRegistration
-		Map<String, ? extends ServletRegistration> servletRegistrations = 
+		Map<String, ? extends ServletRegistration> servletRegistrations =
 				request.getServletContext().getServletRegistrations();
 
 		// Tập hợp tất cả các Servlet trong WebApp của bạn.
-		Collection<? extends ServletRegistration> values = 
+		Collection<? extends ServletRegistration> values =
 				servletRegistrations.values();
-		
+
 		for (ServletRegistration sr : values) {
 			Collection<String> mappings = sr.getMappings();
 			if (mappings.contains(urlPattern)) {
@@ -89,8 +91,15 @@ public class JDBCFilter implements Filter {
 
 			Connection conn = null;
 			try {
-				// Tạo đối tượng Connection kết nối database.
-				conn = ConnectionUtils.getConnection();
+				HttpSession session = req.getSession();
+				Users loginedUser = MyUtils.getLoginedUser(session);
+				if (loginedUser == null)
+					// Tạo đối tượng Connection kết nối database.
+					conn = ConnectionUtils.getConnection();
+				else
+					// Tạo đối tượng Connection kết nối database.
+					conn = ConnectionUtils.getConnection(loginedUser.getUserName(), loginedUser.getPassword());
+
 				// Sét tự động commit false, để chủ động điều khiển.
 				conn.setAutoCommit(false);
 

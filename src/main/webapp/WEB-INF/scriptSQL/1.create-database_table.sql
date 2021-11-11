@@ -1,4 +1,4 @@
-create database QuanLiShop 
+create database QuanLiShop
 go
 
 use QuanLiShop
@@ -39,7 +39,7 @@ create table Users
 	diaChi nvarchar(50),
 	userName varchar(20) not null unique,
 	password varchar(max) not null,
-	roleID int null,
+	roleID int null default 1,
 )
 
 create table DonHang
