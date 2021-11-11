@@ -348,14 +348,20 @@ go
 drop procedure if exists  EditUserInfo_password
 go
 create procedure EditUserInfo_password
-    @maKH int,
+    @username varchar(20),
     @new_password varchar(MAX),
     @old_password varchar(MAX)
 as
+begin
+    declare @sql varchar(max)
+    set @sql = 'alter login ' + @username + ' with password = ''' + @new_password + ''' OLD_PASSWORD = ''' + @old_password + ''''
+    exec (@sql)
+
     Update Users
     set password = @new_password
-    where maKH= @maKH 
+    where username= @username
 	and password = @old_password
+end
 go
 
 

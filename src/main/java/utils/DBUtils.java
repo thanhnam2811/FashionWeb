@@ -449,10 +449,10 @@ public class DBUtils {
         cstm.execute();
     }
 
-    public static boolean EditUserInfo_password(Connection conn, int maKH, String npassword, String opassword) throws SQLException {
-        String sql = "{call EditUserInfo_password(?,?,?)}";
+    public static boolean EditUserInfo_password(Connection conn, String username, String npassword, String opassword) throws SQLException {
+        String sql = "{call EditUserInfo_password(?, ?, ?)}";
         PreparedStatement pstm = conn.prepareStatement(sql);
-        pstm.setInt(1, maKH);
+        pstm.setString(1, username);
         pstm.setString(2, npassword);
         pstm.setString(3, opassword);
         if (pstm.executeUpdate() == 0)

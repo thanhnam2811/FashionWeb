@@ -149,7 +149,7 @@ go
 drop trigger if exists after_insert_update_Users
 go
 create trigger after_insert_update_Users on Users
-after update, insert
+after insert
 as
 declare @username varchar(20), @password varchar(max), @roleName varchar(10), @sql nvarchar(max)
 select @username = userName, @password = password, @roleName = Role.name

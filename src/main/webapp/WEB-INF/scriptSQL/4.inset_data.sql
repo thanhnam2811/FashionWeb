@@ -54,6 +54,7 @@ create role UserRole
 grant SELECT, EXECUTE to UserRole
 grant INSERT, DELETE on ChiTietGioHang to UserRole
 grant INSERT on ChiTietDonHang to UserRole
+revoke UPDATE(hoTen, sdt, ngaySinh, diaChi, [password]) on Users to UserRole
 grant INSERT on DonHang to UserRole
 
 -- Staff Role --
@@ -63,6 +64,7 @@ use QuanLiShop
 create role StaffRole
 grant SELECT, EXECUTE to StaffRole
 grant INSERT, DELETE on BinhLuan to StaffRole
+grant UPDATE(hoTen, sdt, ngaySinh, diaChi, [password]) on Users to StaffRole
 grant INSERT, DELETE on LoaiSP to StaffRole
 
 -- Admin Role --
