@@ -249,7 +249,7 @@
                                     <!--DeleteReview-->
                                     <c:forEach items="${listBL}" var="o">
                                         <div class="flex-w flex-t p-b-68">
-                                            <c:if test="${sessionScope.loginedUser.roleID==1}">
+                                            <c:if test="${sessionScope.loginedUser.roleID==2 && sessionScope.loginedUser.roleID==3}">
                                                 <form action="deleteReview?maSP=${SP.maSP}&maCMT=${o.maCMT}"
                                                       method="post">
                                                     <input class="flex-c-m stext-101 cl0 size-112 bg7 bor11 hov-btn3 p-lr-15 trans-04 m-b-10"
