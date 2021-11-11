@@ -53,7 +53,7 @@
 									href="${pageContext.request.contextPath}/home">Trang Chủ</a></li>
 			<li class="nav-item"><a class="nav-link js-scroll-trigger"
 									href="#about">Thông tin tài khoản</a></li>
-			<c:if test="${sessionScope.loginedUser.roleID!=1}">
+			<c:if test="${sessionScope.loginedUser.roleID!=2 && sessionScope.loginedUser.roleID!=3 }">
 			<li class="nav-item"><a class="nav-link js-scroll-trigger"
 									href="#experience">Lịch sử mua hàng</a></li>
 			</c:if>
