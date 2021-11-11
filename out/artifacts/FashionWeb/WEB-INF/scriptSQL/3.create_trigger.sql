@@ -117,6 +117,7 @@ end
 go
 */
 
+/*
 -- Insert, update Users
 drop trigger if exists after_insert_Users
 go
@@ -138,24 +139,37 @@ select  @username = new.username,
 		@roleID = new.roleID
 from inserted new
 begin
+	-- hash password
 	insert into Users(hoTen, sdt, ngaySinh, diaChi, username, password, roleID) 
-		values(@hoTen, @sdt, @ngaySinh, @diaChi, @username, @password, @roleID)
+		values(@hoTen, @sdt, @ngaySinh, @diaChi, @username, @password, @roleID);
 end
 go
+*/
 
-drop trigger if exists hash_password
+drop trigger if exists after_insert_update_Users
 go
-create trigger hash_password on Users
+create trigger after_insert_update_Users on Users
 after update
 as
-declare @password varchar(max), @opassword varchar(max), @maKH int
-select @password = new.password, @opassword = old.password, @maKH = new.maKH
-from inserted new, deleted old
-if( @password != @opassword )
-	update Users
-	set	password = HASHBYTES('SHA2_512', @password+CAST('namtrungtantoan' as varchar(30)))
-	where maKH = @maKH
-go
+declare @username varchar(20), @password varchar(max), @roleName varchar(10), @sql nvarchar(max)
+select @username = userName, @password = password, @roleName = Role.name
+from Users, Role
+where Users.roleID = Role.roleID
+begin
+	-- create login
+	set @sql='create login ' + @username + ' with password = ' + @password 
+	exec (@sql)
+	-- create user
+	set @sql='create user ' + @username + ' for login ' + @username
+	exec (@sql)
+	-- add to role
+	set @sql='sp_addrolemember' + @roleName + ', ' + @username
+	exec (@sql)
+end
+
+
+
+
 
 
 	
