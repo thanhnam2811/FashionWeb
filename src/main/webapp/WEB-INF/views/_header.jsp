@@ -322,7 +322,9 @@
 
         <div class="header-cart-content flex-w js-pscroll">
             <ul class="header-cart-wrapitem w-full">
-                <c:forEach items="${listChiTietGioHang}" var="o">
+                <c:set var="tongTien" value="0"/>
+                <c:forEach items="${requestScope.listChiTietGioHang}" var="o">
+                    <c:set var="tongTien" value="${tongTien += o.thanhTien}"/>
                     <li class="header-cart-item flex-w flex-t m-b-12">
                         <div class="header-cart-item-img">
                             <img src="${o.sanPham.hinhSP }" alt="IMG">
@@ -346,7 +348,7 @@
             <div class="w-full">
                 <div class="header-cart-total w-full p-tb-40">
                     Total: <fmt:formatNumber type="number"
-                                             maxFractionDigits="0" value="${sumAll}"/>vnđ
+                                             maxFractionDigits="0" value="${tongTien}"/>vnđ
                 </div>
 
                 <div class="header-cart-buttons flex-w w-full">

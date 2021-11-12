@@ -1,7 +1,6 @@
 package servlet;
 
 import beans.Users;
-import conn.ConnectionUtils;
 import utils.DBUtils;
 import utils.MyUtils;
 
@@ -33,9 +32,6 @@ public class edituserpassword extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        boolean hasError = false;
-        String messageError = "Unkown Error!";
-
         Connection conn = MyUtils.getStoredConnection(request);
         HttpSession session = request.getSession();
         Users user = MyUtils.getLoginedUser(session);
@@ -47,24 +43,22 @@ public class edituserpassword extends HttpServlet {
             String oldpassword = request.getParameter("oldpassword");
             String newpassword = request.getParameter("newpassword");
 
-//            Connection conn = ConnectionUtils.getConnection("sa", "123");
-
-            hasError = !DBUtils.EditUserInfo_password(conn, user.getUserName(), newpassword, oldpassword);
-        } catch (SQLException  e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
-        } finally {
-            if (hasError) {
+            if (DBUtils.findUser(conn, user.getUserName(), oldpassword) == null) {
                 String mess = "Mật khẩu cũ không đúng";
                 request.setAttribute("mess", mess);
                 request.getRequestDispatcher("/WEB-INF/views/userinfo.jsp").forward(request, response);
+                return;
             } else {
+                DBUtils.EditUserInfo_password(conn, user.getUserName(), newpassword, oldpassword);
                 MyUtils.storeLoginedUser(session, null);
                 MyUtils.deleteUserCookie(response);
                 response.sendRedirect(request.getContextPath() + "/signIn");
             }
-        }
 
+        } catch (SQLException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+        }
     }
 
     /**

@@ -172,6 +172,27 @@ begin
 	exec (@sql)
 end
 
+go
+drop trigger if exists after_delete_Users
+go
+create trigger after_delete_Users on Users
+    after delete
+    As
+
+    declare @username varchar(20), @sql varchar(MAX)
+    select @username = de.userName
+    from deleted de
+
+begin
+    --Xóa login
+    set @sql= 'DROP LOGIN ' + @username
+    exec (@sql)
+    --Xóa user
+    set @sql= 'DROP USER ' + @username
+    exec (@sql)
+
+end
+
 
 
 

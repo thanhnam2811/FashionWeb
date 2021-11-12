@@ -87,7 +87,6 @@ public class SearchControll extends HttpServlet {
             request.setAttribute("numP_display",numP_display);
             request.setAttribute("totalpage", totalpage);
             request.setAttribute("key", search);
-            new cart().doPost(request, response);
             request.getRequestDispatcher("/WEB-INF/views/viewTimKiem.jsp").forward(request, response);
 
         }

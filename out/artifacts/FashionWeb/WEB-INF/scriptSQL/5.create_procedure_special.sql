@@ -353,14 +353,22 @@ create procedure EditUserInfo_password
     @old_password varchar(MAX)
 as
 begin
-    declare @sql varchar(max)
-    set @sql = 'alter login ' + @username + ' with password = ''' + @new_password + ''' OLD_PASSWORD = ''' + @old_password + ''''
-    exec (@sql)
 
-    Update Users
-    set password = @new_password
-    where username= @username
-	and password = @old_password
+    declare @sql varchar(max),@oldpass varchar(MAX)
+    select @oldpass = password
+    from Users
+    where userName = @username;
+    --Check password cũ
+    if @oldpass = @old_password
+        begin
+            set @sql = 'alter login ' + @username + ' with password = ''' + @new_password + ''' OLD_PASSWORD = ''' + @old_password + ''''
+            exec (@sql)
+
+            Update Users
+            set password = @new_password
+            where username= @username
+              and password = @old_password
+        end
 end
 go
 

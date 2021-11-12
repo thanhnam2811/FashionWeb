@@ -145,9 +145,7 @@
 					class="d-flex flex-column flex-md-row justify-content-between mb-5">
 				<section>
 					<form action="edituserinfo" method="post">
-
 						<!-- -->
-
 						<label>Họ và tên:</label>
 						<input type="text" required="" value="${info.hoTen }" name="hoten">
 						<br>
@@ -176,7 +174,7 @@
 				<label>Mật khẩu cũ:</label> <input type="password" required=""
 												   placeholder="OldPassword"  name="oldpassword" />
 				<br>
-				<p>${mess }</p>
+				<p style="color:red;">${mess }</p>
 				<label>Mật khẩu mới:</label> <input type="password" required=""
 													placeholder="NewPassword" id="newpassword" name="newpassword" />
 				<br> <label>Nhập lại mật khẩu:</label> <input type="password" required=""

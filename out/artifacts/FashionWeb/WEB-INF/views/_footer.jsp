@@ -104,9 +104,7 @@
           </div>
 
           <div class="p-t-18">
-            <button class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04">
-              Liên hệ
-            </button>
+            <a class="flex-c-m stext-101 cl0 size-103 bg1 bor1 hov-btn2 p-lr-15 trans-04" href="${pageContext.request.contextPath}/contact">Liên Hệ</a>
           </div>
         </form>
       </div>
