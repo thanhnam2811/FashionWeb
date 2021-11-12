@@ -225,9 +225,7 @@
         <ul class="main-menu-m">
             <li>
                 <a href="${pageContext.request.contextPath}/home">Home</a>
-                <span class="arrow-main-menu-m">
-						<i class="fa fa-angle-right" aria-hidden="true"></i>
-					</span>
+
             </li>
 
             <li>
@@ -251,9 +249,10 @@
         </c:if>
 
         <!-- Menu desktop for staff -->
-        <c:if test="${sessionScope.loginedUser.roleID==2}">
-            <div class="menu-desktop">
-                <ul class="main-menu">
+
+
+                <c:if test="${sessionScope.loginedUser.roleID==2}">
+                <ul class="main-menu-m">
                     <li>
                         <a href="${pageContext.request.contextPath}/home">Home</a>
                     </li>
@@ -271,16 +270,14 @@
                     </li>
 
                 </ul>
-            </div>
+
         </c:if>
 
         <c:if test="${sessionScope.loginedUser.roleID==3}">
             <ul class="main-menu-m">
                 <li>
                     <a href="${pageContext.request.contextPath}/home">Home</a>
-                    <span class="arrow-main-menu-m">
-                        <i class="fa fa-angle-right" aria-hidden="true"></i>
-                    </span>
+
                 </li>
 
                 <li>
