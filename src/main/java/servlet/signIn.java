@@ -75,17 +75,8 @@ public class signIn extends HttpServlet {
 				// Lưu connection lại
 				MyUtils.storeConnection(request, conn);
 
-                //Kiểm tra quyền truy cập
-                if ((u.getRoleID()) == 0) {
-                    request.getRequestDispatcher("home").forward(request, response);
-                } else {
-//					//request.getRequestDispatcher("productManagement").forward(request, response);
-//					String contextPath = request.getContextPath();
-//					response.sendRedirect(contextPath + "/productManagement");
+                request.getRequestDispatcher("home").forward(request, response);
 
-                    request.getRequestDispatcher("home").forward(request, response);
-
-                }
             } else {
                 errorString = "Tên đăng nhập hoặc mật khẩu không chính xác";
                 request.setAttribute("errorString", errorString);

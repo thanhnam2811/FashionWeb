@@ -54,7 +54,6 @@ public class UserManagement extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         try {
-            Connection conn;
 
             String hoten = request.getParameter("newUserName");
             String sdt = request.getParameter("numberPhone");
@@ -64,7 +63,9 @@ public class UserManagement extends HttpServlet {
             String password = request.getParameter("password");
             int roleID = Integer.parseInt(request.getParameter("roleID"));
 
-            conn = ConnectionUtils.getConnection();
+            // Tạo đối tượng Connection kết nối database.
+            Connection conn = ConnectionUtils.getConnection("sa", "123");
+
             DBUtils.insertAdmin(conn,hoten,sdt,ngaySinh,diaChi,username,password,roleID);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
