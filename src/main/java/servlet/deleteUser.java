@@ -18,12 +18,13 @@ public class deleteUser extends HttpServlet {
 
         int maKH = Integer.parseInt(request.getParameter("maKH"));
         try {
-            Connection conn = MyUtils.getStoredConnection(request);
+//            Connection conn = MyUtils.getStoredConnection(request);
+            Connection conn = ConnectionUtils.getConnection("sa", "123");
             DBUtils.deleteUser(conn, maKH);
 
             // Quay về trang product management
             new UserManagement().doGet(request, response);
-        } catch (SQLException throwables) {
+        } catch (SQLException | ClassNotFoundException throwables) {
             throwables.printStackTrace();
         }
     }
