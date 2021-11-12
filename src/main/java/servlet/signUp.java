@@ -58,14 +58,18 @@ public class signUp extends HttpServlet {
 		
 		Date date = Date.valueOf(ngaySinh);
 		try {
-			Connection conn = MyUtils.getStoredConnection(request);
+			// Tạo đối tượng Connection kết nối database.
+			Connection conn = ConnectionUtils.getConnection("sa", "123");
+//			Connection conn = MyUtils.getStoredConnection(request);
 			DBUtils.insertUser(conn, hoten,sdt,date,diaChi,username,password);
+			request.getRequestDispatcher("/signIn").forward(request, response);
 		} catch ( SQLException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
 		}
-		
-		request.getRequestDispatcher("/signIn").forward(request, response);
+
 	}
 
 }
