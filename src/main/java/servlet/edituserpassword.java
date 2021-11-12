@@ -47,8 +47,10 @@ public class edituserpassword extends HttpServlet {
             String oldpassword = request.getParameter("oldpassword");
             String newpassword = request.getParameter("newpassword");
 
+//            Connection conn = ConnectionUtils.getConnection("sa", "123");
+
             hasError = !DBUtils.EditUserInfo_password(conn, user.getUserName(), newpassword, oldpassword);
-        } catch (SQLException e1) {
+        } catch (SQLException  e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
         } finally {
