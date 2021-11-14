@@ -95,57 +95,7 @@ Begin
 	ROLLBACK;
 End
 GO
-
--------------------------USERS---------------------------
-/*
--- Kiểm tra sdt người dùng nhập và chỉ gồm số và độ dài = 10
-drop trigger if exists check_sdt_users
-go
-create trigger check_sdt_users on Users
-after insert, update
-AS
-declare @sdt nvarchar(10), @password varchar(max), @maKH int
-select @sdt = new.sdt, @password = new.password, @maKH = new.maKH
-from inserted new
-begin
-	if( ISNUMERIC(@sdt) = 0 or LEN(@sdt) != 10 )
-	begin
-		print(N'Số điện thoại không bao gồm chữ cái, kí tự đặt biệt và phải có 10 chữ số!');
-		rollback;
-	end
-end
-go
-*/
-
-/*
--- Insert, update Users
-drop trigger if exists after_insert_Users
-go
-create trigger after_insert_Users on Users
-instead of insert as
-declare @username varchar(50),
-		@password varchar(100),
-		@hoTen nvarchar(200),
-		@sdt varchar(10),
-		@diaChi nvarchar(max),
-		@ngaySinh date,
-		@roleID int
-select  @username = new.username,
-		@password = HASHBYTES('SHA2_512', new.password+CAST('namtrungtantoan' as varchar(30))),
-		@hoTen = new.hoTen,
-		@sdt = new.sdt,
-		@diaChi = new.diaChi,
-		@ngaySinh = new.ngaySinh,
-		@roleID = new.roleID
-from inserted new
-begin
-	-- hash password
-	insert into Users(hoTen, sdt, ngaySinh, diaChi, username, password, roleID) 
-		values(@hoTen, @sdt, @ngaySinh, @diaChi, @username, @password, @roleID);
-end
-go
-*/
-
+------ User ------
 drop trigger if exists after_insert_update_Users
 go
 create trigger after_insert_update_Users on Users
@@ -164,6 +114,11 @@ begin
 	    set @sql='create login ' + @username + ' with password = ''' + @password + ''''
 	    exec (@sql)
 	    end
+	else
+        begin
+            set @sql='alter login ' + @username + ' with password = ''' + @password + ''''
+            exec (@sql)
+        end
 	-- create user
 	set @sql='create user ' + @username + ' for login ' + @username
 	exec (@sql)
@@ -171,8 +126,8 @@ begin
 	set @sql='sp_addrolemember ' + @roleName + ',' + @username
 	exec (@sql)
 end
-
 go
+
 drop trigger if exists after_delete_Users
 go
 create trigger after_delete_Users on Users
