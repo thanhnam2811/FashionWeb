@@ -324,7 +324,7 @@
             <ul class="header-cart-wrapitem w-full">
                 <c:set var="tongTien" value="0"/>
                 <c:forEach items="${requestScope.listChiTietGioHang}" var="o">
-                    <c:set var="tongTien" value="${tongTien += o.thanhTien}"/>
+                    <c:set var="tongTien" value="${tongTien + o.thanhTien}"/>
                     <li class="header-cart-item flex-w flex-t m-b-12">
                         <div class="header-cart-item-img">
                             <img src="${o.sanPham.hinhSP }" alt="IMG">
