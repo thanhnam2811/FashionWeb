@@ -146,7 +146,7 @@
     function getMonth(date)
     {
         var d = new Date(date);
-        return d.getMonth() +1;
+        return d.getMonth();
     }
     function getDate(date)
     {

@@ -8,6 +8,7 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/index.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/product-management.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views/signUp.jsp" value="file://$PROJECT_DIR$/src/main/webapp/WEB-INF/views" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/admin/home.jsp" value="file://$PROJECT_DIR$/src/main/webapp/admin" />
       </map>
     </option>
   </component>
