@@ -22,8 +22,8 @@ public class deleteProduct extends HttpServlet {
             Connection conn = MyUtils.getStoredConnection(request);
             DBUtils.deleteSanPham(conn, maSP);
 
-            // Quay về trang product management
-            new productManagement().doGet(request, response);
+            // Quay về
+            response.sendRedirect(request.getContextPath() + "/manage-product");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }

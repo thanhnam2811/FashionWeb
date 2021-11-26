@@ -78,7 +78,7 @@ public class DBUtils {
         cstm.execute();
         ResultSet rs = cstm.getResultSet();
         SanPham sanPham = new SanPham();
-        while (rs.next()) {
+        if (rs.next()) {
             int maSP = rs.getInt("maSP");
             String tenSP = rs.getString("tenSP");
             int maTH = rs.getInt("maTH");
@@ -88,8 +88,9 @@ public class DBUtils {
             int soLuongSP = rs.getInt("soLuongSP");
             Date ngayDangBan = rs.getDate("ngayDangBan");
             sanPham = new SanPham(maSP, tenSP, maTH, maLoaiSP, hinhSP, giaSP, soLuongSP, ngayDangBan);
+            return sanPham;
         }
-        return sanPham;
+        return null;
     }
 
     public static List<SanPham> getSanPhambymaLoaiSP(Connection conn, String idmaLoaiSP) throws SQLException {
