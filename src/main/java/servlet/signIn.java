@@ -75,8 +75,10 @@ public class signIn extends HttpServlet {
 				// Lưu connection lại
 				MyUtils.storeConnection(request, conn);
 
-                request.getRequestDispatcher("home").forward(request, response);
-
+                if (loginedUser.getRoleID() != 3)
+                    response.sendRedirect(request.getContextPath() + "/home");
+                else
+                    response.sendRedirect(request.getContextPath() + "/admin");
             } else {
                 errorString = "Tên đăng nhập hoặc mật khẩu không chính xác";
                 request.setAttribute("errorString", errorString);
