@@ -215,7 +215,7 @@
 
                             <div class="size-101">
                                 <div class="bor8 bg0 m-b-12">
-                                    <input class="stext-111 cl2 plh3 size-111 p-lr-15" type="text" name="password"
+                                    <input class="stext-111 cl2 plh3 size-111 p-lr-15" type="password" name="password"
                                            placeholder="Password">
                                 </div>
                             </div>
