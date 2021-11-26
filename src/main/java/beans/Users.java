@@ -11,6 +11,11 @@ public class Users {
 	private String userName;
 	private String password;
 	private int roleID = 0;
+
+	public Users(String hoTen , String userName){
+		this.hoTen = hoTen;
+		this.userName = userName;
+	}
 	public Users() {
 	}
 	public Users(int maKH, String hoTen, String sdt, Date ngaySinh, String diaChi, String userName, String password,
