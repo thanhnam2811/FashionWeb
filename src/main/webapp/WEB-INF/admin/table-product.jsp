@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: thanh
@@ -27,30 +29,6 @@
     <link rel="stylesheet" href="assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="assets/css/app.css">
     <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
-
-
-    <script>
-        function editProduct(maSP) {
-            var _idSP = document.getElementById('_idSP');
-            _idSP.value = document.getElementById('idSP-' + maSP).textContent.trim();
-            var _ten = document.getElementById('_tenSP');
-            _ten.value = document.getElementById('tenSP-' + maSP).textContent.trim().replace('Tên: ', '');
-            var _loaiSP = document.getElementById('_loaiSP');
-            _loaiSP.value = document.getElementById('loaiSP-' + maSP).textContent.trim().replace('Loại: ', '');
-            var _maTH = document.getElementById('_maTH');
-            _maTH.value = document.getElementById('maTH-' + maSP).textContent.trim().replace('Thương hiệu: ', '');
-            var _hinhSP = document.getElementById('_hinhSP');
-            _hinhSP.value = document.getElementById('hinhSP-' + maSP).src.trim();
-            var _giaSP = document.getElementById('_giaSP');
-            _giaSP.value = document.getElementById('giaSP-' + maSP).textContent.trim();
-            var _soLuongSP = document.getElementById('_soLuongSP');
-            _soLuongSP.value = document.getElementById('soLuongSP-' + maSP).textContent.trim();
-
-            var _dateString = document.getElementById('ngayBan-' + maSP).textContent.trim().replace('Ngày bán: ', '').split('/');
-            var _ngayBan = document.getElementById('_ngayBan');
-            _ngayBan.value = _dateString[2] + '-' + _dateString[1] + '-' + _dateString[0]; // yyyy-mm-dd
-        }
-    </script>
 </head>
 
 <body>
@@ -95,39 +73,53 @@
                                         <th>ID</th>
                                         <th>Sản phẩm</th>
                                         <th>Thông tin</th>
-                                        <th>Giá</th>
+                                        <th>Giá (vnđ)</th>
                                         <th>Số lượng</th>
                                         <th>Quản lý</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td id='idSP-1'>1</td>
-                                        <td>
-                                            <a href="#">
-                                                <img style="height: 150px; width: 130px;" id="hinhSP-1"
-                                                     src="https://images.unsplash.com/photo-1633008808000-ce86bff6c1ed?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyN3x8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60"
-                                                     data-bs-target="#Gallerycarousel"
-                                                     data-bs-slide-to="0">
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <p id='tenSP-1'>Tên: Nike Air</p>
-                                            <p id='loaiSP-1'>Loại: Quần</p>
-                                            <p id='maTH-1'>Thương hiệu: Nike</p>
-                                            <p id='ngayBan-1'>Ngày bán: 26/11/2021</p>
-                                        </td>
-                                        <td id='giaSP-1'>
-                                            1000000
-                                        </td>
-                                        <td id='soLuongSP-1'>
-                                            5
-                                        </td>
-                                        <td>
-                                            <a href="#" class="btn btn-primary" onclick="editProduct(1)">Sửa</a>
-                                            <a href="#" class="btn btn-danger">Xóa</a>
-                                        </td>
-                                    </tr>
+                                    <c:forEach items="${requestScope.listSP}" var="sp">
+                                        <tr>
+                                            <td>${sp.maSP}</td>
+                                            <td>
+                                                <a href="#">
+                                                    <img style="height: 150px; width: 130px;"
+                                                         src="${sp.hinhSP}"
+                                                         data-bs-target="#Gallerycarousel"
+                                                         data-bs-slide-to="0">
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <p>Tên: ${sp.tenSP}</p>
+                                                <p>Loại: ${sp.getTenLoaiSP(requestScope.listLoaiSP)}</p>
+                                                <p>Thương hiệu: ${sp.getTenThuongHieu(requestScope.listTH)}</p>
+                                                <p>
+                                                    Ngày đăng bán: <fmt:formatDate value="${sp.ngayDangBan}" pattern="dd/MM/yyyy"/>
+                                                </p>
+                                            </td>
+                                            <td>
+                                                ${sp.giaSP}
+                                            </td>
+                                            <td>
+                                                ${sp.soLuongSP}
+                                            </td>
+                                            <td>
+                                                <a href="#" class="btn btn-primary"
+                                                   onclick="document.getElementById('_maSP').value = ${sp.maSP};
+                                                           document.getElementById('_tenSP').value = '${sp.tenSP}';
+                                                           document.getElementById('_maLoaiSP').value = ${sp.maLoaiSP};
+                                                           document.getElementById('_maTH').value = ${sp.maTH};
+                                                           document.getElementById('_hinhSP').value = '${sp.hinhSP}';
+                                                           document.getElementById('_giaSP').value = ${sp.giaSP};
+                                                           document.getElementById('_soLuongSP').value = ${sp.soLuongSP};
+                                                           document.getElementById('_ngayBan').value = '${sp.ngayDangBan}';">
+                                                    Sửa
+                                                </a>
+                                                <a href="${pageContext.request.contextPath}/deleteProduct?maSP=${sp.maSP}" class="btn btn-danger">Xóa</a>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
                                     </tbody>
                                 </table>
                             </div>
@@ -140,14 +132,14 @@
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <form class="form form-vertical">
+                                        <form class="form form-vertical" action="manage-product" method="post">
                                             <div class="form-body">
                                                 <div class="row">
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="first-name-vertical">ID</label>
-                                                            <input type="text" id="_idSP" class="form-control"
-                                                                   name="_idSP" disabled>
+                                                            <input type="text" id="_maSP" class="form-control"
+                                                                   name="_maSP" readonly>
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
@@ -160,19 +152,24 @@
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="email-id-vertical">Loại</label>
-                                                            <select class="form-select" id="_loaiSP">
-                                                                <option>Quần</option>
-                                                                <option>Áo</option>
-                                                                <option>Giày</option>
+                                                            <select class="form-select" id="_maLoaiSP" name="_maLoaiSP">
+                                                                <c:forEach items="${requestScope.listLoaiSP}" var="lsp">
+                                                                    <option value="${lsp.maLoaiSP}">
+                                                                        ${lsp.tenLoaiSP}
+                                                                    </option>
+                                                                </c:forEach>
                                                             </select>
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="email-id-vertical">Thương hiệu</label>
-                                                            <select class="form-select" id="_maTH">
-                                                                <option>Adidas</option>
-                                                                <option>Nike</option>
+                                                            <select class="form-select" id="_maTH" name="_maTH">
+                                                                <c:forEach items="${requestScope.listTH}" var="th">
+                                                                    <option value="${th.maTH}">
+                                                                        ${th.tenTH}
+                                                                    </option>
+                                                                </c:forEach>
                                                             </select>
                                                         </div>
                                                     </div>
@@ -210,7 +207,8 @@
                                                         </div>
                                                     </div>
                                                     <div class="col-12 d-flex justify-content-end">
-                                                        <button type="submit" class="btn btn-primary me-1 mb-1">Submit
+                                                        <button type="submit" class="btn btn-primary me-1 mb-1">
+                                                            Submit
                                                         </button>
                                                         <button type="reset" class="btn btn-light-secondary me-1 mb-1">
                                                             Reset

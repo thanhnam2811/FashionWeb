@@ -56,7 +56,6 @@ public class productManagement extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         try {
             Connection conn;
             int maSP = 0; // auto tăng nên không cần thêm
