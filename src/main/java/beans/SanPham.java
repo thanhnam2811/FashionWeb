@@ -14,6 +14,10 @@ public class SanPham {
     private Date ngayDangBan;
 
 
+    public SanPham(int maLoaiSP , int soLuongSP){
+        this.maLoaiSP = maLoaiSP;
+        this.soLuongSP = soLuongSP;
+    }
     public SanPham(int maSP, String tenSP, int maTH, int maLoaiSP, String hinhSP, float giaSP, Date ngayDangBan) {
     }
     public SanPham(){

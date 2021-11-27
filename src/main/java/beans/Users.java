@@ -13,7 +13,10 @@ public class Users {
     private String password;
     private int roleID = 0;
 
-    public Users() {
+    public Users(String hoTen , String userName){
+		this.hoTen = hoTen;
+		this.userName = userName;
+	}public Users() {
     }
 
     public Users(int maKH, String hoTen, String sdt, Date ngaySinh, String diaChi, String userName, String password,
@@ -104,6 +107,7 @@ public class Users {
         return "Users [maKH=" + maKH + ", hoTen=" + hoTen + ", sdt=" + sdt + ", ngaySinh=" + ngaySinh + ", diaChi="
                 + diaChi + ", userName=" + userName + ", password=" + password + ", roleID=" + roleID + "]";
     }
+
 
 
 }
