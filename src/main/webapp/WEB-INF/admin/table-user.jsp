@@ -5,6 +5,8 @@
   Time: 2:56 PM
   To change this template use File | Settings | File Templates.
 --%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -76,24 +78,26 @@
                             </tr>
                             </thead>
                             <tbody>
+                            <c:forEach items="${requestScope.listU}" var="o">
                             <tr>
                                 <td id='username-1'>
-                                    nam
+                                    ${o.userName}
                                 </td>
                                 <td id='hoTen-1'>
-                                    Thái Thành Nam
+                                    ${o.hoTen}
                                 </td>
                                 <td id='sdt-1'>
-                                    0981771024
+                                   ${o.sdt}
                                 </td>
                                 <td>
-                                    <p id='ngaySinh-1'>Ngày sinh: 28/11/2001</p>
-                                    <p id='diaChi-1'>Địa chỉ: Bến Tre</p>
+                                    <p id='ngaySinh-1'>Ngày sinh: ${o.ngaySinh}</p>
+                                    <p id='diaChi-1'>Địa chỉ: ${o.diaChi}</p>
                                 </td>
                                 <td>
-                                    <a href="#" class="btn btn-danger">Xóa</a>
+                                    <a href="${pageContext.request.contextPath}/AdminDeleteUser?userName=${o.userName}" class="btn btn-danger">Xóa</a>
                                 </td>
                             </tr>
+                            </c:forEach>
                             </tbody>
                         </table>
                     </div>
