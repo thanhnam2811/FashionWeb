@@ -36,7 +36,7 @@
                     </a>
                 </li>
                 <li class="sidebar-item ${requestScope.pageName.contains("Brand") ? "active" : ""}">
-                    <a href="${pageContext.request.contextPath}/manage-brand" class='sidebar-link'>
+                    <a href="${pageContext.request.contextPath}/brandManagement" class='sidebar-link'>
                         <i class="bi bi-life-preserver"></i>
                         <span>Brand</span>
                     </a>

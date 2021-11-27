@@ -25,34 +25,29 @@ public class brandControll extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         try {
             Connection conn;
-            String action = request.getParameter("action");
+            conn = ConnectionUtils.getConnection();
+            String action = null;
             ThuongHieu th = null;
-            int delmaTH;
-            if(action.equals("insert"))
+            String _maTH = request.getParameter("_maTH") ;
+            if(  _maTH == null || _maTH == "" || AdminManagerBrand.load_TH_byMaTH(conn, _maTH) == null )
             {
                 //int maTH = Integer.valueOf(request.getParameter("maTH"));
-                String tenTH = request.getParameter("tenTH");
-                String emailTH = request.getParameter("emailTH");
-                String hinhTH = request.getParameter("hinhTH");
+                String tenTH = request.getParameter("_tenTH");
+                String emailTH = request.getParameter("_emailTH");
+                String hinhTH = request.getParameter("_logoTH");
                 th = new ThuongHieu(tenTH, emailTH, hinhTH);
-            }
-            if(action.equals("delete") )
-            {
-                delmaTH =  Integer.valueOf(request.getParameter("delmaTH"));
+                action = "insert";
             }
             else
-                delmaTH =0;
-            if(action.equals("update"))
             {
-                delmaTH = Integer.valueOf(request.getParameter("maTH"));
-                String tenTH = request.getParameter("tenTH");
-                String emailTH = request.getParameter("emailTH");
-                String hinhTH = request.getParameter("hinhTH");
-                th =new ThuongHieu(delmaTH, tenTH, emailTH, hinhTH);
+                int maTH = Integer.valueOf(request.getParameter("_maTH"));
+                String tenTH = request.getParameter("_tenTH");
+                String emailTH = request.getParameter("_emailTH");
+                String hinhTH = request.getParameter("_logoTH");
+                th =new ThuongHieu(maTH, tenTH, emailTH, hinhTH);
+                action = "update";
             }
-
-            conn = ConnectionUtils.getConnection();
-            AdminManagerBrand.ControllBrand(conn, th, action, delmaTH);
+            AdminManagerBrand.ControllBrand(conn, th, action);
         }
         catch (ClassNotFoundException c)
         {

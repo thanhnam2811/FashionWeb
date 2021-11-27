@@ -10,10 +10,6 @@ import java.util.List;
 public class DBUtils {
     // Load all sanpham
     public static List<SanPham> getAllSanPham(Connection conn) throws SQLException {
-		/*
-		String sql = "Select * from SanPham";
-		PreparedStatement pstm = conn.prepareStatement(sql);
-		*/
         CallableStatement cstm = conn.prepareCall("{call load_SanPham()}");
         ResultSet rs = cstm.executeQuery();
         List<SanPham> list = new ArrayList<SanPham>();

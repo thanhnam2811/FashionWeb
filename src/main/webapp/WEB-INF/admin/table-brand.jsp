@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: thanh
@@ -28,19 +30,6 @@
     <link rel="stylesheet" href="assets/css/app.css">
     <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
 
-
-    <script>
-        function editBrand(maTH) {
-            var _maTH = document.getElementById('_maTH');
-            _maTH.value = document.getElementById('maTH-' + maTH).textContent.trim();
-            var _tenTH = document.getElementById('_tenTH');
-            _tenTH.value = document.getElementById('tenTH-' + maTH).textContent.trim().replace('Tên: ', '');
-            var _logoTH = document.getElementById('_logoTH');
-            _logoTH.value = document.getElementById('logoTH-' + maTH).src.trim();
-            var _emailTH = document.getElementById('_emailTH');
-            _emailTH.value = document.getElementById('emailTH-' + maTH).textContent.trim().replace('Email: ', '');
-        }
-    </script>
 </head>
 
 <body>
@@ -84,30 +73,38 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Logo</th>
-                                        <th>Thông tin</th>
-                                        <th>Quản lý</th>
+                                        <th>Thông Tin</th>
+                                        <th>Quản Lý</th>
                                     </tr>
                                     </thead>
                                     <tbody>
+                                    <c:forEach items="${listTH}" var="o">
                                     <tr>
                                         <td id='maTH-1'>
-                                            1
+                                            ${o.maTH}
                                         </td>
                                         <td>
                                             <a href="#">
-                                                <img style="height: 150px; width: 130px;" id="logoTH-1" src="https://images.unsplash.com/photo-1633008808000-ce86bff6c1ed?ixid=MnwxMjA3fDB8MHxlZGl0b3JpYWwtZmVlZHwyN3x8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" data-bs-target="#Gallerycarousel"
+                                                <img style="height: 150px; width: 130px;" id="logoTH-1" src="${o.hinhTH}" data-bs-target="#Gallerycarousel"
                                                      data-bs-slide-to="0">
                                             </a>
                                         </td>
                                         <td>
-                                            <p id='tenTH-1'>Tên: Adidas</p>
-                                            <p id='emailTH-1'>Email: Adidas@gmail.com</p>
+                                            <p id='tenTH-1'> ${o.tenTH}</p>
+                                            <p id='emailTH-1'>${o.emailTH}</p>
                                         </td>
                                         <td>
-                                            <a href="#" class="btn btn-primary" onclick="editBrand(1)">Sửa</a>
-                                            <a href="#" class="btn btn-danger">Xóa</a>
+                                            <a href="#" class="btn btn-primary" onclick="
+                                                    document.getElementById('_formTitle').textContent = 'EDIT PRODUCT: ID = ${o.maTH}';
+                                                    document.getElementById('_maTH').value = '${o.maTH}';
+                                                    document.getElementById('_tenTH').value = '${o.tenTH}';
+                                                    document.getElementById('_logoTH').value = '${o.hinhTH}';
+                                                    document.getElementById('_emailTH').value = '${o.emailTH}';">Sửa</a>
+
+                                            <a href="${pageContext.request.contextPath}/deleteTH?maTH=${o.maTH}" class="btn btn-danger">Xóa</a>
                                         </td>
                                     </tr>
+                                    </c:forEach>
                                     </tbody>
                                 </table>
                             </div>
@@ -120,13 +117,13 @@
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <form class="form form-vertical">
+                                        <form class="form form-vertical" action = "brandControll" method = post>
                                             <div class="form-body">
                                                 <div class="row">
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="first-name-vertical">ID</label>
-                                                            <input type="text" id="_maTH" class="form-control" name="_maTH" disabled>
+                                                            <input type="text" id="_maTH" class="form-control" name="_maTH" readonly >
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
@@ -152,7 +149,8 @@
                                                     </div>
                                                     <div class="col-12 d-flex justify-content-end">
                                                         <button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
-                                                        <button type="reset" class="btn btn-light-secondary me-1 mb-1">Reset</button>
+                                                        <button type="reset" class="btn btn-light-secondary me-1 mb-1"
+                                                        onclick =" document.getElementById('_formTitle').textContent = 'CREATE NEW USER';">Cancel</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -187,6 +185,20 @@
     // Simple Datatable
     let table1 = document.querySelector('#table1');
     let dataTable = new simpleDatatables.DataTable(table1);
+</script>
+
+<script>
+    function editBrand(maTH, tenTH, logo, emailTH) {
+/*        /!*var _maTH = document.getElementById('_maTH');
+        _maTH.value = document.getElementById('maTH-' + maTH).textContent.trim();
+        var _tenTH = document.getElementById('_tenTH');
+        _tenTH.value = document.getElementById('tenTH-' + maTH).textContent.trim().replace('Tên: ', '');
+        var _logoTH = document.getElementById('_logoTH');
+        _logoTH.value = document.getElementById('logoTH-' + maTH).src.trim();
+        var _emailTH = document.getElementById('_emailTH');
+        _emailTH.value = document.getElementById('emailTH-' + maTH).textContent.trim().replace('Email: ',*!/ '');*/
+
+    }
 </script>
 
 <script src="assets/js/mazer.js"></script>
