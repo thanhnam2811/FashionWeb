@@ -426,6 +426,7 @@ public class DBUtils {
         }
         return null;
     }
+
     public static Users findUserByUsername(Connection conn, String username) throws SQLException {
         CallableStatement cstm = conn.prepareCall("{call findUserByUserName(?)}");
         cstm.setString(1, username);
@@ -510,14 +511,6 @@ public class DBUtils {
     }
 
     public static void EditUser(Connection conn, int maKH, String hoTen, String sdt, Date ngaySinh, String diaChi, String username, int roleID) throws SQLException {
-//        String sql =" Update Users"
-//                +" set hoTen =?,"
-//                +" sdt=?,"
-//                +" ngaySinh=?,"
-//                +" diaChi=?"
-//                +" username=?"
-//                +" roleID=?"
-//                +" where maKH=?";
         String sql = "{call Admin_editUser(?,?,?,?,?,?,?)}";
         PreparedStatement pstm = conn.prepareStatement(sql);
         pstm.setString(1, hoTen);
@@ -528,6 +521,31 @@ public class DBUtils {
         pstm.setInt(6, roleID);
         pstm.setInt(7, maKH);
         pstm.executeUpdate();
+    }
+
+    public static void updateAdmin(Connection conn, String username, String hoTen, String sdt, Date ngaySinh, String diaChi, int roleID) throws SQLException {
+        String sql = "update Users " +
+                "set " +
+                "hoTen = ?, " +
+                "sdt = ?, " +
+                "ngaySinh = ?, " +
+                "diaChi = ?, " +
+                "roleID = ? " +
+                "where username = ?";
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        pstm.setString(1, hoTen);
+        pstm.setString(2, sdt);
+        pstm.setDate(3, ngaySinh);
+        pstm.setString(4, diaChi);
+        pstm.setInt(5, roleID);
+        pstm.setString(6, username);
+        pstm.executeUpdate();
+    }
+
+    public static void deleteAdmin(Connection conn, String username) throws SQLException {
+        PreparedStatement pstm = conn.prepareCall("delete Users where username = ?");
+        pstm.setString(1, username);
+        pstm.execute();
     }
 
     public static List<ChiTietDonHang> getChiTietDonHang_bymaKH(Connection conn, int idmaKH) throws SQLException {

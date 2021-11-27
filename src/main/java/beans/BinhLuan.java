@@ -1,6 +1,7 @@
 package beans;
 
 import java.sql.Date;
+import java.util.List;
 
 public class BinhLuan implements Comparable<BinhLuan> {
 	private int maCMT;
@@ -8,7 +9,14 @@ public class BinhLuan implements Comparable<BinhLuan> {
 	private int maSP;
 	private String noiDung;
 	private Date ngayDang;
-	
+	private int maKH;
+
+
+	public BinhLuan(int maKH, String noiDung, int maSP){
+		this.maKH = maKH;
+		this.noiDung = noiDung;
+		this.maSP = maSP;
+	}
 	public BinhLuan() {
 	}
 	
@@ -20,8 +28,21 @@ public class BinhLuan implements Comparable<BinhLuan> {
 		this.noiDung = noiDung;
 		this.ngayDang = ngayDang;
 	}
-	
-	
+
+	public String getHoTenKH(List<Users> list){
+		for (Users user: list) {
+			if (user.getMaKH() == this.maKH)
+				return user.getHoTen();
+		}
+		return null;
+	}
+	public String getAnhSP(List<SanPham> list){
+		for (SanPham sp: list) {
+			if (sp.getMaSP() == this.maSP)
+				return sp.getHinhSP();
+		}
+		return null;
+	}
 
 
 	public int getMaCMT() {
@@ -33,8 +54,14 @@ public class BinhLuan implements Comparable<BinhLuan> {
 		this.maCMT = maCMT;
 	}
 
-	
-	
+
+	public int getMaKH() {
+		return maKH;
+	}
+
+	public void setMaKH(int maKH) {
+		this.maKH = maKH;
+	}
 
 	public String getHoTen() {
 		return hoTen;

@@ -129,7 +129,7 @@
                     {
                         type: "area",
                         dataPoints: [//array
-                            <c:forEach items="${listDT}" var="o">{ x: new Date(getYear("${o.ngayMua}"),getMonth("${o.ngayMua}"),getDate("${o.ngayMua}")) , y: ${o.tongTien} },</c:forEach>
+                            <c:forEach items="${listDT}" var="o">{ x: new Date(getYear("${o.ngayMua}"),getMonth("${o.ngayMua}") ,getDate("${o.ngayMua}")) , y: ${o.tongTien} },</c:forEach>
 
                         ]
                     }

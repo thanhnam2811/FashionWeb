@@ -12,7 +12,15 @@ public class DonHang {
 	private float tongTien;
 	private int maDV;
 
+	//để tính doanh thu theo tháng
+	private int thang;
+
 	public DonHang() {
+	}
+	public DonHang(int thang, float tongTien)
+	{
+		this.thang = thang;
+		this.tongTien = tongTien;
 	}
 	public DonHang(Date ngayMua, float tongTien)
 	{
@@ -28,6 +36,14 @@ public class DonHang {
 		this.ngayMua = ngayMua;
 		this.tongTien = tongTien;
 		this.maDV = maDV;
+	}
+
+	public int getThang() {
+		return thang;
+	}
+
+	public void setThang(int thang) {
+		this.thang = thang;
 	}
 
 	public int getMaDH() {
