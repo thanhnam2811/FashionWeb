@@ -71,7 +71,7 @@ public class DBUtils {
 //		pstm.setString(1, idSP);
 //		ResultSet rs = pstm.executeQuery();
 //		SanPham sanPham = new SanPham();
-//
+
         // -- SQLSERVER
         CallableStatement cstm = conn.prepareCall("{call load_SanPham_by_maSP(?)}");
         cstm.setString(1, idSP);
@@ -144,6 +144,25 @@ public class DBUtils {
         cstm.execute();
         ResultSet rs = cstm.getResultSet();
         List<BinhLuan> list = new ArrayList<BinhLuan>();
+        while (rs.next()) {
+            int maCMT = rs.getInt("maCMT");
+            String hoTen = rs.getString("hoTen");
+            int maSP = rs.getInt("maSP");
+            String noiDung = rs.getString("noiDung");
+            Date ngayDang = rs.getDate("ngayDang");
+            BinhLuan bl = new BinhLuan(maCMT, hoTen, maSP, noiDung, ngayDang);
+            list.add(bl);
+        }
+        return list;
+    }
+
+    public static List<BinhLuan> LoadlistBinhLuan(Connection conn) throws SQLException {
+		String sql = " select maCMT,maSP,hoTen,noiDung,ngayDang" +
+                " from users,binhluan" +
+                " where users.maKH = binhluan.maKH ";
+		PreparedStatement pstm = conn.prepareStatement(sql);
+		ResultSet rs = pstm.executeQuery();
+		List<BinhLuan> list = new ArrayList<BinhLuan>();
         while (rs.next()) {
             int maCMT = rs.getInt("maCMT");
             String hoTen = rs.getString("hoTen");
@@ -568,6 +587,13 @@ public class DBUtils {
 
         cstm.execute();
     }
+    public static void AdminDeletereview(Connection conn, String maCMT) throws SQLException {
+        String sql = " delete binhluan" +
+                " where binhluan.maCMT= ? ";
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        pstm.setString(1,maCMT);
+        pstm.executeUpdate();
+    }
 
     //ThongKe
     public static List<ChiTietDonHang> getSoLuongSPDaMua(Connection conn) throws SQLException {
@@ -629,6 +655,33 @@ public class DBUtils {
         }
         return list;
     }
+    public static List<Users> LoadlistUser(Connection conn) throws SQLException {
+        String sql = " select *" +
+                " from users" +
+                " where roleID= 1 ";
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        ResultSet rs = pstm.executeQuery();
+        List<Users> list = new ArrayList<Users>();
+        while (rs.next()) {
+            int maKH = rs.getInt("maKH");
+            String hoTen = rs.getString("hoTen");
+            String sdt = rs.getString("sdt");
+            Date ngaySinh = rs.getDate("ngaySinh");
+            String diaChi = rs.getString("diaChi");
+            String userName = rs.getString("userName");
+            String password = rs.getString("password");
+            int roleID = rs.getInt("roleID");
+            Users u = new Users(maKH, hoTen, sdt, ngaySinh, diaChi,userName,password,roleID);
+            list.add(u);
+        }
+        return list;
+    }
+    public static void AdminDeleteUser(Connection conn, String username) throws SQLException {
+        PreparedStatement pstm = conn.prepareCall("delete Users where username = ?");
+        pstm.setString(1, username);
+        pstm.execute();
+    }
+
 
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
@@ -643,10 +696,14 @@ public class DBUtils {
 //        System.out.println(u);
 
 //        System.out.println(getttSanPham(conn, "34"));
-        List<ChiTietDonHang> list = DBUtils.getChiTietDonHang_bymaKH(conn, 1);
-        for (ChiTietDonHang l : list) {
-            System.out.println(l);
-        }
+//        List<ChiTietDonHang> list = DBUtils.getChiTietDonHang_bymaKH(conn, 1);
+//        for (ChiTietDonHang l : list) {
+//            System.out.println(l);
+//        }
+//        List<Users> list = DBUtils.LoadlistUser(conn);
+//        for (Users l : list) {
+//            System.out.println(l);
+//        }
 
     }
 }
