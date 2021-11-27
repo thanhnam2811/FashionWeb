@@ -211,8 +211,8 @@
                                     <img src="assets/images/faces/1.jpg" alt="Face 1">
                                 </div>
                                 <div class="ms-3 name">
-                                    <h5 class="font-bold">Admin name</h5>
-                                    <h6 class="text-muted mb-0">@username</h6>
+                                    <h5 class="font-bold">${sessionScope.loginedUser.hoTen}</h5>
+                                    <h6 class="text-muted mb-0">@${sessionScope.loginedUser.userName}</h6>
                                 </div>
                             </div>
                         </div>
