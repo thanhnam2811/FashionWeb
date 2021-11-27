@@ -18,8 +18,6 @@ import java.util.List;
 public class UserManagement extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-
         List<Users> listUser;
         List<Role> listRole;
         HttpSession session = request.getSession();

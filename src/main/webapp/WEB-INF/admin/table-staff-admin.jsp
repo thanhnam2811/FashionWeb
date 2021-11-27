@@ -1,3 +1,5 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%--
   Created by IntelliJ IDEA.
   User: thanh
@@ -27,29 +29,6 @@
     <link rel="stylesheet" href="assets/vendors/bootstrap-icons/bootstrap-icons.css">
     <link rel="stylesheet" href="assets/css/app.css">
     <link rel="shortcut icon" href="assets/images/favicon.svg" type="image/x-icon">
-
-
-    <script>
-        function editInfo(maKH) {
-            var _username = document.getElementById('_username');
-            _username.value = document.getElementById('username-' + maKH).textContent.trim();
-            document.getElementById('_username').disabled = true;
-
-            var _hoTen = document.getElementById('_hoTen');
-            _hoTen.value = document.getElementById('hoTen-' + maKH).textContent.trim().replace('Tên: ', '');
-
-            var _sdt = document.getElementById('_sdt');
-            _sdt.value = document.getElementById('sdt-' + maKH).textContent.trim().replace('Sđt: ', '');
-
-            var _diaChi = document.getElementById('_diaChi');
-            _diaChi.value = document.getElementById('diaChi-' + maKH).textContent.trim().replace('Địa chỉ: ', '');
-
-            var _dateString = document.getElementById('ngaySinh-' + maKH).textContent.trim().replace('Ngày sinh: ', '').split('/');
-            var _ngaySinh = document.getElementById('_ngaySinh');
-            _ngaySinh.value = _dateString[2] + '-' + _dateString[1] + '-' + _dateString[0]; // yyyy-mm-dd
-        }
-
-    </script>
 </head>
 
 <body>
@@ -100,24 +79,44 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td id='username-1'>
-                                            nam
-                                        </td>
-                                        <td>
-                                            <p id='hoTen-1'>Tên: Thái Thành Nam</p>
-                                            <p id='sdt-1'>Sđt: 0981771024</p>
-                                            <p id='ngaySinh-1'>Ngày sinh: 28/11/2001</p>
-                                            <p id='diaChi-1'>Địa chỉ: Bến Tre</p>
-                                        </td>
-                                        <td id='roleID-1'>
-                                            Nhân viên
-                                        </td>
-                                        <td>
-                                            <a href="#" class="btn btn-primary" onclick="editInfo(1)">Sửa</a>
-                                            <a href="#" class="btn btn-danger">Xóa</a>
-                                        </td>
-                                    </tr>
+                                    <c:forEach items="${requestScope.listUser}" var="user">
+                                        <c:if test="${user.roleID > 1}">
+                                            <tr>
+                                                <td>
+                                                        ${user.userName}
+                                                </td>
+                                                <td>
+                                                    <p>Tên: ${user.hoTen}</p>
+                                                    <p>Sđt: ${user.sdt}</p>
+                                                    <p>Ngày sinh: <fmt:formatDate value="${user.ngaySinh}"
+                                                                                  pattern="dd/MM/yyyy"/></p>
+                                                    <p>Địa chỉ: ${user.diaChi}</p>
+                                                </td>
+                                                <td>
+                                                        ${user.getRoleName(requestScope.listRole)}
+                                                </td>
+                                                <td>
+                                                    <a href="#" class="btn btn-primary"
+                                                       onclick="
+                                                               document.getElementById('_formTitle').textContent = 'EDIT USER: \'${user.userName}\' ';
+                                                               document.getElementById('_username').value = '${user.userName}';
+                                                               document.getElementById('_username').readOnly = true;
+                                                               document.getElementById('input_password').hidden = true;
+                                                               document.getElementById('_password').value = '${user.password}';
+                                                               document.getElementById('_roleID').value = ${user.roleID};
+                                                               document.getElementById('_hoTen').value = '${user.hoTen}';
+                                                               document.getElementById('_sdt').value = '${user.sdt}';
+                                                               document.getElementById('_diaChi').value = '${user.diaChi}';
+                                                               document.getElementById('_ngaySinh').value = '${user.ngaySinh}';
+                                                               document.getElementById('_btnReset').textContent = 'Cancel';
+                                                               ">
+                                                        Sửa
+                                                    </a>
+                                                    <a href="${pageContext.request.contextPath}/deleteUser?username=${user.userName}" class="btn btn-danger">Xóa</a>
+                                                </td>
+                                            </tr>
+                                        </c:if>
+                                    </c:forEach>
                                     </tbody>
                                 </table>
                             </div>
@@ -125,30 +124,55 @@
                         <div class="col-12 col-lg-3">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="_formTitle">Create & Edit Form</h4>
+                                    <h4 class="card-title" id="_formTitle">Create new user</h4>
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <form class="form form-vertical">
+                                        <form class="form form-vertical" action="manage-staff-admin" method="post">
                                             <div class="form-body">
                                                 <div class="row">
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="first-name-vertical">Username</label>
-                                                            <input type="text" id="_username" class="form-control" name="_username">
+                                                            <input type="text" id="_username" class="form-control"
+                                                                   name="_username">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12" id="input_password">
+                                                        <div class="form-group">
+                                                            <label for="first-name-vertical">Password</label>
+                                                            <input type="password" id="_password" class="form-control"
+                                                                   name="_password">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12">
+                                                        <div class="form-group">
+                                                            <label for="email-id-vertical">Loại</label>
+                                                            <select class="form-select" id="_roleID" name="_roleID">
+                                                                <c:forEach items="${requestScope.listRole}" var="r">
+                                                                    <c:if test="${r.roleID!=1}">
+                                                                        <option value="${r.roleID}">
+                                                                                ${r.name}
+                                                                        </option>
+                                                                    </c:if>
+                                                                </c:forEach>
+                                                            </select>
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="first-name-vertical">Họ và tên</label>
-                                                            <input type="text" id="_hoTen" class="form-control" name="_hoTen" placeholder="Họ và tên">
+                                                            <input type="text" id="_hoTen" class="form-control"
+                                                                   name="_hoTen" placeholder="Họ và tên">
                                                         </div>
                                                     </div>
                                                     <div class="col-12">
                                                         <div class="form-group">
                                                             <label for="contact-info-vertical">Số điện thoại</label>
                                                             <div class="input-group mb-3">
-                                                                <input type="tel" id="_sdt" class="form-control" name="_sdt" pattern="[0-9]{10}" required placeholder="Số điện thoại 10 số">
+                                                                <input type="text" id="_sdt" class="form-control"
+                                                                       name="_sdt" pattern="[0-9]{10}" required
+                                                                       placeholder="Số điện thoại 10 số">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -156,7 +180,8 @@
                                                         <div class="form-group">
                                                             <label for="contact-info-vertical">Ngày sinh</label>
                                                             <div class="input-group mb-3">
-                                                                <input type="date" id="_ngaySinh" class="form-control" name="_ngaySinh">
+                                                                <input type="date" id="_ngaySinh" class="form-control"
+                                                                       name="_ngaySinh">
                                                             </div>
                                                         </div>
                                                     </div>
@@ -164,14 +189,24 @@
                                                         <div class="form-group">
                                                             <label for="contact-info-vertical">Địa chỉ</label>
                                                             <div class="input-group mb-3">
-                                                                <textarea type="text" id="_diaChi" class="form-control" name="_diaChi" pattern="[0-9]{10}" required placeholder="Địa chỉ"></textarea>
+                                                                <textarea type="text" id="_diaChi" class="form-control"
+                                                                          name="_diaChi" pattern="[0-9]{10}" required
+                                                                          placeholder="Địa chỉ"></textarea>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-12 d-flex justify-content-end">
-                                                        <button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
-                                                        <button type="reset" class="btn btn-light-secondary me-1 mb-1"  onclick="document.getElementById('_username').disabled = false;">
-                                                            Reset</button>
+                                                        <button type="submit" class="btn btn-primary me-1 mb-1">Submit
+                                                        </button>
+                                                        <button type="reset" class="btn btn-light-secondary me-1 mb-1" id="_btnReset"
+                                                                onclick="
+                                                                        document.getElementById('_formTitle').textContent = 'CREATE NEW USER';
+                                                                        document.getElementById('_username').readOnly = false;
+                                                                        document.getElementById('input_password').hidden = false;
+                                                                        document.getElementById('_btnReset').textContent = 'Reset';
+                                                                        ">
+                                                            Reset
+                                                        </button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -192,7 +227,8 @@
                     <p>2021 &copy; Mazer</p>
                 </div>
                 <div class="float-end">
-                    <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a href="http://ahmadsaugi.com">A. Saugi</a></p>
+                    <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
+                            href="http://ahmadsaugi.com">A. Saugi</a></p>
                 </div>
             </div>
         </footer>

@@ -95,28 +95,34 @@
                                                 <p>Loại: ${sp.getTenLoaiSP(requestScope.listLoaiSP)}</p>
                                                 <p>Thương hiệu: ${sp.getTenThuongHieu(requestScope.listTH)}</p>
                                                 <p>
-                                                    Ngày đăng bán: <fmt:formatDate value="${sp.ngayDangBan}" pattern="dd/MM/yyyy"/>
+                                                    Ngày đăng bán: <fmt:formatDate value="${sp.ngayDangBan}"
+                                                                                   pattern="dd/MM/yyyy"/>
                                                 </p>
                                             </td>
                                             <td>
-                                                ${sp.giaSP}
+                                                    ${sp.giaSP}
                                             </td>
                                             <td>
-                                                ${sp.soLuongSP}
+                                                    ${sp.soLuongSP}
                                             </td>
                                             <td>
                                                 <a href="#" class="btn btn-primary"
-                                                   onclick="document.getElementById('_maSP').value = ${sp.maSP};
+                                                   onclick="
+                                                           document.getElementById('_formTitle').textContent = 'EDIT PRODUCT: ID = ${sp.maSP}';
+                                                           document.getElementById('_maSP').value = ${sp.maSP};
                                                            document.getElementById('_tenSP').value = '${sp.tenSP}';
                                                            document.getElementById('_maLoaiSP').value = ${sp.maLoaiSP};
                                                            document.getElementById('_maTH').value = ${sp.maTH};
                                                            document.getElementById('_hinhSP').value = '${sp.hinhSP}';
                                                            document.getElementById('_giaSP').value = ${sp.giaSP};
                                                            document.getElementById('_soLuongSP').value = ${sp.soLuongSP};
-                                                           document.getElementById('_ngayBan').value = '${sp.ngayDangBan}';">
+                                                           document.getElementById('_ngayBan').value = '${sp.ngayDangBan}';
+                                                           document.getElementById('_btnReset').textContent = 'Cancel';
+                                                           ">
                                                     Sửa
                                                 </a>
-                                                <a href="${pageContext.request.contextPath}/deleteProduct?maSP=${sp.maSP}" class="btn btn-danger">Xóa</a>
+                                                <a href="${pageContext.request.contextPath}/deleteProduct?maSP=${sp.maSP}"
+                                                   class="btn btn-danger">Xóa</a>
                                             </td>
                                         </tr>
                                     </c:forEach>
@@ -128,7 +134,7 @@
 
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="_formTitle">Create & Edit Form</h4>
+                                    <h4 class="card-title" id="_formTitle">CREATE NEW PRODUCT</h4>
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">
@@ -155,7 +161,7 @@
                                                             <select class="form-select" id="_maLoaiSP" name="_maLoaiSP">
                                                                 <c:forEach items="${requestScope.listLoaiSP}" var="lsp">
                                                                     <option value="${lsp.maLoaiSP}">
-                                                                        ${lsp.tenLoaiSP}
+                                                                            ${lsp.tenLoaiSP}
                                                                     </option>
                                                                 </c:forEach>
                                                             </select>
@@ -167,7 +173,7 @@
                                                             <select class="form-select" id="_maTH" name="_maTH">
                                                                 <c:forEach items="${requestScope.listTH}" var="th">
                                                                     <option value="${th.maTH}">
-                                                                        ${th.tenTH}
+                                                                            ${th.tenTH}
                                                                     </option>
                                                                 </c:forEach>
                                                             </select>
@@ -210,7 +216,11 @@
                                                         <button type="submit" class="btn btn-primary me-1 mb-1">
                                                             Submit
                                                         </button>
-                                                        <button type="reset" class="btn btn-light-secondary me-1 mb-1">
+                                                        <button type="reset" class="btn btn-light-secondary me-1 mb-1" id="_btnReset"
+                                                                onclick="
+                                                                        document.getElementById('_formTitle').textContent = 'CREATE NEW USER';
+                                                                        document.getElementById('_btnReset').textContent = 'Reset';
+                                                                ">
                                                             Reset
                                                         </button>
                                                     </div>
