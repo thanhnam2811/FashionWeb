@@ -512,25 +512,25 @@ insert into ChiTietGioHang(maKH, maSP, soLuongSP)
 values (4, 10, 2)
 
 -- DonHang
-insert into DonHang(maKH, maDV, tenNguoiNhan, diaChi, sdt)
-values (1, 1, 'Nam', 'Ba Tri', '091771024')
-insert into DonHang(maKH, maDV, tenNguoiNhan, diaChi, sdt)
-values (1, 1, 'Nam', 'Ba Tri', '091771024')
+insert into DonHang(maKH, maDV, tenNguoiNhan, diaChi, sdt, ngayMua)
+values (1, 1, 'Nam', 'Ba Tri', '091771024', '2021-11-11')
+insert into DonHang(maKH, maDV, tenNguoiNhan, diaChi, sdt, ngayMua)
+values (1, 1, 'Nam', 'Ba Tri', '091771024', '2021-10-10')
 
-insert into DonHang(maKH, maDV, tenNguoiNhan, diaChi, sdt)
-values (2, 3, 'Nam', 'Ba Tri', '091771024')
-insert into DonHang(maKH, maDV, tenNguoiNhan, diaChi, sdt)
-values (2, 1, 'Nam', 'Ba Tri', '091771024')
+insert into DonHang(maKH, maDV, tenNguoiNhan, diaChi, sdt, ngayMua)
+values (2, 3, 'Nam', 'Ba Tri', '091771024', '2021-09-09')
+insert into DonHang(maKH, maDV, tenNguoiNhan, diaChi, sdt, ngayMua)
+values (2, 1, 'Nam', 'Ba Tri', '091771024', '2021-08-08')
 
-insert into DonHang(maKH, maDV, tenNguoiNhan, diaChi, sdt)
-values (3, 1, 'Nam', 'Ba Tri', '091771024')
-insert into DonHang(maKH, maDV, tenNguoiNhan, diaChi, sdt)
-values (3, 2, 'Nam', 'Ba Tri', '091771024')
+insert into DonHang(maKH, maDV, tenNguoiNhan, diaChi, sdt, ngayMua)
+values (3, 1, 'Nam', 'Ba Tri', '091771024', '2021-07-07')
+insert into DonHang(maKH, maDV, tenNguoiNhan, diaChi, sdt, ngayMua)
+values (3, 2, 'Nam', 'Ba Tri', '091771024', '2021-06-06')
 
-insert into DonHang(maKH, maDV, tenNguoiNhan, diaChi, sdt)
-values (4, 3, 'Nam', 'Ba Tri', '091771024')
-insert into DonHang(maKH, maDV, tenNguoiNhan, diaChi, sdt)
-values (4, 1, 'Nam', 'Ba Tri', '091771024')
+insert into DonHang(maKH, maDV, tenNguoiNhan, diaChi, sdt, ngayMua)
+values (4, 3, 'Nam', 'Ba Tri', '091771024', '2021-05-05')
+insert into DonHang(maKH, maDV, tenNguoiNhan, diaChi, sdt, ngayMua)
+values (4, 1, 'Nam', 'Ba Tri', '091771024', '2021-04-04')
 
 -- ChiTietDonHang
 

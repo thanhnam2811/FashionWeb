@@ -26,7 +26,7 @@ public class manageproduct extends HttpServlet {
 
         HttpSession session = request.getSession();
         Users u = MyUtils.getLoginedUser(session);
-        if(u != null && u.getRoleID() == 3){
+        if(u != null && (u.getRoleID() == 2 || u.getRoleID() == 3)){
             try {
                 Connection conn = MyUtils.getStoredConnection(request);
                 listSP = DBUtils.getAllSanPham(conn);

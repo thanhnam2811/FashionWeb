@@ -21,18 +21,24 @@ public class manageuser extends HttpServlet {
         HttpSession session = request.getSession();
         Users u = MyUtils.getLoginedUser(session);
         List<Users> listU = null;
-        try {
-            Connection conn = MyUtils.getStoredConnection(request);;
+        if (u != null && u.getRoleID() == 3) {
+            try {
+                Connection conn = MyUtils.getStoredConnection(request);
+                ;
 
-            listU = DBUtils.LoadlistUser(conn);
+                listU = DBUtils.LoadlistUser(conn);
 
 
-            request.setAttribute("listU", listU);
-            request.setAttribute("pageName", "User");
-            request.getRequestDispatcher("/WEB-INF/admin/table-user.jsp").forward(request, response);
-        } catch (SQLException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
+                request.setAttribute("listU", listU);
+                request.setAttribute("pageName", "User");
+                request.getRequestDispatcher("/WEB-INF/admin/table-user.jsp").forward(request, response);
+            } catch (SQLException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+        }
+        else {
+            response.sendRedirect(request.getContextPath() + "/signIn");
         }
     }
 
