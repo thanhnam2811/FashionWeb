@@ -20,6 +20,11 @@
                         </a>
                     </c:if>
                     <c:if test="${sessionScope.loginedUser!=null}">
+                        <c:if test="${sessionScope.loginedUser.roleID==2|| sessionScope.loginedUser.roleID==3}">
+                            <a href="${pageContext.request.contextPath}/admin" class="flex-c-m trans-04 p-lr-24">
+                                Admin Home
+                            </a>
+                        </c:if>
                         <a href="${pageContext.request.contextPath}/userinfo" class="flex-c-m trans-04 p-lr-24">
                             My account
                         </a>
@@ -40,7 +45,7 @@
                         </a>
 
                         <!-- Menu desktop for user -->
-                        <c:if test="${sessionScope.loginedUser.roleID==1 || sessionScope.loginedUser.roleID==null}">
+<%--                        <c:if test="${sessionScope.loginedUser.roleID==1 || sessionScope.loginedUser.roleID==null}">--%>
                             <div class="menu-desktop">
                                 <ul class="main-menu">
                                     <li>
@@ -61,62 +66,62 @@
 
                                 </ul>
                             </div>
-                        </c:if>
+<%--                        </c:if>--%>
 
-                        <!-- Menu desktop for staff -->
-                        <c:if test="${sessionScope.loginedUser.roleID==2}">
-                            <div class="menu-desktop">
-                                <ul class="main-menu">
-                                    <li>
-                                        <a href="${pageContext.request.contextPath}/home">Home</a>
-                                    </li>
+<%--                        <!-- Menu desktop for staff -->--%>
+<%--                        <c:if test="${sessionScope.loginedUser.roleID==2}">--%>
+<%--                            <div class="menu-desktop">--%>
+<%--                                <ul class="main-menu">--%>
+<%--                                    <li>--%>
+<%--                                        <a href="${pageContext.request.contextPath}/home">Home</a>--%>
+<%--                                    </li>--%>
 
-                                    <li>
-                                        <a href="${pageContext.request.contextPath}/product">Shop</a>
-                                    </li>
+<%--                                    <li>--%>
+<%--                                        <a href="${pageContext.request.contextPath}/product">Shop</a>--%>
+<%--                                    </li>--%>
 
-                                    <li>
-                                        <a href="${pageContext.request.contextPath}/productManagement">Product Manager</a>
-                                    </li>
+<%--                                    <li>--%>
+<%--                                        <a href="${pageContext.request.contextPath}/productManagement">Product Manager</a>--%>
+<%--                                    </li>--%>
 
-                                    <li>
-                                        <a href="${pageContext.request.contextPath}/Statistic">Statistic</a>
-                                    </li>
+<%--                                    <li>--%>
+<%--                                        <a href="${pageContext.request.contextPath}/Statistic">Statistic</a>--%>
+<%--                                    </li>--%>
 
-                                </ul>
-                            </div>
-                        </c:if>
-                        <!-- Menu desktop for admin -->
-                        <c:if test="${sessionScope.loginedUser.roleID==3}">
-                            <div class="menu-desktop">
-                                <ul class="main-menu">
-                                    <li>
-                                        <a href="${pageContext.request.contextPath}/home">Home</a>
-                                    </li>
+<%--                                </ul>--%>
+<%--                            </div>--%>
+<%--                        </c:if>--%>
+<%--                        <!-- Menu desktop for admin -->--%>
+<%--                        <c:if test="${sessionScope.loginedUser.roleID==3}">--%>
+<%--                            <div class="menu-desktop">--%>
+<%--                                <ul class="main-menu">--%>
+<%--                                    <li>--%>
+<%--                                        <a href="${pageContext.request.contextPath}/home">Home</a>--%>
+<%--                                    </li>--%>
 
-                                    <li>
-                                        <a href="${pageContext.request.contextPath}/product">Shop</a>
-                                    </li>
+<%--                                    <li>--%>
+<%--                                        <a href="${pageContext.request.contextPath}/product">Shop</a>--%>
+<%--                                    </li>--%>
 
-                                    <li>
-                                        <a href="${pageContext.request.contextPath}/productManagement">Product Manager</a>
-                                    </li>
+<%--                                    <li>--%>
+<%--                                        <a href="${pageContext.request.contextPath}/productManagement">Product Manager</a>--%>
+<%--                                    </li>--%>
 
-                                    <li >
-                                        <a href="${pageContext.request.contextPath}/brandManagement">Brand Manager</a>
-                                    </li>
+<%--                                    <li >--%>
+<%--                                        <a href="${pageContext.request.contextPath}/brandManagement">Brand Manager</a>--%>
+<%--                                    </li>--%>
 
-                                    <li>
-                                        <a href="${pageContext.request.contextPath}/UserManagement">User Manager</a>
-                                    </li>
+<%--                                    <li>--%>
+<%--                                        <a href="${pageContext.request.contextPath}/UserManagement">User Manager</a>--%>
+<%--                                    </li>--%>
 
-                                    <li>
-                                        <a href="${pageContext.request.contextPath}/Statistic">Statistic</a>
-                                    </li>
+<%--                                    <li>--%>
+<%--                                        <a href="${pageContext.request.contextPath}/Statistic">Statistic</a>--%>
+<%--                                    </li>--%>
 
-                                </ul>
-                            </div>
-                        </c:if>
+<%--                                </ul>--%>
+<%--                            </div>--%>
+<%--                        </c:if>--%>
 
 
                         <!-- Icon header -->
