@@ -33,6 +33,8 @@ public class brandManagement extends HttpServlet {
                     Connection conn = MyUtils.getStoredConnection(request);
                     listTH = DBUtils.getAllThuongHieu(conn);
                     request.setAttribute("listTH", listTH);
+                    // Page name
+                    request.setAttribute("pageName", "Brand");
                     request.getRequestDispatcher("/WEB-INF/admin/table-brand.jsp").forward(request, response);
                 } catch (SQLException e1) {
                     e1.printStackTrace();
