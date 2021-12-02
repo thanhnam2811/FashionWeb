@@ -95,7 +95,7 @@
                                         </td>
                                         <td>
                                             <a href="#" class="btn btn-primary" onclick="
-                                                    document.getElementById('_formTitle').textContent = 'EDIT PRODUCT: ID = ${o.maTH}';
+                                                    document.getElementById('_formTitle').textContent = 'EDIT BRAND: ID = ${o.maTH}';
                                                     document.getElementById('_maTH').value = '${o.maTH}';
                                                     document.getElementById('_tenTH').value = '${o.tenTH}';
                                                     document.getElementById('_logoTH').value = '${o.hinhTH}';
@@ -113,7 +113,7 @@
 
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title" id="_formTitle">Create & Edit Form</h4>
+                                    <h4 class="card-title" id="_formTitle">Create & Edit Brand</h4>
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">
@@ -150,7 +150,7 @@
                                                     <div class="col-12 d-flex justify-content-end">
                                                         <button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
                                                         <button type="reset" class="btn btn-light-secondary me-1 mb-1"
-                                                        onclick =" document.getElementById('_formTitle').textContent = 'CREATE NEW USER';">Cancel</button>
+                                                        onclick =" document.getElementById('_formTitle').textContent = 'Create & Edit Brand';">Cancel</button>
                                                     </div>
                                                 </div>
                                             </div>
