@@ -61,7 +61,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-8">
-                                            <h6 class="text-muted font-semibold">Available Products</h6>
+                                            <h6 class="text-muted font-semibold">Tổng số sản phẩm</h6>
                                             <h6 class="font-extrabold mb-0">${soLuongSP}</h6>
                                         </div>
                                     </div>
@@ -78,7 +78,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-8">
-                                            <h6 class="text-muted font-semibold">Available Brands</h6>
+                                            <h6 class="text-muted font-semibold">Tổng số thương hiệu</h6>
                                             <h6 class="font-extrabold mb-0">${soLuongTH}</h6>
                                         </div>
                                     </div>
@@ -95,7 +95,7 @@
                                             </div>
                                         </div>
                                         <div class="col-md-8">
-                                            <h6 class="text-muted font-semibold">Total users</h6>
+                                            <h6 class="text-muted font-semibold">Tổng số tài khoản</h6>
                                             <h6 class="font-extrabold mb-0">${soLuongUser}</h6>
                                         </div>
                                     </div>
@@ -112,11 +112,10 @@
                                             </div>
                                         </div>
                                         <div class="col-md-8">
-                                            <h6 class="text-muted font-semibold">Maximum Order Cost</h6>
+                                            <h6 class="text-muted font-semibold">Đơn hàng cao nhất</h6>
                                             <h6 class="font-extrabold mb-0">
                                                 <fmt:formatNumber type="number"
                                                                   maxFractionDigits="0" value="${donHangMaxCost} "/>
-                                                vnđ
                                             </h6>
                                         </div>
                                     </div>
@@ -140,7 +139,7 @@
                         <div class="col-12 col-xl-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4>Latest Comments</h4>
+                                    <h4>Bình luận hôm nay</h4>
                                 </div>
                                 <div class="card-body">
                                     <div class="table-responsive">
@@ -219,7 +218,7 @@
                     </div>
                     <div class="card">
                         <div class="card-header">
-                            <h4>List staff</h4>
+                            <h4>Danh sách nhân viên</h4>
                         </div>
                         <div class="card-content pb-4">
                             <c:forEach items="${requestScope.listUser}" var="o">
@@ -255,7 +254,7 @@
                     </div>
                     <div class="card">
                         <div class="card-header">
-                            <h4>Visitors Profile</h4>
+                            <h4>Biểu đồ loại sản phẩm</h4>
                         </div>
                         <div class="card-body">
                             <div id="chart-visitors-profile"></div>
@@ -268,10 +267,11 @@
         <footer>
             <div class="footer clearfix mb-0 text-muted">
                 <div class="float-start">
-                    <p>2021 &copy; Mazer</p>
+                    <p>Copyright &copy;<script>document.write(new Date().getFullYear());</script>Mazer <span class="text-danger"><i class="bi bi-heart"></i></span> by <a href="http://ahmadsaugi.com">A. Saugi</a></p>
+
                 </div>
                 <div class="float-end">
-                    <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a href="http://ahmadsaugi.com">A. Saugi</a></p>
+                    <p>Redesign <span class="text-danger"><i class="bi bi-heart"></i></span> by Tấn & Nam & Trung & Toàn</p>
                 </div>
             </div>
         </footer>

@@ -22,7 +22,7 @@ public class admin extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         Users u = MyUtils.getLoginedUser(session);
-        if(u != null && u.getRoleID() == 3){
+        if(u != null && (u.getRoleID() == 2 || u.getRoleID() == 3)){
 
             Connection conn = MyUtils.getStoredConnection(request);
             int soLuongSP = 0;

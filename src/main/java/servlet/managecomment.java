@@ -18,20 +18,27 @@ public class managecomment extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         List<BinhLuan> listBL = null;
-        try {
-            Connection conn = MyUtils.getStoredConnection(request);;
+        HttpSession session = request.getSession();
+        Users u = MyUtils.getLoginedUser(session);
+        if(u != null && (u.getRoleID() == 2 || u.getRoleID() == 3)) {
+            try {
+                Connection conn = MyUtils.getStoredConnection(request);
 
-            listBL = DBUtils.LoadlistBinhLuan(conn);
+                listBL = DBUtils.LoadlistBinhLuan(conn);
 
-            // Xếp bình luận theo ngày đăng
-            Collections.sort(listBL);
+                // Xếp bình luận theo ngày đăng
+                Collections.sort(listBL);
 
-            request.setAttribute("listBL", listBL);
-            request.setAttribute("pageName", "Comment");
-            request.getRequestDispatcher("/WEB-INF/admin/table-comment.jsp").forward(request, response);
-        } catch (SQLException e1) {
-            // TODO Auto-generated catch block
-            e1.printStackTrace();
+                request.setAttribute("listBL", listBL);
+                request.setAttribute("pageName", "Comment");
+                request.getRequestDispatcher("/WEB-INF/admin/table-comment.jsp").forward(request, response);
+            } catch (SQLException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+            }
+        }
+        else {
+            response.sendRedirect(request.getContextPath() + "/signIn");
         }
 
     }
