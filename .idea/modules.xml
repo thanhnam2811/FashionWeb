@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../../HK5 (HK1 2021-2022)/An toàn thông tin/Cuối kì_ CHữ kí số/Demo_RSA/Demo_RSA.iml" filepath="$PROJECT_DIR$/../../HK5 (HK1 2021-2022)/An toàn thông tin/Cuối kì_ CHữ kí số/Demo_RSA/Demo_RSA.iml" />
       <module fileurl="file://$PROJECT_DIR$/FashionWeb.iml" filepath="$PROJECT_DIR$/FashionWeb.iml" />
     </modules>
   </component>

@@ -53,7 +53,7 @@ public class manageproduct extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
         Users u = MyUtils.getLoginedUser(session);
-        if(u != null && u.getRoleID() == 3){
+        if(u != null && (u.getRoleID() == 3 || u.getRoleID() == 2)){
             try {
                 Connection conn = MyUtils.getStoredConnection(request);
                 String maSP = request.getParameter("_maSP");
