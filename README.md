@@ -1,4 +1,8 @@
-# Fashion Web - Website E-Commerce for fashion
+<p align="center">
+  <img src='/src/main/webapp/images/icons/Logo-NTTT.png' alt='logo'/>
+</p>
+
+# Fashion Web - Website E-Commerce for fashion ([_Preview_](/Preview.md))
 ## 1. About project
 This project are built for research and study.
 Technology used:
@@ -46,7 +50,6 @@ Technology used:
     - _Users:_
       - Nam (nam | nam)
       - Tấn (tan | tan) 
-## 4. Preview
-## 5. Copyright Information
-- Template user web:
-- Template admin web:
+## 4. Copyright Information
+  - Template user web: [**Coza Store | Colorlib**](https://colorlib.com/wp/template/coza-store/)
+  - Template admin web: [**Mazer | zuramai**](https://github.com/zuramai/mazer)
